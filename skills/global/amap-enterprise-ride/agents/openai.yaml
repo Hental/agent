@@ -1,0 +1,4 @@
+interface:
+  display_name: "高德企业打车"
+  short_description: "自动配置企业预约用车，安全判断支付阈值并持续跟踪司机接单"
+  default_prompt: "使用 $amap-enterprise-ride 预约企业专车，呼叫前确认并在安全阈值内自动继续。"

@@ -1,0 +1,13 @@
+{
+  "name": "agent-workspace-tools",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@11.21.0",
+  "scripts": {
+    "postinstall": "git config core.hooksPath .githooks && zx skills/register-global.skill.mjs",
+    "skills:register-global": "zx skills/register-global.skill.mjs"
+  },
+  "devDependencies": {
+    "zx": "^8.8.5"
+  }
+}

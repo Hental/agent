@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>网络报告台</title>
+    <link rel="stylesheet" href="https://unpkg.com/@arco-design/web-vue@2.58.0/dist/arco.min.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app" v-cloak @dragenter.prevent="dragActive = true">
+      <header class="topbar">
+        <div class="topbar-left">
+          <a-button class="mobile-menu" type="text" shape="circle" aria-label="打开报告列表" @click="sidebarOpen = true">
+            <template #icon><icon-menu /></template>
+          </a-button>
+          <div class="brand-mark"><icon-wifi /></div>
+          <div>
+            <h1>网络报告台</h1>
+            <p>{{ currentReport ? currentReport.name : '本地诊断视图' }}</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <a-tooltip content="打开报告目录" v-if="directorySupported">
+            <a-button aria-label="打开报告目录" @click="openDirectory">
+              <template #icon><icon-folder /></template>
+              <span class="action-label">目录</span>
+            </a-button>
+          </a-tooltip>
+          <a-button type="primary" aria-label="导入报告" @click="openFilePicker">
+            <template #icon><icon-upload /></template>
+            <span class="action-label">导入报告</span>
+          </a-button>
+          <input ref="fileInput" class="sr-only" type="file" accept=".md,text/markdown,text/plain" multiple @change="onFileChange" />
+        </div>
+      </header>
+
+      <div class="workspace">
+        <div v-if="sidebarOpen" class="sidebar-backdrop" @click="sidebarOpen = false"></div>
+        <aside class="sidebar" :class="{ open: sidebarOpen }">
+          <div class="sidebar-head">
+            <span>报告</span>
+            <a-button class="mobile-close" type="text" shape="circle" aria-label="关闭报告列表" @click="sidebarOpen = false">
+              <template #icon><icon-close /></template>
+            </a-button>
+          </div>
+          <a-input-search v-model="search" allow-clear placeholder="筛选报告" aria-label="筛选报告" />
+          <div class="report-list" role="list">
+            <button
+              v-for="report in filteredReports"
+              :key="report.id"
+              class="report-item"
+              :class="{ active: currentReport?.id === report.id }"
+              type="button"
+              role="listitem"
+              @click="selectReport(report.id)"
+            >
+              <span class="report-file-icon"><icon-file /></span>
+              <span class="report-copy">
+                <strong>{{ report.displayName }}</strong>
+                <small>{{ report.meta.collectedAt || '本地报告' }}</small>
+              </span>
+              <span class="report-state" :class="report.health.tone"></span>
+            </button>
+            <a-empty v-if="!filteredReports.length" description="暂无报告" />
+          </div>
+          <button class="drop-target" type="button" @click="openFilePicker">
+            <icon-upload />
+            <span>拖入 Markdown 报告</span>
+          </button>
+        </aside>
+
+        <main class="main-content">
+          <template v-if="currentReport">
+            <section class="report-heading">
+              <div>
+                <div class="heading-line">
+                  <h2>{{ currentReport.title }}</h2>
+                  <a-tag :color="currentReport.health.color" size="large">
+                    {{ currentReport.health.label }}
+                  </a-tag>
+                </div>
+                <p>
+                  {{ currentReport.meta.collectedAt || '时间未知' }}
+                  <span class="dot-separator"></span>
+                  {{ currentReport.meta.interfaceName || '接口未知' }}
+                  <span class="dot-separator"></span>
+                  {{ currentReport.meta.gateway || '网关未知' }}
+                </p>
+              </div>
+              <div class="heading-actions">
+                <a-tooltip content="重新导入">
+                  <a-button shape="circle" aria-label="重新导入报告" @click="openFilePicker">
+                    <template #icon><icon-refresh /></template>
+                  </a-button>
+                </a-tooltip>
+              </div>
+            </section>
+
+            <a-tabs v-model:active-key="activeTab" class="report-tabs">
+              <a-tab-pane key="overview" title="概览">
+                <section class="metric-grid" aria-label="网络核心指标">
+                  <article v-for="metricItem in currentReport.metricCards" :key="metricItem.key" class="metric-card">
+                    <div class="metric-topline">
+                      <span>{{ metricItem.label }}</span>
+                      <component :is="metricItem.icon" :class="['metric-icon', metricItem.tone]" />
+                    </div>
+                    <div class="metric-value">{{ metricItem.value }}</div>
+                    <div class="metric-foot">
+                      <span>{{ metricItem.note }}</span>
+                      <strong :class="metricItem.tone">{{ metricItem.rating }}</strong>
+                    </div>
+                    <a-progress
+                      v-if="metricItem.percent !== null"
+                      :percent="metricItem.percent"
+                      :show-text="false"
+                      :color="toneColor(metricItem.tone)"
+                      :stroke-width="5"
+                    />
+                  </article>
+                </section>
+
+                <section class="content-band">
+                  <div class="section-title">
+                    <div>
+                      <span class="section-kicker">链路状态</span>
+                      <h3>从终端到服务</h3>
+                    </div>
+                    <a-tag bordered>{{ currentReport.health.summary }}</a-tag>
+                  </div>
+                  <div class="route-chain">
+                    <template v-for="(node, index) in currentReport.routeNodes" :key="node.key">
+                      <div class="route-node" :class="node.tone">
+                        <component :is="node.icon" />
+                        <strong>{{ node.label }}</strong>
+                        <span>{{ node.value }}</span>
+                      </div>
+                      <icon-arrow-right v-if="index < currentReport.routeNodes.length - 1" class="route-arrow" />
+                    </template>
+                  </div>
+                </section>
+
+                <div class="overview-columns">
+                  <section class="content-band issue-band">
+                    <div class="section-title compact">
+                      <div>
+                        <span class="section-kicker">诊断信号</span>
+                        <h3>需要关注</h3>
+                      </div>
+                      <span class="count-label">{{ currentReport.issues.length }}</span>
+                    </div>
+                    <div v-if="currentReport.issues.length" class="issue-list">
+                      <div v-for="issue in currentReport.issues" :key="issue.title" class="issue-row">
+                        <span class="issue-indicator" :class="issue.tone"></span>
+                        <div>
+                          <strong>{{ issue.title }}</strong>
+                          <p>{{ issue.detail }}</p>
+                        </div>
+                        <a-tag :color="toneTagColor(issue.tone)" size="small">{{ issue.level }}</a-tag>
+                      </div>
+                    </div>
+                    <a-empty v-else description="未发现明显异常" />
+                  </section>
+
+                  <section class="content-band channel-band">
+                    <div class="section-title compact">
+                      <div>
+                        <span class="section-kicker">无线环境</span>
+                        <h3>附近信道</h3>
+                      </div>
+                      <span class="count-label">{{ currentReport.channels.total }} 个</span>
+                    </div>
+                    <div class="channel-groups">
+                      <div v-for="band in currentReport.channels.bands" :key="band.label" class="channel-group">
+                        <div class="channel-label">
+                          <strong>{{ band.label }}</strong>
+                          <span>{{ band.items.length }} 个网络</span>
+                        </div>
+                        <div class="channel-bars">
+                          <div v-for="item in band.items" :key="`${band.label}-${item.channel}`" class="channel-bar-row">
+                            <span>CH {{ item.channel }}</span>
+                            <div class="channel-track">
+                              <i :class="{ current: item.current }" :style="{ width: `${item.width}%` }"></i>
+                            </div>
+                            <b>{{ item.count }}</b>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              </a-tab-pane>
+
+              <a-tab-pane key="analysis" title="Codex 分析">
+                <section class="analysis-pane">
+                  <div v-if="currentReport.analysis" class="markdown-body" v-html="renderMarkdown(currentReport.analysis)"></div>
+                  <a-empty v-else description="未匹配到 Codex 分析文件">
+                    <a-button type="primary" @click="openFilePicker">
+                      <template #icon><icon-upload /></template>
+                      导入 *.codex.md
+                    </a-button>
+                  </a-empty>
+                </section>
+              </a-tab-pane>
+
+              <a-tab-pane key="evidence" title="原始证据">
+                <section class="evidence-pane">
+                  <a-collapse v-if="currentReport.evidence.length" :default-active-key="[]" expand-icon-position="right">
+                    <a-collapse-item v-for="item in currentReport.evidence" :key="item.title" :header="item.title">
+                      <div class="evidence-meta">
+                        <a-tag :color="item.success ? 'green' : 'red'">{{ item.status }}</a-tag>
+                        <code>{{ item.command }}</code>
+                        <span>{{ item.duration }}</span>
+                      </div>
+                      <pre><code>{{ item.output }}</code></pre>
+                    </a-collapse-item>
+                  </a-collapse>
+                  <a-empty v-else description="报告中没有原始证据" />
+                </section>
+              </a-tab-pane>
+
+              <a-tab-pane key="raw" title="报告原文">
+                <section class="raw-pane">
+                  <a-radio-group v-model="rawMode" type="button" size="small">
+                    <a-radio value="rendered">阅读</a-radio>
+                    <a-radio value="source">源码</a-radio>
+                  </a-radio-group>
+                  <div v-if="rawMode === 'rendered'" class="markdown-body" v-html="renderMarkdown(currentReport.content)"></div>
+                  <pre v-else class="source-view"><code>{{ currentReport.content }}</code></pre>
+                </section>
+              </a-tab-pane>
+            </a-tabs>
+          </template>
+
+          <section v-else class="empty-workspace">
+            <div class="empty-symbol"><icon-file /></div>
+            <h2>选择网络诊断报告</h2>
+            <a-button type="primary" size="large" @click="openFilePicker">
+              <template #icon><icon-upload /></template>
+              导入 Markdown
+            </a-button>
+          </section>
+        </main>
+      </div>
+
+      <div
+        v-if="dragActive"
+        class="drop-overlay"
+        @dragover.prevent
+        @dragleave.prevent="dragActive = false"
+        @drop.prevent="onDrop"
+      >
+        <div><icon-upload /><strong>释放以导入报告</strong></div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3.5.42/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/@arco-design/web-vue@2.58.0/dist/arco-vue.min.js"></script>
+    <script src="https://unpkg.com/@arco-design/web-vue@2.58.0/dist/arco-vue-icon.min.js"></script>
+    <script src="https://unpkg.com/marked@16.4.2/lib/marked.umd.js"></script>
+    <script src="https://unpkg.com/dompurify@3.4.14/dist/purify.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

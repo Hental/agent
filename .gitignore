@@ -1,0 +1,60 @@
+# === Dependencies ===
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/
+
+# === Build output ===
+dist/
+build/
+out/
+*.tsbuildinfo
+coverage/
+.nyc_output/
+
+# === Intermediate artifacts & runtime data ===
+.reports/
+/midscene_run/
+.codex_tmp_*/
+.tmp/
+outputs/
+skills/**/artifacts/
+.storage/
+.runtime/
+
+# === Logs & process files ===
+*.log
+*.log.*
+*.pid
+*.pid.lock
+*.sock
+*.pcap
+*.pcapng
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# === Environment & secrets ===
+.env
+.env.*
+!.env.example
+!.env.template
+
+# === Editors & OS ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

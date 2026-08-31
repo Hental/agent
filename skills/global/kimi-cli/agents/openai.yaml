@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kimi Code CLI"
+  short_description: "使用本机 Kimi Code CLI 执行复杂开发任务"
+  default_prompt: "使用 $kimi-cli 在当前项目中完成复杂编码任务并核验结果。"

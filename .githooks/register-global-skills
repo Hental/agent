@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -u
+
+repo_root=$(git rev-parse --show-toplevel 2>/dev/null) || exit 0
+cd "$repo_root" || exit 1
+
+if [ ! -x node_modules/.bin/zx ]; then
+  echo "global skills not registered: run pnpm install" >&2
+  exit 0
+fi
+
+exec node_modules/.bin/zx skills/register-global.skill.mjs

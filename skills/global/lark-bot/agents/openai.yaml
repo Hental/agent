@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lark Bot CLI"
+  short_description: "通过本地 HTTP CLI 发送飞书消息并管理接收事件"
+  default_prompt: "Use $lark-bot to operate the local Lark Bot through its HTTP CLI."
