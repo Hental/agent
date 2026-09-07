@@ -1,0 +1,7 @@
+/career-report.html
+/node_modules/
+/output/
+/tmp/
+/.playwright-cli/
+/.preview-*.html
+*.pdf

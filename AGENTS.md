@@ -1,3 +1,8 @@
+# Resume app
+
+- `apps/resume/` contains MD + JSON resume reports, HTML preview, and PDF export. Read `apps/resume/AGENTS.md` before editing it.
+- Install dependencies with `pnpm install`; run `pnpm run resume <build|preview|pdf|test>` from the repository root.
+
 # Skill location
 
 - When creating a new Skill and the user does not specify another location, create its source directory under `./skills/<skill-name>` in the current project.

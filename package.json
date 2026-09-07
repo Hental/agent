@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "packageManager": "pnpm@11.21.0",
   "scripts": {
+    "resume": "pnpm --dir apps/resume",
     "postinstall": "git config core.hooksPath .githooks && zx skills/register-global.skill.mjs",
     "skills:register-global": "zx skills/register-global.skill.mjs"
   },

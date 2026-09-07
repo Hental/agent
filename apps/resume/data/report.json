@@ -1,0 +1,618 @@
+{
+  "version": 1,
+  "meta": {
+    "name": "刘韬",
+    "title": "技术工作回顾与简历框架",
+    "period": "2020.10 — 2026.09 / 近六年",
+    "edition": "2020—2026",
+    "reportDate": "2026.09.07",
+    "researchDate": "2026.09.06",
+    "rawDirectory": "../sources"
+  },
+  "navigation": [
+    {
+      "id": "overview",
+      "label": "职业定位"
+    },
+    {
+      "id": "timeline",
+      "label": "工作时间线"
+    },
+    {
+      "id": "projects",
+      "label": "代表项目"
+    },
+    {
+      "id": "evidence",
+      "label": "指标与证据"
+    },
+    {
+      "id": "framework",
+      "label": "简历框架"
+    },
+    {
+      "id": "gaps",
+      "label": "待补信息"
+    },
+    {
+      "id": "sources",
+      "label": "参考材料"
+    }
+  ],
+  "sections": {
+    "timeline": {
+      "label": "02 / EXPERIENCE",
+      "title": "三个阶段，一条技术主线",
+      "description": "业务交付 → 复杂 SDK 与架构 → 可复用研发工具"
+    },
+    "projects": {
+      "label": "03 / SELECTED WORK",
+      "title": "四个代表项目",
+      "description": "围绕问题、个人职责、技术选择与结果展开。"
+    },
+    "evidence": {
+      "label": "04 / EVIDENCE",
+      "title": "数字需要带着口径使用",
+      "description": "文档记载与原始计量不同；本次未重查监控或业务数据。"
+    },
+    "framework": {
+      "label": "05 / RESUME STRUCTURE",
+      "title": "简历的六个模块",
+      "description": "用责任和结果建立可信度，再展开技术深度。"
+    },
+    "gaps": {
+      "label": "06 / TO COMPLETE",
+      "title": "补全后更适合投递",
+      "description": ""
+    },
+    "sources": {
+      "label": "07 / REFERENCES",
+      "title": "12 份参考材料",
+      "description": "飞书链接需对应权限；保留原始来源供复核。"
+    }
+  },
+  "hero": {
+    "intro": "overview.intro",
+    "caption": "overview.caption",
+    "tags": [
+      "前端架构",
+      "跨端 SDK",
+      "研发效能",
+      "互动白板项目 Owner"
+    ],
+    "facts": [
+      {
+        "value": "600 → 100",
+        "unit": "ms",
+        "label": "互动白板端到端延迟",
+        "note": "项目指标 ·",
+        "reference": {
+          "source": "s2",
+          "label": "原始述职"
+        }
+      },
+      {
+        "value": "69 / 242",
+        "unit": "API",
+        "label": "RN 拉流 / 推流 SDK 自动生成",
+        "note": "2024 Q2 ·",
+        "reference": {
+          "source": "s4",
+          "label": "本人旧简历"
+        }
+      },
+      {
+        "value": "81.81 → 92.31",
+        "unit": "%",
+        "label": "交易研发资产准确率",
+        "note": "2026 Q2 团队结果 ·",
+        "reference": {
+          "source": "s7",
+          "label": "团队复盘"
+        }
+      }
+    ]
+  },
+  "timeline": {
+    "items": [
+      {
+        "date": "2020.10 — 2022.10",
+        "title": "商业化",
+        "subtitle": "把页面制作流程产品化",
+        "body": "timeline.1",
+        "reference": {
+          "source": "s4",
+          "label": "依据：本人旧简历 ↗"
+        }
+      },
+      {
+        "date": "2022.10 — 2024.10*",
+        "title": "视频云",
+        "subtitle": "承担复杂产品与架构责任",
+        "body": "timeline.2",
+        "reference": {
+          "source": "s2",
+          "label": "依据：述职与交接 ↗"
+        }
+      },
+      {
+        "date": "2024.11* — 至今",
+        "title": "生活服务",
+        "subtitle": "在交易业务中沉淀研发能力",
+        "body": "timeline.3",
+        "reference": {
+          "source": "s6",
+          "label": "依据：个人周报与团队复盘 ↗"
+        }
+      }
+    ],
+    "note": "timeline.note",
+    "positioning": "timeline.positioning"
+  },
+  "projects": [
+    {
+      "id": "board",
+      "tab": "互动白板",
+      "date": "2022.10 — 2024.03 主要建设期",
+      "title": "火山互动白板",
+      "badge": "项目 Owner",
+      "problem": "board.problem",
+      "responsibility": "board.responsibility",
+      "flow": [
+        {
+          "title": "Canvas 2D",
+          "note": "绘制与输入"
+        },
+        {
+          "title": "RTS / Protobuf",
+          "note": "实时消息"
+        },
+        {
+          "title": "一致性与快照",
+          "note": "协同和回放"
+        },
+        {
+          "title": "Hybrid 复用",
+          "note": "三端共享核心"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "单元测试覆盖率",
+          "value": "0 → 74%",
+          "note": ""
+        },
+        {
+          "label": "静态转码最终成功率",
+          "value": "96% → 99%",
+          "note": ""
+        },
+        {
+          "label": "动态转码成功率",
+          "value": "82% → 98%",
+          "note": ""
+        }
+      ],
+      "scope": "board.scope",
+      "references": [
+        {
+          "source": "s2",
+          "label": "述职报告"
+        },
+        {
+          "source": "s4",
+          "label": "本人旧简历"
+        },
+        {
+          "source": "s3",
+          "label": "维护交接"
+        }
+      ],
+      "body": "board.body",
+      "chart": {
+        "title": "端到端延迟 · 越低越好",
+        "unit": "ms",
+        "max": 600,
+        "rows": [
+          {
+            "label": "优化前",
+            "value": 600
+          },
+          {
+            "label": "优化后",
+            "value": 100
+          }
+        ]
+      }
+    },
+    {
+      "id": "sdk",
+      "tab": "SDK 自动生成",
+      "date": "2024 Q2 落地",
+      "title": "跨端 SDK 自动生成",
+      "badge": "生成工具与运行时",
+      "problem": "sdk.problem",
+      "responsibility": "sdk.responsibility",
+      "flow": [
+        {
+          "title": "Doxygen",
+          "note": "提取 Native API"
+        },
+        {
+          "title": "结构化 API",
+          "note": "按规则转换"
+        },
+        {
+          "title": "TypeScript SDK",
+          "note": "生成接口封装"
+        },
+        {
+          "title": "IPC 与反射",
+          "note": "运行时调用"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "拉流 SDK · 69 个 API",
+          "value": "45 → 13 人天",
+          "note": "人工方案预估 → 实际投入"
+        },
+        {
+          "label": "推流 SDK · 242 个 API",
+          "value": "50 → 19 人天",
+          "note": "人工方案预估 → 实际投入"
+        },
+        {
+          "label": "迁移能力",
+          "value": "协议驱动生成",
+          "note": "将重复封装转化为工具"
+        }
+      ],
+      "scope": "sdk.scope",
+      "references": [
+        {
+          "source": "s4",
+          "label": "本人旧简历中的技术设计与业务进度"
+        }
+      ],
+      "body": "sdk.body"
+    },
+    {
+      "id": "assets",
+      "tab": "交易研发资产",
+      "date": "2025 — 2026",
+      "title": "交易研发资产与场景复现",
+      "badge": "截图采集与资产质量",
+      "problem": "assets.problem",
+      "responsibility": "assets.responsibility",
+      "flow": [
+        {
+          "title": "真机与接口",
+          "note": "截图 / Mock 数据"
+        },
+        {
+          "title": "运行时标识",
+          "note": "卡片与业务身份"
+        },
+        {
+          "title": "DitoM 插件",
+          "note": "资产关联与管理"
+        },
+        {
+          "title": "场景消费",
+          "note": "预览 / 复现 / 排查"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "资产准确率",
+          "value": "81.81% → 92.31%",
+          "note": ""
+        },
+        {
+          "label": "场景与 UI 覆盖率",
+          "value": "38.71% → 58%",
+          "note": ""
+        },
+        {
+          "label": "团队内部试用",
+          "value": "18 个需求",
+          "note": "同期处理 32 个问题"
+        }
+      ],
+      "scope": "assets.scope",
+      "references": [
+        {
+          "source": "s8",
+          "label": "Q1 分工与进度"
+        },
+        {
+          "source": "s7",
+          "label": "Q2 团队复盘"
+        },
+        {
+          "source": "s10",
+          "label": "插件使用说明"
+        }
+      ],
+      "body": "assets.body"
+    },
+    {
+      "id": "editor",
+      "tab": "商业化编辑器",
+      "date": "2020.10 — 2022.10",
+      "title": "商业化移动端落地页编辑器",
+      "badge": "设计与开发",
+      "problem": "editor.problem",
+      "responsibility": "editor.responsibility",
+      "flow": [
+        {
+          "title": "模板与组件",
+          "note": "内容与资源准备"
+        },
+        {
+          "title": "移动端编辑器",
+          "note": "广告主二次编辑"
+        },
+        {
+          "title": "BFF 与渲染",
+          "note": "生成落地页"
+        },
+        {
+          "title": "DOU+ 投放",
+          "note": "用户访问与转化"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "日均有消耗站点",
+          "value": "87 个",
+          "note": ""
+        },
+        {
+          "label": "日均广告消耗",
+          "value": "1.7 万+",
+          "note": ""
+        },
+        {
+          "label": "管理模板",
+          "value": "300+",
+          "note": ""
+        }
+      ],
+      "scope": "editor.scope",
+      "references": [
+        {
+          "source": "s4",
+          "label": "本人旧简历"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "caption": "可用于简历的代表指标及其范围",
+    "headers": [
+      "指标",
+      "材料记录",
+      "使用范围",
+      "来源"
+    ],
+    "rows": [
+      {
+        "label": "白板端到端延迟",
+        "value": "600 → 100ms",
+        "scope": "沿用述职口径，不与旧简历的 P95 描述混合。",
+        "reference": {
+          "source": "s2",
+          "label": "述职 ↗"
+        }
+      },
+      {
+        "label": "白板千行 Bug 率",
+        "value": "30+ → <1",
+        "scope": "项目工程质量指标，不是线上故障率。",
+        "reference": {
+          "source": "s2",
+          "label": "述职 ↗"
+        }
+      },
+      {
+        "label": "SDK 初始化代码",
+        "value": "约 100 → <10 行",
+        "scope": "仅为初始化逻辑，不代表 SDK 总代码量。",
+        "reference": {
+          "source": "s2",
+          "label": "述职 ↗"
+        }
+      },
+      {
+        "label": "RN 拉流 / 推流投入",
+        "value": "45 → 13 / 50 → 19 人天",
+        "scope": "人工方案预估与实际投入的比较。",
+        "reference": {
+          "source": "s4",
+          "label": "旧简历 ↗"
+        }
+      },
+      {
+        "label": "交易资产准确率",
+        "value": "81.81% → 92.31%",
+        "scope": "团队成果；个人负责截图采集及相关质量优化。",
+        "reference": {
+          "source": "s7",
+          "label": "Q2 复盘 ↗"
+        }
+      },
+      {
+        "label": "Oncall 平均工单时长",
+        "value": "404.01 → 131 小时",
+        "scope": "2025 Q2 个人复盘中的团队指标；样本和窗口待补。",
+        "reference": {
+          "source": "s11",
+          "label": "个人记录 ↗"
+        }
+      }
+    ],
+    "notes": [
+      {
+        "title": "未采用的量化信息及原因",
+        "body": "evidence.note1"
+      },
+      {
+        "title": "功能建设、实际采用与规模推广分别如何表述",
+        "body": "evidence.note2"
+      }
+    ]
+  },
+  "framework": {
+    "modules": [
+      {
+        "title": "基本信息",
+        "body": "framework.module1"
+      },
+      {
+        "title": "职业摘要",
+        "body": "framework.module2"
+      },
+      {
+        "title": "工作经历",
+        "body": "framework.module3"
+      },
+      {
+        "title": "代表项目",
+        "body": "framework.module4"
+      },
+      {
+        "title": "技术能力",
+        "body": "framework.module5"
+      },
+      {
+        "title": "教育与早期经历",
+        "body": "framework.module6"
+      }
+    ],
+    "formula": "业务问题 → 本人责任 → 技术决策 → 结果 → 口径",
+    "pages": [
+      {
+        "title": "第一页 · 当前职责与工程复用",
+        "items": [
+          "姓名、方向与职业摘要",
+          "生活服务交易与研发效能",
+          "视频云 SDK 自动生成"
+        ]
+      },
+      {
+        "title": "第二页 · 技术深度与职业基础",
+        "items": [
+          "火山互动白板",
+          "商业化移动端编辑器",
+          "携程、教育与技术能力"
+        ]
+      }
+    ],
+    "note": "framework.note"
+  },
+  "gaps": [
+    {
+      "title": "个人信息与目标",
+      "body": "gaps.1"
+    },
+    {
+      "title": "近期结果与统计说明",
+      "body": "gaps.2"
+    }
+  ],
+  "sources": [
+    {
+      "id": "s1",
+      "title": "2025 年度个人总结",
+      "url": "https://bytedance.larkoffice.com/docx/LnNLdD37Jooty2xJf8mcFlTGnOb",
+      "note": "仅作线索；部分提效数字未采用。"
+    },
+    {
+      "id": "s2",
+      "title": "述职报告",
+      "url": "https://bytedance.larkoffice.com/docx/DcnNdeK1KoU0IAxXEh2cqbVZnnc",
+      "note": "白板角色、架构和技术指标的核心来源。"
+    },
+    {
+      "id": "s3",
+      "title": "RTC 与互动白板交接",
+      "url": "https://bytedance.larkoffice.com/docx/KGsYdrCYdolfygx5UKnc4NQrnyd",
+      "note": "维护职责、跨端工作与产品实际状态。"
+    },
+    {
+      "id": "s4",
+      "title": "本人旧简历",
+      "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd",
+      "note": "学历、任职月份、SDK 生成、商业化与携程经历。"
+    },
+    {
+      "id": "s5",
+      "title": "生活服务 Landing",
+      "url": "https://bytedance.larkoffice.com/docx/KpB6duzbwo7KQlxIMGWcgeAlnVh",
+      "note": "周报入口与业务背景。"
+    },
+    {
+      "id": "s6",
+      "title": "个人周报",
+      "url": "https://bytedance.larkoffice.com/wiki/ZShvwIckMijDM8kYXuEctK0ynTh",
+      "note": "2024 年 11—12 月工作与交付记录。"
+    },
+    {
+      "id": "s7",
+      "title": "2026 Q2 研发平台与资产上翻",
+      "url": "https://bytedance.larkoffice.com/docx/FjOPdC8Fpo1hNexnJnxci0evn5f",
+      "note": "团队分工、内部试用状态与指标。"
+    },
+    {
+      "id": "s8",
+      "title": "资产信息上翻 Q1 周进展",
+      "url": "https://bytedance.larkoffice.com/docx/VoGYdEgSXokLLaxT4uDcxuVanCg",
+      "note": "截图采集的个人职责与实现方案。"
+    },
+    {
+      "id": "s9",
+      "title": "2025 年资产平台介绍",
+      "url": "https://bytedance.larkoffice.com/docx/TIFxdp90lofVHCxnNWIclSKYn0e",
+      "note": "会议纪要，辅助验证当时的功能。"
+    },
+    {
+      "id": "s10",
+      "title": "交易资产插件使用说明",
+      "url": "https://bytedance.larkoffice.com/wiki/DU6DwPLjkievy1kVozacAssnnjc",
+      "note": "实际产品形态、集成能力和使用流程。"
+    },
+    {
+      "id": "s11",
+      "title": "刘韬 1on1 月度 Q2",
+      "url": "https://bytedance.larkoffice.com/docx/OG4bdZON5oyrXpxNN8EcDD5hnMg",
+      "note": "正文为 2025 Q2，包含标准化与 Oncall 结果。"
+    },
+    {
+      "id": "s12",
+      "title": "2026.06.29—07.05 周报",
+      "url": "https://bytedance.larkoffice.com/docx/AuIRdUhF2oglzRxkvcOcjhA5nEb",
+      "note": "Aily 自动生成，近期项目仅作补证线索。"
+    }
+  ],
+  "researchNote": "sources.note",
+  "downloads": [
+    {
+      "label": "框架 Markdown",
+      "path": "简历框架.md"
+    },
+    {
+      "label": "简历 Markdown",
+      "path": "刘韬_简历.md"
+    },
+    {
+      "label": "LaTeX 源码",
+      "path": "liutao-resume.tex"
+    },
+    {
+      "label": "完整证据记录",
+      "path": "字节近六年工作回顾与证据.md"
+    }
+  ]
+}
