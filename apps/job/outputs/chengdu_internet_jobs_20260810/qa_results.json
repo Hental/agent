@@ -1,0 +1,18 @@
+{
+  "status": "pass",
+  "checks": {
+    "unique_dedup_groups": true,
+    "salary_ranges_valid": true,
+    "annual_salary_reconciles": true,
+    "main_scope_valid": true,
+    "no_outsourcing_or_onsite_in_main": true,
+    "counts_reconcile": true,
+    "strong35_rule": true,
+    "negotiable35_rule": true,
+    "supply_index_suppressed": true,
+    "remote_separate": true
+  },
+  "main_count": 37,
+  "csv_rows": 53,
+  "generated_at": "2026-08-10T00:00:00+08:00"
+}
