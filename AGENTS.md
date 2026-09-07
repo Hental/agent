@@ -10,6 +10,11 @@
 - Resolve both paths before linking. Do not replace an existing real directory or a symbolic link that points elsewhere; report the conflict and ask for direction.
 - Keep the project directory as the source of truth. Edit and validate the project copy, not the global symbolic-link path.
 
+# Documentation naming
+
+- Do not generate `README.md` files. Put project, app, and script documentation (including setup and usage instructions) in `AGENTS.md` in the corresponding directory instead.
+- If an `AGENTS.md` already exists, update it while preserving its existing instructions.
+
 # Intermediate artifacts
 
 - Store screenshots, generated images, rendered previews, captured responses, debug logs, temporary reports, and similar intermediate artifacts under the project-root `./.reports/` directory.
