@@ -1,0 +1,12 @@
+{
+  "bot_name": "Mini",
+  "app_id": "cli_aa149e4ed9389cb5",
+  "recipient_email": "liutao.fe@bytedance.com",
+  "open_id": "ou_0de0382daf0b601518c6eb63486207d3",
+  "chat_id": "oc_558e971f498438280d88ec1372df95c2",
+  "chat_name": "Mini",
+  "chat_type": "p2p",
+  "verified_on": "2026-09-07",
+  "verification_method": "用户含邮箱的私聊截图及该应用的消息记录核验",
+  "note": "跨租户私聊；open_id 仅限当前 app_id 使用，换绑应用后需重新核验。"
+}
