@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>成都高新区 35k+ 研发岗位筛选报告</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --panel: #ffffff;
+      --ink: #172033;
+      --muted: #5f6b7a;
+      --line: #d9dee7;
+      --blue: #2557a7;
+      --teal: #087f7b;
+      --green: #16803c;
+      --amber: #b86b00;
+      --red: #b42318;
+      --soft-blue: #eaf1ff;
+      --soft-teal: #e8f5f3;
+      --soft-green: #eaf7ee;
+      --soft-amber: #fff4df;
+      --soft-red: #fdeceb;
+      --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 8px 24px rgba(16, 24, 40, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.45;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .shell {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
+      gap: 16px;
+      align-items: stretch;
+      margin-bottom: 16px;
+    }
+
+    .title-panel,
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .title-panel {
+      padding: 22px 24px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: 26px;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 17px;
+    }
+
+    h3 {
+      font-size: 14px;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 860px;
+    }
+
+    .meta {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .meta strong {
+      color: var(--ink);
+      font-weight: 650;
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .kpi {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px 16px;
+      min-height: 96px;
+    }
+
+    .kpi .label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .kpi .value {
+      font-size: 28px;
+      font-weight: 720;
+      line-height: 1;
+    }
+
+    .kpi .note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+
+    button.active {
+      border-color: var(--blue);
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-weight: 650;
+    }
+
+    .search {
+      width: min(320px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 10px;
+      background: #fff;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1040px;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #263244;
+      color: #fff;
+      z-index: 1;
+      font-weight: 650;
+    }
+
+    tbody tr:hover {
+      background: #fbfcff;
+    }
+
+    .company {
+      font-weight: 680;
+      color: var(--ink);
+    }
+
+    .title {
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .verify {
+      background: var(--soft-green);
+      color: var(--green);
+    }
+
+    .watch {
+      background: var(--soft-amber);
+      color: var(--amber);
+    }
+
+    .reject {
+      background: var(--soft-red);
+      color: var(--red);
+    }
+
+    .unknown {
+      background: var(--soft-blue);
+      color: var(--blue);
+    }
+
+    .score {
+      min-width: 84px;
+    }
+
+    .score strong {
+      display: inline-block;
+      min-width: 28px;
+      font-size: 16px;
+    }
+
+    .bar {
+      height: 8px;
+      background: #edf1f6;
+      border-radius: 999px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--blue);
+    }
+
+    .risk {
+      color: var(--muted);
+      max-width: 340px;
+    }
+
+    .insight-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .insight-list li {
+      border-left: 4px solid var(--teal);
+      padding: 10px 12px;
+      background: var(--soft-teal);
+      border-radius: 6px;
+      color: #23423f;
+      font-size: 13px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .rule {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      background: #fff;
+    }
+
+    .rule .num {
+      color: var(--blue);
+      font-weight: 720;
+      margin-bottom: 4px;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .source-list li::marker {
+      color: var(--blue);
+    }
+
+    .compact {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 8px 0 0;
+    }
+
+    .priority-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px;
+      background: #fff;
+      margin-bottom: 10px;
+    }
+
+    .priority-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .priority-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .foot {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      header,
+      .grid,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        padding: 14px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .panel-head {
+        align-items: stretch;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <section class="title-panel">
+        <h1>成都高新区 35k+ 研发岗位筛选报告</h1>
+        <p class="subtitle">范围：高新区/高新南区/天府五街/天府软件园/金融城及相邻区域。定位仍按“前端/架构 + AI Agent 工程化”，35k base 税前为硬线。</p>
+      </section>
+      <aside class="meta panel">
+        <div><strong>生成日期：</strong>2026-05-31</div>
+        <div><strong>当前结论：</strong>高新区有更多 AI/大模型岗位线索，但公开薪资能直接证明 35k base 的很少。</div>
+        <div><strong>使用方式：</strong>先筛“优先核验”，沟通确认 base 下限、办公楼宇、AI 项目阶段后再投。</div>
+      </aside>
+    </header>
+
+    <section class="kpis" aria-label="关键指标">
+      <div class="kpi">
+        <div class="label">公开线索</div>
+        <div class="value" id="kpi-total">0</div>
+        <div class="note">含已失效/需复核线索</div>
+      </div>
+      <div class="kpi">
+        <div class="label">优先核验</div>
+        <div class="value" id="kpi-verify">0</div>
+        <div class="note">先问 base 与地点</div>
+      </div>
+      <div class="kpi">
+        <div class="label">备选观察</div>
+        <div class="value" id="kpi-watch">0</div>
+        <div class="note">不主动投入面试</div>
+      </div>
+      <div class="kpi">
+        <div class="label">明确排除</div>
+        <div class="value" id="kpi-reject">0</div>
+        <div class="note">薪资/职责不匹配</div>
+      </div>
+      <div class="kpi">
+        <div class="label">公开明确 35k 下限</div>
+        <div class="value" id="kpi-hardline">0</div>
+        <div class="note">含较旧来源，必须复核</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section>
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>职位筛选表</h2>
+              <p class="compact">评分按薪资 25、地点 20、AI Agent 相关 20、前端/架构匹配 20、公司/业务质量 15。base 未公开时不直接判定可投。</p>
+            </div>
+            <div class="controls">
+              <button class="active" data-filter="all" type="button">全部</button>
+              <button data-filter="verify" type="button">优先核验</button>
+              <button data-filter="watch" type="button">备选观察</button>
+              <button data-filter="reject" type="button">排除</button>
+              <input class="search" id="search" type="search" placeholder="搜索公司 / 职位 / 地点" />
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>公司 / 岗位</th>
+                  <th>地点</th>
+                  <th>薪资公开信息</th>
+                  <th>匹配判断</th>
+                  <th>评分</th>
+                  <th>动作</th>
+                  <th>来源</th>
+                </tr>
+              </thead>
+              <tbody id="job-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>核验优先级</h2>
+          </div>
+          <div class="split">
+            <div class="rule">
+              <div class="num">1. 先核验大厂/强 Agent 基建</div>
+              <p>美团、蚂蚁这类岗位的 AI Agent/架构含量高，但公开信息没有给出 base 和成都具体办公点。只适合先沟通，不适合盲投。</p>
+            </div>
+            <div class="rule">
+              <div class="num">2. 20-35k 上限岗只进备选</div>
+              <p>飞天鼠、联课这类岗位技术相关，但薪资写到 35k 上限，不满足“35k base 下限”硬线。除非 HR 明确 35k 可谈且年终清晰。</p>
+            </div>
+            <div class="rule">
+              <div class="num">3. 排除低薪 AI 包装岗</div>
+              <p>前端智能体 4-5k、AI 训练师 8-14k、大模型应用 10-15k 等，和目标薪资/职责不匹配，不投入面试时间。</p>
+            </div>
+            <div class="rule">
+              <div class="num">4. 架构高薪非 AI 可做旁路</div>
+              <p>若出现 35k+ 架构岗但 AI 弱，只能作为现金流/谈薪样本，不应替代“AI Agent 工程化”主线。</p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <aside>
+        <section class="panel">
+          <div class="panel-head">
+            <h2>分析结论</h2>
+          </div>
+          <ul class="insight-list">
+            <li>高新区扩展是必要的；天府五街、天府软件园、腾讯成都大厦、中海国际等点位的线索密度明显高于兴隆湖。</li>
+            <li>公开职位里，“AI Agent”相关度高的岗位不少，但 35k+ 多数不是公开下限，而是上限或未披露。</li>
+            <li>当前最有效动作不是扩大投递量，而是用 3 个问题快速砍掉不合格岗位：base 下限、办公楼宇、AI 项目阶段。</li>
+            <li>目标简历应强化 Agent/RAG/工具调用/评估闭环，以及复杂前端/平台工程化交付证据。</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>下一轮沟通话术</h2>
+          </div>
+          <div class="priority-card">
+            <strong>薪资</strong>
+            <p>“这个岗位月 base 下限大概是多少？35k base 是否在可谈范围内？年终是固定还是绩效？”</p>
+          </div>
+          <div class="priority-card">
+            <strong>地点</strong>
+            <p>“成都具体办公点在哪个楼宇？是否长期驻场或混合办公？团队是否在同一地点？”</p>
+          </div>
+          <div class="priority-card">
+            <strong>AI 项目</strong>
+            <p>“Agent/RAG 项目现在是 demo、POC 还是生产？岗位会负责工具调用、工作流、评估体系还是普通业务开发？”</p>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>来源与限制</h2>
+          </div>
+          <ol class="source-list">
+            <li><a href="https://feitianshu.com/jobs/8057" target="_blank" rel="noreferrer">飞天鼠：AI Agent 开发工程师</a>，显示天府五街软件园、20-35k、年终另算。</li>
+            <li><a href="https://www.nowcoder.com/jobs/detail/410723?urlSource=sitemap" target="_blank" rel="noreferrer">牛客：联课科技全栈工程师（AI赋能方向）</a>，显示高新区中海国际、20-35k。</li>
+            <li><a href="https://jobs.niuqizp.com/job-vsk55ttzZ.html" target="_blank" rel="noreferrer">牛企直聘转载美团官网：大模型应用高级工程师</a>，显示成都，职责包含核心 Agent 应用工程落地。</li>
+            <li><a href="https://www.mianshima.com/job/5/25031703885407" target="_blank" rel="noreferrer">面试马：蚂蚁国际高级大模型应用开发工程师</a>，显示成都，职责包含大语言模型创新应用与 RAG/SFT/RL。</li>
+            <li><a href="https://www.zhaopin.com/jobdetail/CC120055420J40792424707.htm" target="_blank" rel="noreferrer">智联：工业系统架构师（成都高新）</a>，显示 15-22k，架构相关但薪资不达标。</li>
+            <li><a href="https://www.liepin.com/job/1978266849.shtml" target="_blank" rel="noreferrer">猎聘：法本信息大模型 AI 训练师</a>，显示成都高新区、8-14k，职责偏数据生产。</li>
+            <li><a href="https://www.zhaopin.com/jobdetail/CC842554650J40748434810.htm" target="_blank" rel="noreferrer">智联：成都高伟达大模型开发与应用工程师</a>，页面显示已失效且薪资 10-15k。</li>
+          </ol>
+          <p class="foot">公开招聘页可能过期、被转载或薪资区间不完整。报告只用于筛选优先级，不替代 HR/技术面核验。</p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const jobs = [
+      {
+        company: "美团",
+        title: "大模型应用高级工程师",
+        location: "成都；公开页未细到高新区",
+        salary: "未公开；来源称有竞争力薪资福利",
+        match: "核心 Agent 应用工程、Tools 动态检索、RAG、AgentBuilder/Eval/Data 闭环，业务质量高。",
+        score: 86,
+        decision: "verify",
+        action: "优先核验：先问成都办公点与 35k base 下限。",
+        source: "https://jobs.niuqizp.com/job-vsk55ttzZ.html",
+        sourceLabel: "美团官网转载",
+        hardline: false
+      },
+      {
+        company: "蚂蚁国际",
+        title: "高级大模型应用开发工程师",
+        location: "成都；公开页未细到楼宇",
+        salary: "未公开",
+        match: "负责大语言模型创新应用、系统设计评审、RAG/SFT/RL 优化，架构含量高。",
+        score: 84,
+        decision: "verify",
+        action: "优先核验：确认 base、成都团队归属和是否偏 Java 后端。",
+        source: "https://www.mianshima.com/job/5/25031703885407",
+        sourceLabel: "面试马",
+        hardline: false
+      },
+      {
+        company: "飞享数据",
+        title: "LangGraph AI Agent 工程师",
+        location: "天府软件园 D 区创业场",
+        salary: "未公开",
+        match: "岗位关键词直接命中 Agent/LangGraph；公开信息不足，需核验职责和薪资。",
+        score: 78,
+        decision: "verify",
+        action: "优先核验：先问 base、项目阶段、是否交付驻场。",
+        source: "https://www.zhaopin.com/jobdetail/CC245321380J40817430109.htm",
+        sourceLabel: "智联招聘",
+        hardline: false
+      },
+      {
+        company: "飞天鼠线索",
+        title: "AI Agent 开发工程师（Base 成都）",
+        location: "天府五街软件园",
+        salary: "20-35k，年终另算",
+        match: "AI Agent 方向明确，但偏 Java 后端；薪资上限到 35k，不是 35k 下限。",
+        score: 74,
+        decision: "watch",
+        action: "备选：只在 HR 明确 35k base 可谈时继续。",
+        source: "https://feitianshu.com/jobs/8057",
+        sourceLabel: "飞天鼠/V2EX线索",
+        hardline: false
+      },
+      {
+        company: "联课科技",
+        title: "全栈工程师（AI赋能方向）",
+        location: "高新区中海国际 D 座",
+        salary: "20-35k * 12 薪",
+        match: "前端/全栈与工程质量匹配，AI 主要是开发流程和产品体验赋能，Agent 核心度一般。",
+        score: 69,
+        decision: "watch",
+        action: "备选观察：不主动投，除非团队与薪资有额外信息。",
+        source: "https://www.nowcoder.com/jobs/detail/410723?urlSource=sitemap",
+        sourceLabel: "牛客",
+        hardline: false
+      },
+      {
+        company: "库珀科技",
+        title: "Java 专家/架构师",
+        location: "成都高新区；支持远程",
+        salary: "35-60k，18-24 薪；来源较旧",
+        match: "薪资和架构匹配，但 AI Agent 相关度弱；更适合作为谈薪样本或旁路线索。",
+        score: 77,
+        decision: "watch",
+        action: "备选：先验证是否仍开放，再看能否转向 AI 平台/工程化。",
+        source: "https://learnku.com/laravel/t/65209?order_by=vote_count",
+        sourceLabel: "Laravel China 社区",
+        hardline: true
+      },
+      {
+        company: "成都高伟达",
+        title: "大模型开发与应用工程师",
+        location: "武侯区中航城市广场",
+        salary: "10-15k；页面显示已失效",
+        match: "RAG/Agent 评估体系相关，但薪资明显不达标，且岗位已失效。",
+        score: 48,
+        decision: "reject",
+        action: "排除：只作为低薪 AI 应用样本。",
+        source: "https://www.zhaopin.com/jobdetail/CC842554650J40748434810.htm",
+        sourceLabel: "智联招聘",
+        hardline: false
+      },
+      {
+        company: "四川通发电信",
+        title: "工业系统架构师（成都高新）",
+        location: "中国西部信息中心",
+        salary: "15-22k",
+        match: "架构职责较强，但 AI 只是泛技术敏感度要求，薪资低于硬线。",
+        score: 44,
+        decision: "reject",
+        action: "排除：不符合薪资与 AI Agent 主线。",
+        source: "https://www.zhaopin.com/jobdetail/CC120055420J40792424707.htm",
+        sourceLabel: "智联招聘",
+        hardline: false
+      },
+      {
+        company: "法本信息",
+        title: "大模型 AI 训练师-推理方向",
+        location: "腾讯成都大厦 B 座",
+        salary: "8-14k",
+        match: "偏数据生产/标注质检，不是 AI Agent 应用工程化岗位。",
+        score: 31,
+        decision: "reject",
+        action: "排除：典型低薪训练/数据岗位。",
+        source: "https://www.liepin.com/job/1978266849.shtml",
+        sourceLabel: "猎聘",
+        hardline: false
+      },
+      {
+        company: "直面科技",
+        title: "前端开发（AI智能体方向）",
+        location: "成都武侯区；非高新区核心点位",
+        salary: "4000-5000 元",
+        match: "前端接入 AI 平台/智能体，但薪资和岗位层级明显不匹配。",
+        score: 25,
+        decision: "reject",
+        action: "排除：不能投入。",
+        source: "https://www.zhaopin.com/jobdetail/CC477358680J40850106714.htm",
+        sourceLabel: "智联招聘",
+        hardline: false
+      }
+    ];
+
+    const labels = {
+      verify: { text: "优先核验", cls: "verify" },
+      watch: { text: "备选观察", cls: "watch" },
+      reject: { text: "排除", cls: "reject" }
+    };
+
+    const table = document.querySelector("#job-table");
+    const search = document.querySelector("#search");
+    let activeFilter = "all";
+
+    function render() {
+      const query = search.value.trim().toLowerCase();
+      const rows = jobs.filter((job) => {
+        const matchesFilter = activeFilter === "all" || job.decision === activeFilter;
+        const blob = `${job.company} ${job.title} ${job.location} ${job.salary} ${job.match}`.toLowerCase();
+        return matchesFilter && (!query || blob.includes(query));
+      });
+
+      table.innerHTML = rows.map((job) => {
+        const label = labels[job.decision];
+        return `
+          <tr>
+            <td>
+              <div class="company">${job.company}</div>
+              <div class="title">${job.title}</div>
+            </td>
+            <td>${job.location}</td>
+            <td>${job.salary} ${job.hardline ? '<span class="badge unknown">需复核硬线</span>' : ''}</td>
+            <td class="risk">${job.match}</td>
+            <td class="score">
+              <strong>${job.score}</strong>
+              <div class="bar"><span style="width:${job.score}%"></span></div>
+            </td>
+            <td>
+              <span class="badge ${label.cls}">${label.text}</span>
+              <div class="compact">${job.action}</div>
+            </td>
+            <td><a href="${job.source}" target="_blank" rel="noreferrer">${job.sourceLabel}</a></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function updateKpis() {
+      document.querySelector("#kpi-total").textContent = jobs.length;
+      document.querySelector("#kpi-verify").textContent = jobs.filter((job) => job.decision === "verify").length;
+      document.querySelector("#kpi-watch").textContent = jobs.filter((job) => job.decision === "watch").length;
+      document.querySelector("#kpi-reject").textContent = jobs.filter((job) => job.decision === "reject").length;
+      document.querySelector("#kpi-hardline").textContent = jobs.filter((job) => job.hardline).length;
+    }
+
+    document.querySelectorAll("[data-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll("[data-filter]").forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+        activeFilter = button.dataset.filter;
+        render();
+      });
+    });
+
+    search.addEventListener("input", render);
+    updateKpis();
+    render();
+  </script>
+</body>
+</html>

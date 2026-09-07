@@ -1,4 +1,4 @@
 interface:
-  display_name: "Lark Bot CLI"
-  short_description: "通过本地 HTTP CLI 发送飞书消息并管理接收事件"
-  default_prompt: "Use $lark-bot to operate the local Lark Bot through its HTTP CLI."
+  display_name: "Lark Bot via Botmux"
+  short_description: "通过 Botmux 给 liutao.fe@bytedance.com 发送飞书消息和卡片"
+  default_prompt: "使用 $lark-bot 通过本机 Botmux 给 liutao.fe@bytedance.com 发送消息或卡片。"

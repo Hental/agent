@@ -1,0 +1,179 @@
+<title>互联网研发求职渠道排序与来源说明</title>
+
+<callout emoji="✅" background-color="light-green" border-color="green" text-color="green">
+  <p><b>结论：</b>面向 35k+ 前端/架构/AI Agent 工程化岗位，渠道优先级不是“岗位数量最多”优先，而是“能最快确认真实 HC、base 下限、团队业务”的渠道优先。排序为：内推/人脉 &gt; 脉脉 &gt; BOSS 直聘 &gt; 猎聘/猎头 &gt; 公司官网 &gt; 拉勾/牛客 &gt; 技术社区 &gt; 综合平台。</p>
+</callout>
+
+<h1>一、渠道排序</h1>
+<p>排序依据：对 35k+ 研发岗的触达效率、信息真实性、薪资核验能力、AI/架构岗位密度、噪音水平。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th background-color="light-gray">排序</th>
+      <th background-color="light-gray">渠道</th>
+      <th background-color="light-gray">推荐等级</th>
+      <th background-color="light-gray">为什么排这里</th>
+      <th background-color="light-gray">使用动作</th>
+      <th background-color="light-gray">主要来源</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td><b>内推 / 人脉 / 新带新 / 活水</b></td>
+      <td><span text-color="green"><b>S</b></span></td>
+      <td>内部 FE 招聘策略把社招拆成 HR 寻访、FE 寻访和新带新；研发内推文档也强调朋友的朋友、技术群、朋友圈、公众号等人脉链路。</td>
+      <td>先列目标公司和目标团队，找前同事、朋友、校友、技术社区联系人；每次沟通先问 base 下限、团队、办公点。</td>
+      <td>交易FE Q2 招聘策略；PDI-Flow 工程研发岗位内推&amp;活水；财经研发内推&amp;活水指引</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td><b>脉脉</b></td>
+      <td><span text-color="green"><b>A</b></span></td>
+      <td>内部网络渠道文档将脉脉定义为中高端、高学历人才阵地，偏商务社交招聘，适合行业交流、人脉拓展和职场话题。</td>
+      <td>用来找在职员工、HR、猎头、团队信息和风评；不只看职位，重点建联和求证。</td>
+      <td>国内网络渠道 One-Pager；招聘渠道-脉脉使用说明</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><b>BOSS 直聘</b></td>
+      <td><span text-color="green"><b>A-</b></span></td>
+      <td>内部 FE 招聘策略明确把 boss 放入 FE 寻访渠道；网络渠道文档认为 BOSS 直聘有直聘模式和较高移动招聘效率。</td>
+      <td>每天小批量筛，直接问 base、地点、是否真实 AI 项目；强过滤外包、驻场、低薪、包装 AI 岗。</td>
+      <td>交易FE Q2 招聘策略；国内网络渠道 One-Pager</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><b>猎聘 / 猎头</b></td>
+      <td><span text-color="blue"><b>B+</b></span></td>
+      <td>内部网络渠道文档将猎聘定位为中高端人才库、猎头服务和 AI 匹配一体平台，适合高级岗和架构岗。</td>
+      <td>适合接触高薪架构岗，但每个猎头都要反问：是否直连团队、base 范围是否确认、HC 是否真实。</td>
+      <td>国内网络渠道 One-Pager</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><b>公司官网 / 官方招聘页</b></td>
+      <td><span text-color="blue"><b>B</b></span></td>
+      <td>官网适合确认岗位真实性，但单独投递反馈慢；已有岗位调研也使用企业官网和公开招聘信息作为来源。</td>
+      <td>作为事实核验入口，不作为唯一投递入口；最好配合内推。</td>
+      <td>成都科创岛前端开发岗位招聘调研报告</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><b>拉勾 / 牛客</b></td>
+      <td><span text-color="blue"><b>B-</b></span></td>
+      <td>内部网络渠道文档显示拉勾专注互联网招聘和薪资透明化；牛客偏技术研发类校招、笔试和求职社群。</td>
+      <td>拉勾用于补充扫互联网岗位；牛客用于看面经、公司动态和少量社招线索。</td>
+      <td>国内网络渠道 One-Pager</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><b>技术社区 / 内容渠道</b></td>
+      <td><span text-color="blue"><b>B-</b></span></td>
+      <td>研发内推文档列到 GitHub、CSDN、掘金、V2EX、知乎、博客/公众号、微信群/朋友圈等，适合发现团队和建立信任。</td>
+      <td>用于展示 Demo、开源、AI Agent 工程化文章；把内容变成弱内推入口。</td>
+      <td>PDI-Flow 工程研发岗位内推&amp;活水</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><b>智联 / 前程无忧等综合平台</b></td>
+      <td><span text-color="yellow"><b>C</b></span></td>
+      <td>覆盖广，但内部网络渠道文档也指出综合平台高端岗位不足或更偏全行业。</td>
+      <td>只作为补充搜索，不投入大量沟通时间。</td>
+      <td>国内网络渠道 One-Pager</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<h1>二、来源证据强度排序</h1>
+<p>优先使用直接描述研发招聘打法、候选人来源和渠道 ROI 的文档；其次使用网络渠道 One-Pager；再使用岗位调研和平台说明。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th background-color="light-gray">证据强度</th>
+      <th background-color="light-gray">来源文档</th>
+      <th background-color="light-gray">支撑了什么判断</th>
+      <th background-color="light-gray">备注</th>
+      <th background-color="light-gray">链接</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span text-color="green"><b>A+</b></span></td>
+      <td>交易FE Q2 招聘策略</td>
+      <td>研发招聘直接把渠道拆成 HR 寻访、FE 寻访（boss &amp; 脉脉 &amp; 人脉）、新带新，并给出有效简历目标。</td>
+      <td>最贴近“前端/研发岗位”的内部实操文档。</td>
+      <td><a href="https://bytedance.larkoffice.com/docx/SJx0d9cNmoE4PWxgR5sca4vunxh">打开</a></td>
+    </tr>
+    <tr>
+      <td><span text-color="green"><b>A</b></span></td>
+      <td>国内网络渠道 One-Pager</td>
+      <td>系统比较 BOSS、脉脉、猎聘、智联、无忧、拉勾、牛客等平台定位和招聘模式。</td>
+      <td>适合做渠道地图和平台定位排序。</td>
+      <td><a href="https://bytedance.larkoffice.com/docx/ZrgWdf5YrokrkcxQg9FcFLeBnGo">打开</a></td>
+    </tr>
+    <tr>
+      <td><span text-color="green"><b>A</b></span></td>
+      <td>PDI-Flow工程研发岗位内推&amp;活水</td>
+      <td>明确推荐微信群、朋友圈、脉脉、博客、公众号等渠道，并列出网络招聘渠道特征。</td>
+      <td>支撑“人脉/技术社区/内容渠道”的价值。</td>
+      <td><a href="https://bytedance.larkoffice.com/docx/SEtwduVuaob4jIxvHFPchUqrnBh">打开</a></td>
+    </tr>
+    <tr>
+      <td><span text-color="blue"><b>B+</b></span></td>
+      <td>财经研发内推&amp;活水指引</td>
+      <td>说明字节圈、研发板块、Bytetech、飞书个签等内部传播渠道如何承接内推/活水。</td>
+      <td>更偏内部招聘传播，但可迁移为外部求职的“找入口/找团队”方法。</td>
+      <td><a href="https://bytedance.larkoffice.com/docx/RhlBdnLegoplXzxs8DgcToDNnBb">打开</a></td>
+    </tr>
+    <tr>
+      <td><span text-color="blue"><b>B</b></span></td>
+      <td>成都科创岛前端开发岗位招聘调研报告</td>
+      <td>使用多渠道调研、企业官网、猎聘实时数据、公开招聘信息来做区域岗位调研。</td>
+      <td>支撑“岗位调研要多来源交叉验证”。</td>
+      <td><a href="https://shantech.feishu.cn/docx/WdJmd2se0oh3v0xhz5Lcz84enVd">打开</a></td>
+    </tr>
+    <tr>
+      <td><span text-color="blue"><b>B-</b></span></td>
+      <td>招聘渠道-脉脉使用说明</td>
+      <td>说明脉脉作为招聘渠道的操作路径。</td>
+      <td>更偏 HR 端 SOP，支撑渠道存在和使用方式，不直接证明求职效率。</td>
+      <td><a href="https://bytedance.larkoffice.com/wiki/CVItw0gVCi92tVkz1QecVvvHnJe">打开</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr/>
+
+<h1>三、执行建议</h1>
+<grid>
+  <column width-ratio="0.5">
+    <callout emoji="📌" background-color="light-blue" border-color="blue" text-color="blue">
+      <p><b>每天 30 分钟：</b>BOSS 和脉脉各筛 10-15 个岗位/联系人，只保留能回答 base、地点、AI 项目真实性的线索。</p>
+    </callout>
+  </column>
+  <column width-ratio="0.5">
+    <callout emoji="⭐" background-color="light-yellow" border-color="yellow" text-color="yellow">
+      <p><b>每周重点：</b>至少找 5 个内推/熟人/在职员工入口，比单纯多投 50 个低质量岗位更有效。</p>
+    </callout>
+  </column>
+</grid>
+
+<checkbox done="false">整理目标公司清单：高新区/天府软件园/金融城/新川/远程优先。</checkbox>
+<checkbox done="false">给每个公司找至少 1 个在职员工或二度联系人。</checkbox>
+<checkbox done="false">所有沟通先问 3 件事：base 下限、办公地点、AI 项目阶段。</checkbox>
+<checkbox done="false">每周只投 8-12 个高匹配岗位，低于 70 分不投。</checkbox>
+
+<hr/>
+
+<h1>四、搜索记录</h1>
+<p>本次使用 lark-cli 通过飞书云空间搜索检索了以下关键词：互联网招聘 渠道、招聘渠道、高薪研发 岗位、AI Agent 招聘、招聘、研发 招聘 渠道、内推 活水 招聘、FE 招聘 策略。</p>
+<p>搜索方式：优先使用 <code>lark-cli --as user drive +search</code> 做资源发现，再使用 <code>docs +fetch --api-version v2</code> 精读关键词片段。</p>
+
+<callout emoji="⚠️" background-color="light-yellow" border-color="yellow" text-color="yellow">
+  <p><b>注意：</b>内部招聘文档多从招聘方视角编写。迁移到个人求职时，应把“发布渠道/寻访渠道”反向理解为“候选人应主动出现或建联的地方”。</p>
+</callout>
