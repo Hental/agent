@@ -1,12 +1,16 @@
 #!/usr/bin/env node
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+import {fileURLToPath, pathToFileURL} from 'node:url';
 
-const fs = require('node:fs');
-const path = require('node:path');
+// Keep package-directory overrides compatible with Node's package resolution.
+const resolveModule = createRequire(import.meta.url).resolve;
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 
 const usage = `Usage:
-  node apps/wx-call/scripts/control.cjs <name>          # Screenshot only
-  node apps/wx-call/scripts/control.cjs <name> <x> <y>  # Click, then screenshot
+  node apps/wx-call/lib/control.mjs <name>          # Screenshot only
+  node apps/wx-call/lib/control.mjs <name> <x> <y>  # Click, then screenshot
 
 Each run saves screenshots and Midscene logs under .reports/midscene-desktop/.
 Coordinates use desktop logical pixels, not necessarily screenshot image pixels.
@@ -34,19 +38,20 @@ async function main() {
     : '@midscene/computer';
   let modulePath;
   try {
-    modulePath = require.resolve(moduleName);
+    modulePath = resolveModule(moduleName);
   } catch (error) {
     if (error.code !== 'MODULE_NOT_FOUND') throw error;
-    throw new Error('Install dependencies first: SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --prefix apps/wx-call/scripts');
+    throw new Error('Install dependencies first: SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --prefix apps/wx-call');
   }
 
-  const reports = path.resolve(__dirname, '../../../.reports/midscene-desktop');
+  const reports = path.resolve(scriptDir, '../../../.reports/midscene-desktop');
   fs.mkdirSync(reports, {recursive: true});
   const runDir = fs.mkdtempSync(path.join(reports, `${name}-`));
   const previousCwd = process.cwd();
   process.chdir(runDir);
   try {
-    const {ComputerDevice} = require(modulePath);
+    const computerModule = await import(pathToFileURL(modulePath).href);
+    const {ComputerDevice} = computerModule.default ?? computerModule;
     const device = new ComputerDevice({});
     try {
       await device.connect(); // Includes screenshot and mouse health checks.
