@@ -25,7 +25,7 @@
 
 ```text
 node apps/botmux-card-confirmation/dist/confirm.js health
-node apps/botmux-card-confirmation/dist/confirm.js send <请求JSON绝对路径> <已核验的完整Botmux会话ID>
+node apps/botmux-card-confirmation/dist/confirm.js send ./.reports/<任务名>/request.json <已核验的完整Botmux会话ID>
 ```
 
 检查发送结果中的 `success`、`messageId`、`sessionId`，保留返回的 `requestId`。发卡成功表示消息已发送，尚不表示用户做出了决定。

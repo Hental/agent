@@ -7,14 +7,16 @@ description: 通过 Botmux 发送和更新飞书/Lark card，并处理 button ac
 
 Botmux 是项目所有飞书/Lark 卡片消息和按钮交互的统一 gateway：卡片发送、更新与回调均经 Botmux 中转，业务只提供内容、选项和后续处理。普通展示卡片直接使用 Botmux；通用按钮确认/选择使用 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md)。不要新增绕过 Botmux 的直连飞书发送或回调服务。
 
-使用本机 `botmux` CLI，可从任意工作目录运行。命令不在 PATH 时使用 `/Users/liutao/.botmux/bin/botmux`。此技能的发送入口是 Botmux，不再使用旧服务的 `pnpm cli`、`LARK_BOT_URL` 或 `--base-url`。
+使用 PATH 中的本机 `botmux` CLI；找不到命令时先检查安装和 PATH 配置。此技能的发送入口是 Botmux，不再使用旧服务的 `pnpm cli`、`LARK_BOT_URL` 或 `--base-url`。
+
+文档链接相对于所在 Markdown 文件解析。以下命令统一在项目根目录执行，文件参数使用相对于项目根目录的路径；通过全局 Skill 符号链接读取时，先定位其真实源目录，再从该目录的 `../../..` 定位项目根目录。
 
 ## Button action 的两种处理方式
 
 交互卡片统一使用共享 `card-confirmation` 插件，发送时通过请求的 `actionHandling` 选择处理方式：
 
 1. **本地读取（默认）**：省略字段或传入 `{"mode":"local"}`。Hono 核验回调后把 `decision` 保存到本地，当前 agent loop 使用 `status <requestId>` 读取并继续。结束当前轮次不会自动恢复会话。使用此模式时阅读 [默认流程](references/default.md)。
-2. **恢复会话**：传入 `{"mode":"resume","agent":"codex-cli|codex-app",...}`。调用时必须明确 agent 类型、原会话完整 UUID 和绝对工作目录；`codex-app` 还必须提供目标运行时的控制 socket。Hono 先保存结果并入队，后台执行器恢复会话。不得猜测 agent 类型、使用最近会话或把 Botmux 会话 ID 当作 Codex thread ID。
+2. **恢复会话**：传入 `{"mode":"resume","agent":"codex-cli|codex-app",...}`。调用时必须明确 agent 类型、原会话完整 UUID 和工作目录（由相对路径在调用时解析）；`codex-app` 还必须提供目标运行时的控制 socket。Hono 先保存结果并入队，后台执行器恢复会话。不得猜测 agent 类型、使用最近会话或把 Botmux 会话 ID 当作 Codex thread ID。
 
 两种方式都保存 action 结果。拒绝按钮也会触发 resume，使原会话处理取消；恢复会话并不代表批准业务操作。只有在原会话准备等待按钮、没有其他运行中的轮次时使用 resume。发送后不再由当前 loop 同时消费该决定。参数、示例、取消方式和运行限制见 [按钮确认](references/button-confirmation.md)。
 
@@ -59,10 +61,10 @@ botmux setup list --json
 botmux send --session-id <session-id> --no-mention '任务已完成'
 
 # 长消息从 UTF-8 文件读取
-botmux send --session-id <session-id> --no-mention --content-file /absolute/path/message.md
+botmux send --session-id <session-id> --no-mention --content-file ./.reports/lark-card/message.md
 
 # 图片、文件参数可重复
-botmux send --session-id <session-id> --no-mention '结果见附件' --images /absolute/path/preview.png --files /absolute/path/report.pdf
+botmux send --session-id <session-id> --no-mention '结果见附件' --images ./.reports/lark-card/preview.png --files ./.reports/lark-card/report.pdf
 ```
 
 默认私聊通知使用 `--no-mention`。每条发送都要明确选择 `--no-mention`、`--mention-back` 或 `--mention <open_id:名字>`；后两种仅在用户另指定群聊等需要 @ 的场景使用。`--mention` 表示 @，不表示私信收件人。
@@ -74,10 +76,10 @@ botmux send --session-id <session-id> --no-mention '结果见附件' --images /a
 将完整飞书 interactive 卡片 JSON 保存为文件，再通过 Botmux 发送。优先使用 schema 2.0 的 `body.elements` 结构。
 
 ```bash
-botmux send --session-id <session-id> --no-mention --card-file /absolute/path/card.json
+botmux send --session-id <session-id> --no-mention --card-file ./.reports/lark-card/card.json
 
 # 用发送成功结果中的 messageId 原地更新卡片
-botmux card patch --session-id <session-id> --message-id <om_xxx> --card-file /absolute/path/card-updated.json
+botmux card patch --session-id <session-id> --message-id <om_xxx> --card-file ./.reports/lark-card/card-updated.json
 ```
 
 `--card-file` 与 `--card-json` 二选一，自定义卡片不能与 `--content-file` 或 `--voice` 混用。预约结果、课程列表、支付链接等内容应组装为卡片 JSON；旧服务的 `send-booking-card`、`send-course-list-card`、`card-actions` 和事件重试命令没有直接对应的 Botmux 替代命令。

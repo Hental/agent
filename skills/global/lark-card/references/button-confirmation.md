@@ -8,29 +8,33 @@
 
 默认本地读取模式的请求、发送与 agent loop 处理步骤见 [default.md](default.md)。
 
-需要收到 action 后重新唤起原会话时，用以下字段替换 `actionHandling`：
+需要收到 action 后重新唤起原会话时，在项目根目录用以下 JavaScript 生成请求的 `actionHandling`。源码中的路径使用相对路径；当前插件要求持久化的 `cwd` 和 `socketPath` 已解析，因此在调用侧使用 `resolve`，避免后台服务按自己的工作目录解释路径。
 
-```json
-{
-  "mode": "resume",
-  "agent": "codex-cli",
-  "threadId": "<原 Codex 会话完整 UUID>",
-  "cwd": "/absolute/workspace"
-}
+```js
+import { resolve } from 'node:path';
+
+const actionHandling = {
+  mode: 'resume',
+  agent: 'codex-cli',
+  threadId: '<原 Codex 会话完整 UUID>',
+  cwd: resolve('.'),
+};
 ```
 
 `codex-cli` 使用参数数组启动 `codex exec resume --json <threadId> -`，提示通过 stdin 输入，沿用服务进程的 Codex 登录和配置，不绕过审批。调用方必须核实原 CLI 会话已空闲并且属于该工作目录，不与仍在运行的 CLI 并发写入。
 
 `codex-app` 使用：
 
-```json
-{
-  "mode": "resume",
-  "agent": "codex-app",
-  "threadId": "<原 App 任务完整 UUID>",
-  "cwd": "/absolute/workspace",
-  "socketPath": "/absolute/path/to/owning-app-server.sock"
-}
+```js
+import { resolve } from 'node:path';
+
+const actionHandling = {
+  mode: 'resume',
+  agent: 'codex-app',
+  threadId: '<原 App 任务完整 UUID>',
+  cwd: resolve('.'),
+  socketPath: resolve('<相对于项目根目录的实际控制 socket 路径>'),
+};
 ```
 
 该模式通过 `codex app-server proxy --sock` 连接既有运行时，依次 initialize、thread/resume、核验空闲状态和 cwd、turn/start。必须提供属于目标任务的实际控制 socket；不另起 app-server 冒充桌面 App，也不把 Codex 的内部工具当作 Hono 可调用的 HTTP 接口。部署时先确认桌面版本暴露该接口；缺少 socket 时不能选择此模式或悄悄退回 CLI。
@@ -47,7 +51,7 @@
 
 统一使用项目中的 [botmux-card-confirmation](../../../../apps/botmux-card-confirmation/AGENTS.md)，Botmux 插件 ID 为 `card-confirmation`，动作名为 `card_confirmation_decide`。Botmux 中转卡片发送、更新及按钮回调；该插件核验请求并记录决定，具体业务流程读取结果后执行后续操作。
 
-构建一次后在项目根目录运行 `node apps/botmux-card-confirmation/dist/confirm.js send <请求JSON绝对路径> <已核验的完整会话ID>`（先在该 app 目录执行 `pnpm install && pnpm run build`）。请求提供 `title`、完整 `summary`、`expiresAt`（未来时间，带时区）、可选 `context`/`snapshotPath` 和 `options`。每个选项声明唯一 `id`、显示 `label`、结果 `result`（`confirmed`/`rejected`/`selected`）以及可选的业务 `payload`、按钮 `type` 和结果提示 `resultText`。省略 options 时为通用确认/拒绝。高德调用者需显式设置标题和“确认呼叫”按钮文案，并提供当前行程快照。
+构建一次后在项目根目录运行 `node apps/botmux-card-confirmation/dist/confirm.js send ./.reports/<任务名>/request.json <已核验的完整会话ID>`（先在该 app 目录执行 `pnpm install && pnpm run build`）。请求提供 `title`、完整 `summary`、`expiresAt`（未来时间，带时区）、可选 `context`/`snapshotPath` 和 `options`。每个选项声明唯一 `id`、显示 `label`、结果 `result`（`confirmed`/`rejected`/`selected`）以及可选的业务 `payload`、按钮 `type` 和结果提示 `resultText`。省略 options 时为通用确认/拒绝。高德调用者需显式设置标题和“确认呼叫”按钮文案，并提供当前行程快照。
 
 默认使用主技能中已核验的 Mini 私聊身份；其他目标通过 `target: {larkAppId, chatId, operatorId}` 提供已核验映射。客户端还会通过 Botmux history 核对完整会话与 chat_id。按返回的 `requestId` 运行 `status <requestId>` 获取结果；只有 `testOnly: false`、期望的状态和选择、`decision.source: botmux-card-action` 且符合调用业务的当前参数核验，才能继续执行。`selected` 只表示选择了某个选项；业务 payload 从已保存的选项读取，不接受回调自行增加的参数。
 
@@ -62,9 +66,9 @@
 使用 schema 2.0 的 `body.elements` 保存完整卡片 JSON，显示业务信息和对应操作按钮。按钮回调值必须遵循实际插件声明；插件需要把当前请求 ID、快照/参数版本、消息、会话、预期点击者及有效期关联起来，并提供可读取的结果。若插件不能核验这些关联，不用于叫车等需绑定当前参数的确认。
 
 ```text
-botmux send --session-id <已核验会话> --no-mention --card-file <绝对路径> --plugin-card-action <已启用的插件ID>
+botmux send --session-id <已核验会话> --no-mention --card-file ./.reports/<任务名>/card.json --plugin-card-action <已启用的插件ID>
 ```
 
 记录 `success`、`messageId` 和 `sessionId`，按插件文档读取该消息的真实回调结果。只接受当前消息、当前请求、预期点击者在有效期内的首次决定；拒绝、过期和参数变更使原请求失效。重复或迟到回调不得再次触发业务动作。
 
-决定完成或失效后，生成无操作按钮的状态卡片，再用 `botmux card patch --session-id <已核验会话> --message-id <原messageId> --card-file <状态卡片绝对路径>` 原地更新。不要把调用代理自己写入的本地“确认”记录当作用户回调证据。
+决定完成或失效后，生成无操作按钮的状态卡片，再用 `botmux card patch --session-id <已核验会话> --message-id <原messageId> --card-file ./.reports/<任务名>/card-updated.json` 原地更新。不要把调用代理自己写入的本地“确认”记录当作用户回调证据。

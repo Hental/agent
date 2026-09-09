@@ -1,6 +1,6 @@
 ---
 name: supermonkey-booking
-description: 获取字节健康/青橙超级猩猩接口登录态，使用 TypeScript CLI 查询门店、课程、补贴并创建支付宝待支付订单，以及通过 Botmux gateway 发送卡片、接收按钮选择并发送支付链接。用户询问超级猩猩登录态、CLI 命令或飞书通知方式时使用。
+description: 获取字节健康/青橙超级猩猩接口登录态，使用 TypeScript CLI 查询门店、课程、补贴并创建支付宝待支付订单，以及通过 lark-card 发送课程与预约信息、处理按钮确认并发送支付链接。用户询问超级猩猩登录态、CLI 命令或飞书通知方式时使用。
 ---
 
 # 超级猩猩预约
@@ -26,7 +26,7 @@ npm run -s auth -- --format export
 
 ## CLI 命令
 
-在 `/Users/liutao/workspace/agent/skills/global/supermonkey-booking` 运行；首次使用先执行 `npm install`。脚本由 `tsx` 执行，请求使用原生 `fetch`。
+在项目根目录执行 `cd skills/global/supermonkey-booking` 后运行；首次使用先执行 `npm install`。脚本由 `tsx` 执行，请求使用原生 `fetch`。
 
 ```bash
 npm run supermonkey -- stores --lat 30.5705 --lon 104.0688 --city-code 510100
@@ -53,12 +53,16 @@ npm run workflow -- 2026-08-15 --qc-session-id "$QINGCHENG_SESSION_ID"
 
 需要查询接口路径、请求字段和错误语义时读取 [references/api.md](references/api.md)。
 
-## 飞书消息与卡片交互
+## 通过 lark-card 发送信息与确认
 
-统一通过 [`$lark-card`](../lark-card/SKILL.md) 核验收件人及完整 Botmux 会话；默认收件人为 `liutao.fe@bytedance.com`。在运行发卡流程前设置 `BOTMUX_SESSION_ID` 为该已核验会话。它只用于选择发送目标，不代表 Botmux 原生提问会话；不得补造其他会话环境来运行 `ask`。
+课程查询结果、门店与时间、价格和补贴、无可预约课程提示、下单确认、支付链接及预约结果，统一通过 [`$lark-card`](../lark-card/SKILL.md) 发送卡片。需要用户选择或确认时，使用同一技能的 button action；不能用只在终端输出的信息替代面向用户的信息卡片。`--dry-run` 保持只输出预览，不发送卡片。
 
-`card-gateway.ts` 调用项目 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md) 构建后的共享客户端（`apps/botmux-card-confirmation/dist/client.js`，类型声明由构建自动生成）。课程列表、下单确认、支付链接和结果通知全部由 Botmux 中转；按钮事件通过 `card-confirmation` 插件接收。先按插件说明构建、启动服务并检查健康，保持运行直到选择流程结束。普通卡片发送只需 Botmux 在线。
+发送前按 `lark-card` 核验收件人及完整 Botmux 会话；默认收件人为 `liutao.fe@bytedance.com`。在运行发卡流程前设置 `BOTMUX_SESSION_ID` 为该已核验会话。它只用于选择发送目标，不代表 Botmux 原生提问会话；不得补造其他会话环境来运行 `ask`。
+
+默认按 [lark-card 本地读取流程](../lark-card/references/default.md) 处理按钮：`actionHandling: {mode: "local"}`，回调保存结果，当前工作流通过 `waitForChoice` 轮询同一请求并继续。现有 `workflow` 和 `request-order` 使用此模式；不要同时配置 resume 让另一个会话消费同一决定。若另行实现会话恢复流程，应按 lark-card 的 resume 约定声明 agent 类型，并交接业务步骤及防重复执行状态。
+
+`card-gateway.ts` 是本业务对 lark-card 共享能力的适配层，调用项目 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md) 构建后的共享客户端（`apps/botmux-card-confirmation/dist/client.js`，类型声明由构建自动生成）。`sendMessage` 将普通信息包装成 schema 2.0 卡片，`sendConfirmation` 注册允许的按钮选项。课程列表、下单确认、支付链接和结果通知全部通过 lark-card 的 Botmux 网关中转；按钮事件通过 `card-confirmation` 插件接收。先按插件说明构建、启动服务并检查健康，保持运行直到选择流程结束。普通卡片发送只需 Botmux 在线。
 
 其他收件人需另提供已核验的 `BOTMUX_CARD_TARGET_JSON`，包含 `email`、`larkAppId`、`chatId`、`operatorId`，并指定该私聊的 `BOTMUX_SESSION_ID`。不再使用旧服务的 `LARK_BOT_DIR`、`LARK_BOT_URL` 或 `pnpm cli`。
 
-`request-order` 的确认卡片包含课程、门店、时间、个人支付金额和“是/否”按钮。`workflow` 提供课程选择和取消选项。两者只接受当前请求的真实 Botmux 决定，拒绝 `testOnly`；回调仅记录选择，业务流程再检查参数并创建一次支付宝待支付订单。课程或费用变化需重新确认。支付链接通过 Botmux 发送，禁止自动打开支付应用或代用户完成付款。
+`request-order` 的确认卡片包含课程、门店、时间、个人支付金额和“是/否”按钮。`workflow` 提供课程选择和取消选项。两者只接受当前请求的真实 Botmux 决定，拒绝 `testOnly`；回调仅记录选择，业务流程再检查参数并创建一次支付宝待支付订单。课程或费用变化需重新确认。支付链接通过 lark-card 发送卡片，禁止自动打开支付应用或代用户完成付款。

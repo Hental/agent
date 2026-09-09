@@ -1,4 +1,4 @@
 interface:
   display_name: "超级猩猩预约"
-  short_description: "获取登录态、运行预约 CLI，并通过飞书发送确认和支付链接"
-  default_prompt: "使用 $supermonkey-booking 获取青橙登录态、运行超级猩猩预约 CLI，并通过 lark-card 发送下单确认卡片和支付宝支付链接。"
+  short_description: "获取登录态、运行预约 CLI，通过 lark-card 发送信息并处理按钮确认"
+  default_prompt: "使用 $supermonkey-booking 获取青橙登录态、运行超级猩猩预约 CLI，并通过 $lark-card 发送课程信息、处理选择与下单确认，并发送支付宝支付链接。"
