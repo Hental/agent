@@ -7,6 +7,8 @@ description: 获取字节健康/青橙超级猩猩接口登录态，使用 TypeS
 
 ## 获取登录态
 
+移动端操作使用 Android SDK 的 AVD（Android Emulator），不使用 MuMu。先通过 `adb devices -l` 和 `emulator -list-avds` 检查并复用已有 AVD；未运行时启动已有虚拟设备，不新建或清空设备。按 `$android-device-automation` 操作其中的飞书。桌面飞书提示“仅支持移动端”时，转到 AVD 继续，不将 MuMu 的登录状态作为本流程的阻碍。
+
 登录态来自已登录飞书账号打开“工作台 → 字节健康 → 合作健身房”后的青橙 WebView 请求，不能使用匿名浏览器 Cookie。飞书账号不正确时先切换账号。
 
 使用 Bifrost 仅拦截 `yql.qingchengfit.cn`，在 WebView 中刷新门店或课程页面后，运行 `auth.ts` 从最近的成功请求中提取 `qc-session-id`：
