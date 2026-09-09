@@ -1,8 +1,6 @@
 #!/usr/bin/env -S npx tsx
 
-import { execFile } from "node:child_process";
-import { randomUUID } from "node:crypto";
-import { promisify } from "node:util";
+import { sendConfirmation, sendMessage, waitForChoice } from "./card-gateway.js";
 
 type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 
@@ -22,9 +20,6 @@ const options = parseOptions(args.slice(1));
 const baseUrl = (process.env.QINGCHENG_BASE_URL ?? "https://yql.qingchengfit.cn").replace(/\/$/, "");
 const defaultCorpId = process.env.QINGCHENG_CORP_ID ?? "QC0DA3DA";
 const defaultRecipientEmail = "liutao.fe@bytedance.com";
-const larkBotDir = process.env.LARK_BOT_DIR ?? "/Users/liutao/workspace/agent/llm-wiki/lark/bot";
-const larkBotBaseUrl = process.env.LARK_BOT_URL;
-const execFileAsync = promisify(execFile);
 
 function parseOptions(tokens: string[]): Map<string, string | true> {
   const parsed = new Map<string, string | true>();
@@ -188,26 +183,6 @@ async function submitOrder(body: ReturnType<typeof orderBody>): Promise<ApiEnvel
   });
 }
 
-async function runLarkBot(argv: string[]): Promise<unknown> {
-  const cliArgs = ["cli", ...argv];
-  if (larkBotBaseUrl) cliArgs.push("--base-url", larkBotBaseUrl);
-  const { stdout, stderr } = await execFileAsync("pnpm", cliArgs, {
-    cwd: larkBotDir,
-    env: process.env,
-    maxBuffer: 4 * 1024 * 1024,
-  });
-  const raw = stdout.trim();
-  if (!raw) throw new Error(`lark-bot CLI 未返回 JSON：${stderr.trim()}`);
-  const jsonStart = raw.indexOf("{");
-  if (jsonStart < 0) throw new Error(`lark-bot CLI 输出不是 JSON：${raw.slice(0, 300)}`);
-  return JSON.parse(raw.slice(jsonStart)) as unknown;
-}
-
-function asRecord(value: unknown): Record<string, unknown> {
-  if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("预期得到对象类型的数据");
-  return value as Record<string, unknown>;
-}
-
 function durationMs(value: string): number {
   const match = /^(\d+)([smh])$/.exec(value);
   if (!match) throw new Error("--confirmation-timeout 格式应类似 30m、60s 或 1h");
@@ -216,16 +191,10 @@ function durationMs(value: string): number {
 }
 
 async function waitForDecision(requestId: string, timeout: string): Promise<"confirm" | "cancel"> {
-  const deadline = Date.now() + durationMs(timeout);
-  while (Date.now() < deadline) {
-    const response = asRecord(await runLarkBot(["card-actions", "--request-id", requestId]));
-    const actions = Array.isArray(response.actions) ? response.actions.map(asRecord) : [];
-    const action = actions.find((item) => item.requestId === requestId)?.action;
-    if (action === "confirm_order") return "confirm";
-    if (action === "cancel_order") return "cancel";
-    await new Promise((resolve) => setTimeout(resolve, 1_000));
-  }
-  throw new Error("等待飞书卡片确认超时");
+  const result = await waitForChoice(requestId, durationMs(timeout));
+  if (result.status === "confirmed" && result.decision?.value === "confirm") return "confirm";
+  if (result.status === "rejected") return "cancel";
+  throw new Error("未知确认选项，未创建订单");
 }
 
 function findPaymentUrl(value: unknown): string | undefined {
@@ -248,39 +217,38 @@ async function requestOrder(): Promise<void> {
   const corpId = option("corp-id", defaultCorpId);
   const bizType = integerOption("biz-type", 1);
   const recipientEmail = option("recipient-email", defaultRecipientEmail);
-  const requestId = randomUUID();
-  const bookingCardArgs = [
-    "send-booking-card", "--email", recipientEmail, "--request-id", requestId,
-    "--class-name", option("class-name"), "--gym-name", option("gym-name"),
-    "--start-time", option("start-time"), "--end-time", option("end-time"),
-    "--online-cost", String(body.online_cost),
-  ];
+  const timeout = option("confirmation-timeout", "30m");
+  const card = {
+    title: "超级猩猩 · 下单确认",
+    summary: `课程：${option("class-name")}\n门店：${option("gym-name")}\n时间：${option("start-time")}–${option("end-time")}\n个人支付：${(body.online_cost / 100).toFixed(2)} 元\n确认后创建支付宝待支付订单，由你完成付款。`,
+    expiresAt: new Date(Date.now() + durationMs(timeout)).toISOString(),
+    context: { workflow: "supermonkey-order", order: body },
+    options: [
+      { id: "confirm", label: "是", result: "confirmed" as const, type: "primary" as const },
+      { id: "reject", label: "否", result: "rejected" as const, type: "danger" as const },
+    ],
+  };
   if (hasFlag("dry-run")) {
-    print({ dry_run: true, recipient: recipientEmail, order: body, lark_bot: { cwd: larkBotDir, args: bookingCardArgs } });
+    print({ dry_run: true, recipient: recipientEmail, order: body, gateway: "botmux", card });
     return;
   }
   await fetchPreflight(body.schedule_id, corpId, bizType);
-  const sent = asRecord(await runLarkBot(bookingCardArgs));
-  if (sent.ok !== true || typeof sent.messageId !== "string") throw new Error("lark-bot 响应中缺少 messageId");
-  const decision = await waitForDecision(requestId, option("confirmation-timeout", "30m"));
-    if (decision === "cancel") {
-      print({ cancelled: true, message_id: sent.messageId, recipient: recipientEmail });
-      return;
-    }
-    await fetchPreflight(body.schedule_id, corpId, bizType);
-    const order = await submitOrder(body);
-    const paymentUrl = findPaymentUrl(order.data);
-    if (!paymentUrl) throw new Error("订单已创建，但响应中没有找到 HTTP(S) 支付宝支付链接");
-    const paymentMessage = asRecord(await runLarkBot([
-      "send", "--receive-id", recipientEmail, "--receive-id-type", "email",
-      "--text", `支付宝待支付订单已创建：${paymentUrl}`,
-    ]));
-    if (paymentMessage.ok !== true) throw new Error("lark-bot 发送支付宝链接失败");
-    print({ created: true, recipient: recipientEmail, payment_url: paymentUrl, order });
+  const sent = await sendConfirmation(card, recipientEmail);
+  const decision = await waitForDecision(sent.requestId, timeout);
+  if (decision === "cancel") {
+    print({ cancelled: true, message_id: sent.messageId, recipient: recipientEmail });
+    return;
+  }
+  await fetchPreflight(body.schedule_id, corpId, bizType);
+  const order = await submitOrder(body);
+  const paymentUrl = findPaymentUrl(order.data);
+  if (!paymentUrl) throw new Error("订单已创建，但响应中没有找到 HTTP(S) 支付宝支付链接");
+  await sendMessage(`支付宝待支付订单已创建：[打开支付链接](${paymentUrl})`, recipientEmail);
+  print({ created: true, recipient: recipientEmail, payment_url: paymentUrl, order });
 }
 
 function help(): void {
-  process.stdout.write(`超级猩猩预约 CLI\n飞书消息：lark-bot（${larkBotDir}）\n\n命令：\n  stores --lat N --lon N --city-code CODE [--page N] [--corp-id ID]\n    查询附近合作门店\n  store-detail --gym-id ID\n    查询门店详情\n  schedules --gym-id ID --from-date YYYY-MM-DD --to-date YYYY-MM-DD [--corp-id ID]\n    查询指定日期范围的课程排期\n  preflight --schedule-id ID [--biz-type 1] [--corp-id ID]\n    查询预约弹窗和可用补贴\n  create-order --schedule-id ID --general-card-id ID --online-cost FEN [--channel ALIPAY_QRCODE]\n    仅预览创建订单请求，不会提交\n  request-order --schedule-id ID --general-card-id ID --online-cost FEN --class-name TEXT --gym-name TEXT --start-time TEXT --end-time TEXT [--recipient-email EMAIL] [--confirmation-timeout 30m] [--dry-run]\n    通过 lark-bot 发送确认卡片；仅在点击“是”后创建订单并发送支付宝链接\n`);
+  process.stdout.write(`超级猩猩预约 CLI\n飞书消息与卡片回调：Botmux gateway（需要已核验的 BOTMUX_SESSION_ID）\n\n命令：\n  stores --lat N --lon N --city-code CODE [--page N] [--corp-id ID]\n    查询附近合作门店\n  store-detail --gym-id ID\n    查询门店详情\n  schedules --gym-id ID --from-date YYYY-MM-DD --to-date YYYY-MM-DD [--corp-id ID]\n    查询指定日期范围的课程排期\n  preflight --schedule-id ID [--biz-type 1] [--corp-id ID]\n    查询预约弹窗和可用补贴\n  create-order --schedule-id ID --general-card-id ID --online-cost FEN [--channel ALIPAY_QRCODE]\n    仅预览创建订单请求，不会提交\n  request-order --schedule-id ID --general-card-id ID --online-cost FEN --class-name TEXT --gym-name TEXT --start-time TEXT --end-time TEXT [--recipient-email EMAIL] [--confirmation-timeout 30m] [--dry-run]\n    通过 Botmux 发送确认卡片；仅在点击“是”后创建订单并发送支付宝链接\n`);
 }
 
 async function main(): Promise<void> {

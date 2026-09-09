@@ -15,6 +15,12 @@
 - Do not generate `README.md` files. Put project, app, and script documentation (including setup and usage instructions) in `AGENTS.md` in the corresponding directory instead.
 - If an `AGENTS.md` already exists, update it while preserving its existing instructions.
 
+# Card messaging gateway
+
+- Route project Feishu/Lark card messages, card updates, and button interactions through Botmux. Follow `skills/global/lark-bot/SKILL.md` to verify the recipient and session.
+- Use `apps/botmux-card-confirmation/` for shared confirmation and selection handling; business workflows supply content/options and consume verified decisions. Additional interactive components must register their handlers with Botmux.
+- Keep business actions in their owning workflow. Do not add direct Feishu card senders or independent callback ingress. `apps/lark-bot/` is legacy code; new integrations use the Botmux gateway.
+
 # Intermediate artifacts
 
 - Store screenshots, generated images, rendered previews, captured responses, debug logs, temporary reports, and similar intermediate artifacts under the project-root `./.reports/` directory.

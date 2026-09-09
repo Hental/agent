@@ -1,6 +1,6 @@
 ---
 name: supermonkey-booking
-description: 获取字节健康/青橙超级猩猩接口登录态，使用 TypeScript CLI 查询门店、课程、补贴并创建支付宝待支付订单，以及通过本地 lark-bot 发送下单确认卡片和支付链接。用户询问超级猩猩登录态、CLI 命令或飞书通知方式时使用。
+description: 获取字节健康/青橙超级猩猩接口登录态，使用 TypeScript CLI 查询门店、课程、补贴并创建支付宝待支付订单，以及通过 Botmux gateway 发送卡片、接收按钮选择并发送支付链接。用户询问超级猩猩登录态、CLI 命令或飞书通知方式时使用。
 ---
 
 # 超级猩猩预约
@@ -53,16 +53,12 @@ npm run workflow -- 2026-08-15 --qc-session-id "$QINGCHENG_SESSION_ID"
 
 需要查询接口路径、请求字段和错误语义时读取 [references/api.md](references/api.md)。
 
-## 飞书消息发送
+## 飞书消息与卡片交互
 
-使用 [`$lark-bot`](/Users/liutao/workspace/agent/skills/global/lark-bot/SKILL.md)，默认项目目录为 `/Users/liutao/workspace/agent/llm-wiki/lark/bot`，默认收件人为 `liutao.fe@bytedance.com`。
+统一通过 [`$lark-bot`](../lark-bot/SKILL.md) 核验收件人及完整 Botmux 会话；默认收件人为 `liutao.fe@bytedance.com`。在运行发卡流程前设置 `BOTMUX_SESSION_ID` 为该已核验会话。它只用于选择发送目标，不代表 Botmux 原生提问会话；不得补造其他会话环境来运行 `ask`。
 
-```bash
-cd /Users/liutao/workspace/agent/llm-wiki/lark/bot
-pnpm cli health
-pnpm cli send --receive-id liutao.fe@bytedance.com --receive-id-type email --text "消息内容"
-pnpm cli send-booking-card --email liutao.fe@bytedance.com --request-id req_xxx --class-name "课程名" --gym-name "超级猩猩·天府三街" --start-time "2026-08-12 18:40" --end-time "19:40" --online-cost 2900
-pnpm cli card-actions --request-id req_xxx
-```
+`card-gateway.ts` 调用项目 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md) 的共享客户端。课程列表、下单确认、支付链接和结果通知全部由 Botmux 中转；按钮事件通过 `card-confirmation` 插件接收。先按插件说明启动服务并检查健康，保持运行直到选择流程结束。普通卡片发送只需 Botmux 在线。
 
-`request-order` 会发送仅含“是/否”的确认卡片；只接受同一 `requestId` 的“是”回调，然后重新预检、创建一次支付宝待支付订单，并把支付链接发送给收件人。点击“否”时不下单。禁止自动打开支付应用或代用户完成付款。
+其他收件人需另提供已核验的 `BOTMUX_CARD_TARGET_JSON`，包含 `email`、`larkAppId`、`chatId`、`operatorId`，并指定该私聊的 `BOTMUX_SESSION_ID`。不再使用旧服务的 `LARK_BOT_DIR`、`LARK_BOT_URL` 或 `pnpm cli`。
+
+`request-order` 的确认卡片包含课程、门店、时间、个人支付金额和“是/否”按钮。`workflow` 提供课程选择和取消选项。两者只接受当前请求的真实 Botmux 决定，拒绝 `testOnly`；回调仅记录选择，业务流程再检查参数并创建一次支付宝待支付订单。课程或费用变化需重新确认。支付链接通过 Botmux 发送，禁止自动打开支付应用或代用户完成付款。

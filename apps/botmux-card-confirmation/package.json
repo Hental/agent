@@ -1,0 +1,10 @@
+{
+  "name": "botmux-plugin-card-confirmation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "keywords": ["botmux-plugin"],
+  "files": ["dist/"],
+  "botmux": {"schemaVersion": 1, "id": "card-confirmation", "service": {"mode": "manual"}},
+  "scripts": {"build": "node build.mjs", "test": "node --test test/*.test.mjs"}
+}

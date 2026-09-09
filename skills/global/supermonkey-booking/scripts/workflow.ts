@@ -1,10 +1,7 @@
 #!/usr/bin/env -S npx tsx
 
-import { execFile } from 'node:child_process';
-import { randomUUID } from 'node:crypto';
-import { promisify } from 'node:util';
+import { sendConfirmation, sendMessage, waitForChoice } from './card-gateway.js';
 
-type Json = null | boolean | number | string | Json[] | { [key: string]: Json };
 type RecordValue = Record<string, unknown>;
 
 interface ApiEnvelope {
@@ -32,9 +29,6 @@ const RECIPIENT_EMAIL = 'liutao.fe@bytedance.com';
 const START_MINUTES = 18 * 60 + 30;
 const END_MINUTES = 21 * 60;
 const baseUrl = (process.env.QINGCHENG_BASE_URL ?? 'https://yql.qingchengfit.cn').replace(/\/$/, '');
-const larkBotDir = process.env.LARK_BOT_DIR ?? '/Users/liutao/workspace/agent/llm-wiki/lark/bot';
-const larkBotBaseUrl = process.env.LARK_BOT_URL;
-const execFileAsync = promisify(execFile);
 
 function parseArgs(argv: string[]): { date: string; sessionId: string; timeout: string; dryRun: boolean } {
   if (argv.includes('--help') || argv.includes('-h')) {
@@ -192,18 +186,6 @@ async function availableCourses(sessionId: string, date: string): Promise<Course
   }));
 }
 
-async function runLarkBot(argv: string[]): Promise<RecordValue> {
-  const cliArgs = ['cli', ...argv];
-  if (larkBotBaseUrl) cliArgs.push('--base-url', larkBotBaseUrl);
-  const { stdout, stderr } = await execFileAsync('pnpm', cliArgs, {
-    cwd: larkBotDir, env: process.env, maxBuffer: 4 * 1024 * 1024,
-  });
-  const raw = stdout.trim();
-  const jsonStart = raw.indexOf('{');
-  if (jsonStart < 0) throw new Error(`lark-bot CLI 未返回 JSON：${stderr.trim() || raw.slice(0, 300)}`);
-  return asRecord(JSON.parse(raw.slice(jsonStart)) as Json, 'lark-bot 响应无效');
-}
-
 function durationMs(value: string): number {
   const match = /^(\d+)([smh])$/.exec(value);
   if (!match) throw new Error('--confirmation-timeout 格式应类似 30m、60s 或 1h');
@@ -211,18 +193,12 @@ function durationMs(value: string): number {
 }
 
 async function waitForSelection(requestId: string, timeout: string): Promise<string | null> {
-  const deadline = Date.now() + durationMs(timeout);
-  while (Date.now() < deadline) {
-    const response = await runLarkBot(['card-actions', '--request-id', requestId]);
-    const actions = Array.isArray(response.actions) ? response.actions.map((item) => asRecord(item)) : [];
-    const action = actions.find((item) => item.requestId === requestId
-      && (item.action === 'cancel_order'
-        || (item.action === 'select_course' && typeof item.scheduleId === 'string')));
-    if (action?.action === 'cancel_order') return null;
-    if (action?.action === 'select_course' && typeof action.scheduleId === 'string') return action.scheduleId;
-    await new Promise((resolve) => setTimeout(resolve, 1_000));
-  }
-  throw new Error('等待飞书课程选择超时');
+  const result = await waitForChoice(requestId, durationMs(timeout));
+  if (result.status === 'rejected') return null;
+  const payload = result.decision?.payload;
+  if (result.status === 'selected' && payload && typeof payload === 'object'
+    && 'scheduleId' in payload && typeof payload.scheduleId === 'string') return payload.scheduleId;
+  throw new Error('回调缺少有效的课程选择');
 }
 
 function findPaymentUrl(value: unknown): string | undefined {
@@ -245,14 +221,12 @@ async function main(): Promise<void> {
   const courses = await availableCourses(sessionId, date);
   if (courses.length === 0) {
     if (!dryRun) {
-      await runLarkBot(['send', '--receive-id', RECIPIENT_EMAIL, '--receive-id-type', 'email',
-        '--text', `${date} ${GYM_NAME} 18:30–21:00 暂无可预约课程。`]);
+      await sendMessage(`${date} ${GYM_NAME} 18:30–21:00 暂无可预约课程。`);
     }
     process.stdout.write(`${JSON.stringify({ date, courses: [], sent: !dryRun }, null, 2)}\n`);
     return;
   }
   if (courses.length > 10) throw new Error('符合条件的课程超过 10 门，无法生成单张选择卡片');
-  const requestId = randomUUID();
   const cardCourses = courses.map((course) => ({
     scheduleId: course.scheduleId, className: course.className, coachName: course.coachName,
     startTime: course.startTime, endTime: course.endTime, onlineCost: course.onlineCost,
@@ -261,12 +235,19 @@ async function main(): Promise<void> {
     process.stdout.write(`${JSON.stringify({ dry_run: true, date, recipient: RECIPIENT_EMAIL, courses: cardCourses }, null, 2)}\n`);
     return;
   }
-  const sent = await runLarkBot([
-    'send-course-list-card', '--email', RECIPIENT_EMAIL, '--request-id', requestId,
-    '--date', date, '--gym-name', GYM_NAME, '--courses-json', JSON.stringify(cardCourses),
-  ]);
-  if (sent.ok !== true || typeof sent.messageId !== 'string') throw new Error('课程列表卡片发送失败');
-  const selectedScheduleId = await waitForSelection(requestId, timeout);
+  const sent = await sendConfirmation({
+    title: '超级猩猩 · 选择课程',
+    summary: `${date} · ${GYM_NAME}\n选择课程后将创建支付宝待支付订单，由你完成付款。\n\n` + courses.map(course =>
+      `**${course.className}**\n${course.startTime}–${course.endTime} · ${course.coachName} · 个人支付 ${(course.onlineCost / 100).toFixed(2)} 元`).join('\n\n'),
+    expiresAt: new Date(Date.now() + durationMs(timeout)).toISOString(),
+    context: { workflow: 'supermonkey-course-selection', date, courses: cardCourses },
+    options: [
+      ...courses.map((course, index) => ({ id: `course_${index}`, label: `${course.startTime} ${course.className}`,
+        result: 'selected' as const, payload: { scheduleId: course.scheduleId } })),
+      { id: 'reject', label: '取消预订', result: 'rejected' as const, type: 'danger' as const },
+    ],
+  });
+  const selectedScheduleId = await waitForSelection(sent.requestId, timeout);
   if (!selectedScheduleId) {
     process.stdout.write(`${JSON.stringify({ cancelled: true, date, message_id: sent.messageId }, null, 2)}\n`);
     return;
@@ -279,6 +260,11 @@ async function main(): Promise<void> {
   const [onlineCost, generalCardId] = await Promise.all([
     preflight(sessionId, selectedScheduleId), fetchGeneralCardId(sessionId, date),
   ]);
+  const approved = courses.find(course => course.scheduleId === selectedScheduleId)!;
+  if (onlineCost !== approved.onlineCost || selected.startTime !== approved.startTime
+    || selected.endTime !== approved.endTime || selected.className !== approved.className) {
+    throw new Error('课程或费用已变化，需要重新确认，未创建订单');
+  }
   const order = await api(sessionId, '/api/corp/company/supermonkey/order/', {
     method: 'POST',
     body: JSON.stringify({
@@ -290,11 +276,7 @@ async function main(): Promise<void> {
   });
   const paymentUrl = findPaymentUrl(order.data);
   if (!paymentUrl) throw new Error('订单已创建，但响应中没有找到 HTTP(S) 支付链接');
-  const paymentMessage = await runLarkBot([
-    'send', '--receive-id', RECIPIENT_EMAIL, '--receive-id-type', 'email',
-    '--text', `${selected.className}（${date} ${selected.startTime}–${selected.endTime}）支付宝待支付订单已创建：${paymentUrl}`,
-  ]);
-  if (paymentMessage.ok !== true) throw new Error('支付宝支付链接发送失败');
+  await sendMessage(`${selected.className}（${date} ${selected.startTime}–${selected.endTime}）支付宝待支付订单已创建：[打开支付链接](${paymentUrl})`);
   process.stdout.write(`${JSON.stringify({
     created: true, date, schedule_id: selectedScheduleId, class_name: selected.className,
     online_cost: onlineCost, recipient: RECIPIENT_EMAIL, payment_url: paymentUrl,
