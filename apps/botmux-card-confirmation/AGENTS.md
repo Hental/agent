@@ -1,31 +1,31 @@
-# Botmux card confirmation
+# Botmux 卡片确认
 
-`botmux-card-confirmation` is the shared card and button-interaction adapter for project workflows. Its Botmux package is `botmux-plugin-card-confirmation`, plugin ID is `card-confirmation`, and callback action is `card_confirmation_decide`.
+`botmux-card-confirmation` 是项目工作流共用的卡片与按钮交互适配器。Botmux 包名为 `botmux-plugin-card-confirmation`，插件 ID 为 `card-confirmation`，回调动作为 `card_confirmation_decide`。
 
-Botmux is the gateway for all outgoing Feishu/Lark cards, card updates and incoming button events. This app owns request validation and decision state. Business workflows own card content, allowed choices and subsequent business actions. The callback never executes shell commands, calls ADB, submits an order or makes a payment. Use `lark-bot` to verify the current recipient and full Botmux session ID before sending.
+所有飞书/Lark 卡片发送、卡片更新和按钮事件都通过 Botmux 网关中转。本应用负责请求校验和决定状态；业务工作流负责卡片内容、允许的选项及后续业务操作。回调不得执行 shell 命令、调用 ADB、提交订单或付款。发送前使用 `lark-bot` 核验当前收件人及完整的 Botmux 会话 ID。
 
-## Structure and commands
+## 目录结构与命令
 
-- TypeScript sources under `src/` are bundled with Rspack (`rspack.config.ts`) into Node ESM entry points under `dist/`: `client.js` (shared API), `confirm.js` (CLI), `run-local.js` (compatibility runner), `finish-test.js`, `service/index.js`, `service/server.js`. Type declarations are generated from the TypeScript sources into `dist/*.d.ts`; there are no handwritten declaration files and no parallel JavaScript implementations.
-- `src/types.ts` centralizes request, state, option, client and callback-boundary types; external JSON (callback events, CLI input) is runtime-validated in `src/state.ts` and `src/request.ts`.
-- `src/client.ts`: shared API; all sending and patching uses Botmux CLI argument arrays. No Feishu SDK, application secret or direct OpenAPI call is used here.
-- `src/cli.ts` (bundled as `confirm.js`): CLI wrapper for the same API. Every successful command prints one JSON result.
-- `src/request.ts`: validates generic title, summary, expiry, target, options and business context.
-- `src/state.ts`: authenticates the callback's request bindings and persists the first valid decision.
-- `src/lock.ts`: serializes request mutations across the CLI and callback-service processes.
-- `src/card.ts`: renders schema 2.0 cards, including multi-option selection and terminal cards without buttons.
-- `src/service/`: loopback HTTP callback service, authenticated with Botmux's gateway token.
-- `src/runtime.ts`: locates the build-time `dist/runtime.json` (absolute state dir and node binary); bundled chunks resolve it relative to `dist/`, never `apps/.reports` or `dist/.reports`.
-- Runtime state and generated card artifacts live under project-root `.reports/botmux-card-confirmation/`. Tests use `.reports/botmux-card-confirmation-test/`; smoke-test copies live under `.reports/botmux-card-confirmation-ts/`.
+- `src/` 下的 TypeScript 源码通过 Rspack（`rspack.config.ts`）打包为 `dist/` 下的 Node ESM 入口：`client.js`（共享 API）、`confirm.js`（CLI）、`run-local.js`（兼容运行器）、`finish-test.js`、`service/index.js`、`service/server.js`。类型声明从 TypeScript 源码生成到 `dist/*.d.ts`，不维护手写声明文件或另一套 JavaScript 实现。
+- `src/types.ts`：集中定义请求、状态、选项、客户端及回调边界类型；外部 JSON（回调事件、CLI 输入）由 `src/state.ts` 和 `src/request.ts` 在运行时校验。
+- `src/client.ts`：共享 API；所有发送和更新操作都通过参数数组调用 Botmux CLI，不使用飞书 SDK、应用密钥或直接 OpenAPI 调用。
+- `src/cli.ts`（打包为 `confirm.js`）：共享 API 的 CLI 封装，每条成功执行的命令输出一个 JSON 结果。
+- `src/request.ts`：校验通用标题、摘要、有效期、目标、选项和业务上下文。
+- `src/state.ts`：核验回调与请求的绑定关系，并持久化首个有效决定。
+- `src/lock.ts`：串行化 CLI 与回调服务进程对请求的修改。
+- `src/card.ts`：渲染 schema 2.0 卡片，包括多选项卡片及不含按钮的终态卡片。
+- `src/service/`：基于 Hono 和 `@hono/node-server` 的 HTTP 回调服务，仅监听本机回环地址。`GET /health` 提供健康检查，`POST /card-action` 先核验 Botmux 网关令牌，再通过 `hono/body-limit` 将请求体限制为 64 KiB。鉴权失败返回 401，超限返回 413，回调校验失败仍返回 Botmux 的警告确认响应。Hono 及 Node 适配器由 Rspack 一并打包，运行时无需额外安装依赖。
+- `src/runtime.ts`：定位构建时生成的 `dist/runtime.json`（状态目录绝对路径及 Node 可执行文件路径）；打包产物相对于 `dist/` 解析该文件，不得误定位到 `apps/.reports` 或 `dist/.reports`。
+- 运行状态及生成的卡片产物存放在项目根目录的 `.reports/botmux-card-confirmation/`。测试使用 `.reports/botmux-card-confirmation-test/`；冒烟测试的产物副本存放在 `.reports/botmux-card-confirmation-ts/`。
 
-Run from this directory:
+在本目录执行：
 
 ```bash
 pnpm install
-pnpm run build        # rspack bundle + generated .d.ts
-pnpm run typecheck    # strict tsc --noEmit over src, tests and config
-pnpm run test         # unit and multi-process tests against TypeScript sources
-pnpm run test:dist    # smoke tests against the built dist copy in .reports
+pnpm run build        # Rspack 打包并生成 .d.ts
+pnpm run typecheck    # 对源码、测试和配置执行严格的 tsc --noEmit 检查
+pnpm run test         # 针对 TypeScript 源码运行单元测试和多进程测试
+pnpm run test:dist    # 针对 .reports 中的 dist 产物副本运行冒烟测试
 node dist/confirm.js health
 node dist/confirm.js send /absolute/request.json <verified-full-session-id>
 node dist/confirm.js send-card /absolute/display-card.json <verified-full-session-id>
@@ -34,20 +34,20 @@ node dist/confirm.js invalidate <request-id>
 node dist/confirm.js patch <request-id>
 ```
 
-`send-card` accepts display/link cards. Callback cards use `send`, which registers every option and binds it to the request. For existing raw card integrations, Botmux's `send --card-file` / `card patch` remain the transport; additional interactive components must have a declared and implemented Botmux handler before use.
+`send-card` 接收展示卡片或链接卡片。包含回调的卡片使用 `send`，由它注册每个选项并绑定请求。已有的原始卡片集成仍通过 Botmux 的 `send --card-file` / `card patch` 传输；新增交互组件必须先声明并实现对应的 Botmux 处理器。
 
-## Confirmation request
+## 确认请求
 
-Required fields are `summary` (Markdown) and `expiresAt` (future ISO time with timezone). Optional fields:
+必填字段为 `summary`（Markdown）和 `expiresAt`（带时区、晚于当前时间的 ISO 时间）。可选字段如下：
 
-- `title`: defaults to `操作确认`; the caller supplies its business title.
-- `options`: 1–20 distinct choices. Each has `id`, `label`, `result` (`confirmed`, `rejected`, or `selected`), and optional `type` (`default`, `primary`, `danger`), `payload`, `resultText`. Defaults are confirm/reject. `resultText` describes the recorded choice, not an operation that has not happened yet.
-- `context`: local business metadata/snapshot version to associate with this request; not included in callback button values.
-- `snapshotPath`: optional snapshot association; send the actual image through Botmux separately in the same verified chat and reference the request ID.
-- `target`: verified `larkAppId`, `chatId`, `operatorId`. If omitted, use the verified Mini private-chat mapping in `src/defaults.ts`. The client also checks the supplied session's current chat via Botmux history. Verify the app/operator mapping before using a different target.
-- `testOnly`: defaults to false. True requests are visibly labelled tests and must never authorize business execution.
+- `title`：默认为 `操作确认`；调用方应提供对应的业务标题。
+- `options`：1–20 个互不重复的选项。每个选项包含 `id`、`label`、`result`（`confirmed`、`rejected` 或 `selected`），以及可选的 `type`（`default`、`primary`、`danger`）、`payload`、`resultText`。默认选项为确认/拒绝。`resultText` 描述已记录的选择，不得声称尚未执行的操作已经完成。
+- `context`：与请求关联的本地业务元数据或快照版本，不包含在按钮回调值中。
+- `snapshotPath`：可选的快照关联。实际图片需通过 Botmux 单独发送到同一个已核验会话，并注明请求 ID。
+- `target`：已核验的 `larkAppId`、`chatId`、`operatorId`。省略时使用 `src/defaults.ts` 中已核验的 Mini 私聊映射。客户端还会通过 Botmux history 检查所提供会话当前对应的聊天。使用其他目标前，必须核验应用与操作人的映射。
+- `testOnly`：默认为 false。为 true 时必须明显标注为测试，且绝不能授权真实业务操作。
 
-Example options for a booking workflow:
+预约工作流的选项示例：
 
 ```json
 [
@@ -56,15 +56,15 @@ Example options for a booking workflow:
 ]
 ```
 
-A button carries only `action`, `requestId`, `nonce`, and `optionId`. The callback resolves its result and payload from the stored allowlist; callback-supplied business payload is ignored. The service checks its gateway token plus application, operator, chat, message, nonce, expiry and pending state. It only accepts the first valid choice. `decision` records the choice ID, label, stored payload, actor, event ID, message ID and `source: botmux-card-action`.
+按钮只携带 `action`、`requestId`、`nonce` 和 `optionId`。回调从已存储的允许选项中解析结果和业务数据，忽略回调自行提供的业务 payload。服务核验网关令牌、应用、操作人、聊天、消息、nonce、有效期及待确认状态，只接受首个有效选择。`decision` 记录选项 ID、标签、已存储的 payload、操作人、事件 ID、消息 ID 和 `source: botmux-card-action`。
 
-Business callers read `status`, reject `testOnly`, require the expected decision and source, and recheck current business parameters before acting. `selected` is a selection, not blanket approval. Changes invalidate the pending request and require a new card. Terminal decisions remain immutable, including after `invalidate` or repeated callbacks. Unknown send results stay `send_unknown`; inspect Botmux history before retrying. `status` reconciles terminal cards through Botmux once; `cardPatchError` signals a failed display update that `patch` can retry without resending.
+业务调用方在执行操作前，必须读取 `status`，拒绝 `testOnly` 请求，核对预期决定及其来源，并重新检查当前业务参数。`selected` 仅表示选择了某个选项，不代表对所有后续操作的授权。业务内容发生变化时，必须使待确认请求失效并重新发卡。终态决定不可变，调用 `invalidate` 或收到重复回调也不得修改。发送结果不明的请求保持 `send_unknown`，重试前先检查 Botmux history。`status` 会通过 Botmux 协调更新一次终态卡片；`cardPatchError` 表示展示更新失败，可用 `patch` 重试更新，无需重新发送卡片。
 
-All request mutations acquire the same per-request `request.lock` directory, re-read the current record, and release the lock in `finally`. Never call `saveRequest` on an existing record outside this transaction. Botmux calls run after releasing the lock. A send that finishes after invalidation preserves the terminal state; a verified message ID is still recorded so the next `status` can reconcile the terminal card. Callback expiry is checked after acquiring the lock.
+所有请求修改都必须获取该请求的同一个 `request.lock` 目录锁，重新读取当前记录，并在 `finally` 中释放锁。禁止在此事务之外对已有记录调用 `saveRequest`。Botmux 调用必须在释放锁后执行。如果请求在发送期间失效，发送结束后仍须保留终态；已核验的消息 ID 仍会记录，以便下一次 `status` 更新终态卡片。回调有效期在取得锁后检查。
 
-Lock acquisition waits at most 1.5 seconds by default and then rejects the operation without accepting a decision. Locks are never stolen based on age. If a crash leaves `.reports/botmux-card-confirmation/<request-id>/request.lock`, inspect its `owner.json` and confirm the original process has exited before manually removing that specific lock directory. Do not delete a lock held by a live process or remove the request record. Missing or unreadable owner metadata requires the same manual investigation.
+获取锁默认最多等待 1.5 秒，超时后拒绝操作，不接受决定。不得仅根据锁的存在时长抢占锁。如果进程崩溃后留下 `.reports/botmux-card-confirmation/<request-id>/request.lock`，先检查其中的 `owner.json`，确认原进程已经退出，再手动删除该请求的锁目录。不得删除仍由活跃进程持有的锁，也不得删除请求记录。锁所有者元数据缺失或不可读时，同样需要人工排查。
 
-## Install and run
+## 安装与运行
 
 ```bash
 pnpm --dir /Users/liutao/workspace/agent/apps/botmux-card-confirmation install
@@ -74,22 +74,22 @@ botmux plugin enable card-confirmation
 botmux plugin service start card-confirmation
 ```
 
-Build `dist/` before installing or reinstalling the plugin; the install unit is the whole `dist/` directory and the running service never reads TypeScript sources or `node_modules`.
+安装或重新安装插件前，先构建 `dist/`。安装单元是整个 `dist/` 目录，运行中的服务不读取 TypeScript 源码或 `node_modules`。
 
-Machine-default enablement makes this the shared card adapter. Per-bot enablement is also supported with `--bot <verified-app-id>`. The service is manual and listens only on `127.0.0.1:19361`. Keep it alive while any interactive card awaits a choice. Display/link cards only require Botmux. Rebuild and restart this service after runtime edits; do not restart unrelated bots.
+通过机器默认配置启用后，本插件作为共享卡片适配器使用。也支持通过 `--bot <verified-app-id>` 为单个机器人启用。服务需手动启动，仅监听 `127.0.0.1:19361`。只要还有交互卡片等待选择，就必须保持服务运行。展示卡片或链接卡片只要求 Botmux 在线。修改运行时代码后，应重新构建并重启本服务，不要重启无关机器人。
 
-The bundled Botmux 3.18.14 binary can fail to start plugin services with `pm2_jlist_json_not_found`. After normal `plugin service start` generates the descriptor, use `node dist/run-local.js`. This foreground compatibility runner uses Botmux's generated gateway token, verifies the exact child PID through health, and only then publishes routing metadata. Stop it with SIGTERM after all pending workflows end; it removes its own metadata. Never manufacture a token or fake an online record.
+Botmux 3.18.14 内置二进制启动插件服务时，可能出现 `pm2_jlist_json_not_found`。正常执行 `plugin service start` 生成描述文件后，可使用 `node dist/run-local.js`。该前台兼容运行器使用 Botmux 生成的网关令牌，通过健康检查核对实际子进程 PID，确认后才发布路由元数据。所有待处理工作流结束后，用 SIGTERM 停止运行器；它会清理自身的元数据。不得自行生成令牌或伪造在线记录。
 
-Botmux 3.18.14 may retain per-bot plugin configuration from daemon startup, so enabling a plugin for one bot may allow sending before callbacks are routed. Machine-default plugin settings are loaded dynamically. Ensure the enabled scope reaches the intended bot; service health alone does not prove gateway routing. This project's shared adapter uses machine-default enablement. Do not restart a busy bot just to refresh its plugin setting.
+Botmux 3.18.14 可能保留守护进程启动时的单机器人插件配置，因此为某个机器人启用插件后，可能已能发卡，但回调尚未路由到插件。机器默认插件配置会动态加载。必须确认启用范围覆盖目标机器人；仅服务健康不能证明网关路由有效。本项目的共享适配器采用机器默认启用。不要只为刷新插件配置而重启正在处理任务的机器人。
 
-Schema 2.0 buttons execute `behaviors: [{type: "callback", value: ...}]`. Botmux 3.18.14 also validates the same top-level button `value`; keep both identical. In that version, `card patch` cannot retain callback buttons even with `--plugin-card-action`; patch terminal cards only. For changed pending content, invalidate and send a new request.
+Schema 2.0 按钮通过 `behaviors: [{type: "callback", value: ...}]` 执行回调。Botmux 3.18.14 还会校验按钮顶层的 `value`，两处内容必须一致。在该版本中，即使传入 `--plugin-card-action`，`card patch` 也无法保留回调按钮，因此只能更新终态卡片。待确认内容发生变化时，应使原请求失效，再发送新请求。
 
-## Testing and migration
+## 测试与迁移
 
-`node dist/confirm.js send-test <verified-session-id>` sends a clearly labelled test only when the user requests a live test. Native UI automation may click test-only buttons during an authorized end-to-end test; record that the assistant performed the click. A real event from an automated test is not human business approval. Ordinary unit tests inject a Botmux runner and use isolated local fixtures; they do not send messages or create orders.
+仅在用户要求真实测试时，执行 `node dist/confirm.js send-test <verified-session-id>` 发送带明确测试标识的卡片。在已授权的端到端测试中，可使用原生 UI 自动化点击测试卡片按钮，但必须记录该点击由助手执行。自动化测试产生的真实事件不代表用户对业务操作的批准。普通单元测试注入 Botmux 执行器并使用隔离的本地测试数据，不发送消息或创建订单。
 
-`test/race.test.ts` uses separate Node processes and filesystem scheduling barriers to exercise competing decisions, invalidation after a stale read, bounded lock contention, expiry during lock waiting, exception cleanup, and invalidation during gateway sending. Child processes use injected gateway responses and never contact Botmux.
+`test/race.test.ts` 使用独立 Node 进程和文件系统同步屏障，验证决定竞争、读出旧副本后的失效操作、锁竞争超时、等待锁期间过期、异常清理，以及网关发送期间请求失效等场景。子进程使用注入的网关响应，不连接 Botmux。
 
-For a dedicated compatibility-runner test, `node dist/finish-test.js <request-id>` waits at most 15 minutes, reconciles the terminal card, writes `test-result.json`, and stops the same service only if no other unresolved request needs it. Do not use this helper for a production request or treat its local test records as business approval.
+专门测试兼容运行器时，`node dist/finish-test.js <request-id>` 最多等待 15 分钟，协调更新终态卡片并写入 `test-result.json`；仅当没有其他未结束请求需要该服务时，才停止同一个服务。不得将该辅助程序用于生产请求，也不得把本地测试记录视为业务批准。
 
-This app replaces `apps/botmux-ride-confirmation` and the `ride-confirmation` plugin/action. Old test evidence remains under `.reports/amap-card-confirmation/`; it is not migrated into current requests or reused as approval. Disable and uninstall the old plugin once no live requests depend on it. The 2026-09-08 Feishu end-to-end results belong to the old version; validate the renamed implementation separately and identify local simulations as such.
+本应用替代 `apps/botmux-ride-confirmation` 及 `ride-confirmation` 插件/动作。旧测试证据保留在 `.reports/amap-card-confirmation/`，不迁入当前请求，也不得复用为批准依据。确认没有进行中的请求依赖旧插件后，再禁用并卸载旧插件。2026-09-08 的飞书端到端测试结果属于旧版本；重命名后的实现需要单独验证，本地模拟测试必须明确标注。

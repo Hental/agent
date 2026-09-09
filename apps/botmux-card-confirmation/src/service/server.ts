@@ -1,5 +1,7 @@
-import { createServer } from 'node:http';
 import { timingSafeEqual } from 'node:crypto';
+import { serve } from '@hono/node-server';
+import { Hono } from 'hono';
+import { bodyLimit } from 'hono/body-limit';
 import { decide } from '../state.js';
 import { renderCard } from '../card.js';
 import { PLUGIN_ID } from '../defaults.js';
@@ -8,29 +10,33 @@ const token = process.env.BOTMUX_PLUGIN_CARD_ACTION_TOKEN;
 const stateDir = process.env.CARD_CONFIRMATION_STATE_DIR;
 if (!token || !stateDir) throw new Error('Missing Botmux plugin service configuration');
 const expectedAuth = Buffer.from(`Bearer ${token}`);
-export const server = createServer(async (req, res) => {
-  const respond = (code: number, body: unknown) => {
-    res.writeHead(code, { 'content-type': 'application/json' });
-    res.end(JSON.stringify(body));
-  };
-  if (req.method === 'GET' && req.url === '/health') return respond(200, { ok: true, pid: process.pid, pluginId: PLUGIN_ID });
-  if (req.method !== 'POST' || req.url !== '/card-action') return respond(404, { error: 'Not found' });
-  const actualAuth = Buffer.from(req.headers.authorization ?? '');
-  if (actualAuth.length !== expectedAuth.length || !timingSafeEqual(actualAuth, expectedAuth)) {
-    return respond(401, { error: 'Unauthorized' });
-  }
-  try {
-    const chunks: Buffer[] = [];
-    let size = 0;
-    for await (const chunk of req) {
-      chunks.push(chunk as Buffer);
-      size += (chunk as Buffer).length;
-      if (size > 65536) return respond(413, { error: 'Payload too large' });
+const app = new Hono();
+
+app.get('/health', c => c.json({ ok: true, pid: process.pid, pluginId: PLUGIN_ID }));
+app.notFound(c => c.json({ error: 'Not found' }, 404));
+app.onError((_error, c) => {
+  // Parser errors may contain request fragments; never log callback bodies or credentials.
+  console.warn('Card callback was not accepted');
+  return c.json({
+    schemaVersion: 1, ack: {
+      toast: { type: 'warning', content: '该次选择未被接受，请刷新卡片或重新发起确认' },
+    },
+  });
+});
+
+app.post('/card-action',
+  async (c, next) => {
+    const actualAuth = Buffer.from(c.req.header('authorization') ?? '');
+    if (actualAuth.length !== expectedAuth.length || !timingSafeEqual(actualAuth, expectedAuth)) {
+      return c.json({ error: 'Unauthorized' }, 401);
     }
-    const body = Buffer.concat(chunks).toString('utf8');
-    const { request, repeated } = decide(stateDir, JSON.parse(body));
+    await next();
+  },
+  bodyLimit({ maxSize: 65536, onError: c => c.json({ error: 'Payload too large' }, 413) }),
+  async c => {
+    const { request, repeated } = decide(stateDir, await c.req.json<unknown>());
     console.log(JSON.stringify({ requestId: request.id, status: request.status, repeated }));
-    return respond(200, {
+    return c.json({
       schemaVersion: 1, ack: {
         toast: {
           type: request.status === 'expired' ? 'warning' : 'success',
@@ -39,15 +45,8 @@ export const server = createServer(async (req, res) => {
         card: renderCard(request),
       },
     });
-  } catch (error) {
-    // Do not log callback bodies, auth headers or tokens.
-    console.warn((error as Error).message);
-    return respond(200, {
-      schemaVersion: 1, ack: {
-        toast: { type: 'warning', content: '该次选择未被接受，请刷新卡片或重新发起确认' },
-      },
-    });
-  }
-});
-server.listen(Number(process.env.PORT), '127.0.0.1');
+  },
+);
+
+export const server = serve({ fetch: app.fetch, hostname: '127.0.0.1', port: Number(process.env.PORT) });
 process.on('SIGTERM', () => server.close(() => process.exit(0)));
