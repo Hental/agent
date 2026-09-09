@@ -2,6 +2,7 @@ import { timingSafeEqual } from 'node:crypto';
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
+import { startDispatcher } from '../resume.js';
 import { decide } from '../state.js';
 import { renderCard } from '../card.js';
 import { PLUGIN_ID } from '../defaults.js';
@@ -49,4 +50,5 @@ app.post('/card-action',
 );
 
 export const server = serve({ fetch: app.fetch, hostname: '127.0.0.1', port: Number(process.env.PORT) });
-process.on('SIGTERM', () => server.close(() => process.exit(0)));
+const stopDispatcher = startDispatcher(stateDir);
+process.on('SIGTERM', () => { stopDispatcher(); server.close(() => process.exit(0)); });

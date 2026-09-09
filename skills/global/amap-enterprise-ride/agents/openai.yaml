@@ -1,4 +1,4 @@
 interface:
   display_name: "高德企业打车"
   short_description: "配置企业预约用车，经飞书确认/拒绝卡片确认后呼叫并跟踪司机接单"
-  default_prompt: "使用 $amap-enterprise-ride 预约企业专车，呼叫前通过 $lark-bot 向 liutao.fe@bytedance.com 发送含行程信息和确认/拒绝按钮的卡片，收到有效确认后继续。"
+  default_prompt: "使用 $amap-enterprise-ride 预约企业专车，呼叫前通过 $lark-card 向 liutao.fe@bytedance.com 发送含行程信息和确认/拒绝按钮的卡片，收到有效确认后继续。"

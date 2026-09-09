@@ -1,10 +1,12 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { cancelResume } from './resume.js';
+import { stateDir } from './client.js';
 import { client, health } from './client.js';
 import type { ConfirmationInput } from './types.js';
 
 const [command, arg, sessionId] = process.argv.slice(2);
-const USAGE = 'Commands: send <request.json> <verified-session-id> | send-test <verified-session-id> | send-card <card.json> <verified-session-id> | status <request-id> | invalidate <request-id> | patch <request-id> | health';
+const USAGE = 'Commands: send <request.json> <verified-session-id> | send-test <verified-session-id> | send-card <card.json> <verified-session-id> | status <request-id> | invalidate <request-id> | patch <request-id> | cancel-resume <request-id> | health';
 try {
   let result: unknown;
   if (command === 'send-test') {
@@ -19,6 +21,8 @@ try {
       : await client.sendCard(data, sessionId!);
   } else if (command === 'status' || command === 'invalidate' || command === 'patch') {
     result = await client[command](arg!);
+  } else if (command === 'cancel-resume') {
+    result = cancelResume(stateDir, arg!);
   } else if (command === 'health') {
     result = await health();
   } else {

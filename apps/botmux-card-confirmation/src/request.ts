@@ -1,3 +1,5 @@
+import { isAbsolute } from 'node:path';
+import { statSync } from 'node:fs';
 import { randomBytes, randomUUID } from 'node:crypto';
 import { DEFAULT_OPTIONS, DEFAULT_TARGET } from './defaults.js';
 import type { ButtonType, CardOption, ConfirmationInput, ConfirmationRequest, OptionResult, StoredOption, Target } from './types.js';
@@ -53,7 +55,25 @@ export function createRequest(data: ConfirmationInput, sessionId: string, now = 
   const ids = new Set<string>();
   const normalized = options.map(option => normalizeOption(option, ids));
   if (data.title !== undefined && (typeof data.title !== 'string' || !data.title.trim())) throw new Error('Invalid card title');
+  const handling = data.actionHandling ?? { mode: 'local' };
+  if (!handling || (handling.mode !== 'local' && handling.mode !== 'resume')) throw new Error('Invalid actionHandling mode');
+  if (handling.mode === 'resume') {
+    if (!['codex-cli', 'codex-app'].includes(handling.agent) || !isSessionId(handling.threadId)) {
+      throw new Error('Resume requires explicit agent (codex-cli/codex-app) and full thread UUID');
+    }
+    if (typeof handling.cwd !== 'string' || !isAbsolute(handling.cwd) || !statSync(handling.cwd).isDirectory()) {
+      throw new Error('Resume requires an existing absolute cwd');
+    }
+    if (handling.agent === 'codex-app' && (typeof handling.socketPath !== 'string'
+      || !isAbsolute(handling.socketPath) || !statSync(handling.socketPath).isSocket())) {
+      throw new Error('codex-app requires the owning runtime control socket');
+    }
+  }
   return {
+    actionHandling: handling.mode === 'local' ? { mode: 'local' } : {
+      mode: 'resume', agent: handling.agent, threadId: handling.threadId, cwd: handling.cwd,
+      ...(handling.agent === 'codex-app' ? { socketPath: handling.socketPath } : {}),
+    },
     larkAppId: target.larkAppId, chatId: target.chatId, operatorId: target.operatorId,
     id: randomUUID(), nonce: randomBytes(24).toString('hex'), sessionId,
     title: data.title ?? '操作确认', summary: data.summary, options: normalized,

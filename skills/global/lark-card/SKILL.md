@@ -1,13 +1,22 @@
 ---
-name: lark-bot
-description: 通过本机 Botmux 默认给 liutao.fe@bytedance.com 发送飞书私聊消息、图片、文件和自定义卡片，或更新已发送的卡片。用户要求机器人通知自己、发送结果或推送卡片时使用。
+name: lark-card
+description: 通过 Botmux 发送和更新飞书/Lark card，并处理 button action。默认保存按钮结果供 agent loop 读取；也支持显式声明 codex-cli 或 codex-app，在收到按钮结果后恢复指定会话。用户要求发送卡片、按钮确认或选择、回调后继续任务时使用。
 ---
 
-# 通过 Botmux 给 liutao.fe@bytedance.com 发消息
+# Lark Card：发送卡片与处理按钮
 
 Botmux 是项目所有飞书/Lark 卡片消息和按钮交互的统一 gateway：卡片发送、更新与回调均经 Botmux 中转，业务只提供内容、选项和后续处理。普通展示卡片直接使用 Botmux；通用按钮确认/选择使用 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md)。不要新增绕过 Botmux 的直连飞书发送或回调服务。
 
 使用本机 `botmux` CLI，可从任意工作目录运行。命令不在 PATH 时使用 `/Users/liutao/.botmux/bin/botmux`。此技能的发送入口是 Botmux，不再使用旧服务的 `pnpm cli`、`LARK_BOT_URL` 或 `--base-url`。
+
+## Button action 的两种处理方式
+
+交互卡片统一使用共享 `card-confirmation` 插件，发送时通过请求的 `actionHandling` 选择处理方式：
+
+1. **本地读取（默认）**：省略字段或传入 `{"mode":"local"}`。Hono 核验回调后把 `decision` 保存到本地，当前 agent loop 使用 `status <requestId>` 读取并继续。结束当前轮次不会自动恢复会话。
+2. **恢复会话**：传入 `{"mode":"resume","agent":"codex-cli|codex-app",...}`。调用时必须明确 agent 类型、原会话完整 UUID 和绝对工作目录；`codex-app` 还必须提供目标运行时的控制 socket。Hono 先保存结果并入队，后台执行器恢复会话。不得猜测 agent 类型、使用最近会话或把 Botmux 会话 ID 当作 Codex thread ID。
+
+两种方式都保存 action 结果。拒绝按钮也会触发 resume，使原会话处理取消；恢复会话并不代表批准业务操作。只有在原会话准备等待按钮、没有其他运行中的轮次时使用 resume。发送后不再由当前 loop 同时消费该决定。参数、示例、取消方式和运行限制见 [按钮确认](references/button-confirmation.md)。
 
 ## 默认收件人
 
@@ -73,7 +82,7 @@ botmux card patch --session-id <session-id> --message-id <om_xxx> --card-file /a
 
 `--card-file` 与 `--card-json` 二选一，自定义卡片不能与 `--content-file` 或 `--voice` 混用。预约结果、课程列表、支付链接等内容应组装为卡片 JSON；旧服务的 `send-booking-card`、`send-course-list-card`、`card-actions` 和事件重试命令没有直接对应的 Botmux 替代命令。
 
-纯展示或跳转链接的卡片可直接发送。需要“确认/拒绝”等按钮并读取用户决定时，先阅读 [按钮确认](references/button-confirmation.md)：在已核验目标的 Botmux 原生会话中可用内置 `botmux ask buttons`；自定义确认/选择卡片统一使用 `card-confirmation` 插件；更多交互类型按 Botmux 插件声明接入，并使用 `--plugin-card-action <plugin-id>`。仅发送卡片不等于具备预约、支付或按钮处理能力，不要沿用旧 HTTP 服务的回调协议。
+纯展示或跳转链接的卡片可直接发送。需要“确认/拒绝”等按钮并读取用户决定时，先阅读 [按钮确认](references/button-confirmation.md)：确认/选择卡片统一使用 `card-confirmation` 插件及上述两种处理模式；更多交互类型按 Botmux 插件声明接入，并使用 `--plugin-card-action <plugin-id>`。仅发送卡片不等于具备预约、支付或按钮处理能力，不要沿用旧 HTTP 服务的回调协议。
 
 ## 授权与结果核验
 

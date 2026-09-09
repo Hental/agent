@@ -70,6 +70,9 @@ export function decide(dir: string, event: unknown, now?: number, lockTimeoutMs?
       request.status = 'expired';
     } else {
       request.status = option.result;
+      if (request.actionHandling?.mode === 'resume' && request.resumeDelivery?.status !== 'cancelled') {
+        request.resumeDelivery = { status: 'queued', updatedAt: new Date(effectiveNow).toISOString() };
+      }
       request.decision = {
         value: option.id, label: option.label, payload: option.payload, resultText: option.resultText,
         by: event.operator!.open_id!,

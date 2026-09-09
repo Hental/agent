@@ -3,7 +3,7 @@ import { client, DEFAULT_TARGET, type ConfirmationInput, type Target } from '../
 const DEFAULT_EMAIL = 'liutao.fe@bytedance.com';
 function destination(email: string): { sessionId: string; target: Target } {
   const sessionId = process.env.BOTMUX_SESSION_ID;
-  if (!sessionId) throw new Error('请按 lark-bot 技能核验私聊，并设置完整的 BOTMUX_SESSION_ID');
+  if (!sessionId) throw new Error('请按 lark-card 技能核验私聊，并设置完整的 BOTMUX_SESSION_ID');
   const mapping = process.env.BOTMUX_CARD_TARGET_JSON ? JSON.parse(process.env.BOTMUX_CARD_TARGET_JSON) : null;
   if (mapping) {
     if (mapping.email !== email) throw new Error('BOTMUX_CARD_TARGET_JSON 与收件人邮箱不符');

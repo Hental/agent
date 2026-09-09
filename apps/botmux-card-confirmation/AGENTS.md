@@ -2,7 +2,7 @@
 
 `botmux-card-confirmation` 是项目工作流共用的卡片与按钮交互适配器。Botmux 包名为 `botmux-plugin-card-confirmation`，插件 ID 为 `card-confirmation`，回调动作为 `card_confirmation_decide`。
 
-所有飞书/Lark 卡片发送、卡片更新和按钮事件都通过 Botmux 网关中转。本应用负责请求校验和决定状态；业务工作流负责卡片内容、允许的选项及后续业务操作。回调不得执行 shell 命令、调用 ADB、提交订单或付款。发送前使用 `lark-bot` 核验当前收件人及完整的 Botmux 会话 ID。
+所有飞书/Lark 卡片发送、卡片更新和按钮事件都通过 Botmux 网关中转。本应用负责请求校验和决定状态；业务工作流负责卡片内容、允许的选项及后续业务操作。HTTP 回调只校验并保存决定和恢复队列；后台恢复执行器可以启动声明的 Codex 会话，不直接调用 ADB、提交订单或付款。发送前使用 `lark-card` 核验当前收件人及完整的 Botmux 会话 ID。
 
 ## 目录结构与命令
 
@@ -11,6 +11,7 @@
 - `src/client.ts`：共享 API；所有发送和更新操作都通过参数数组调用 Botmux CLI，不使用飞书 SDK、应用密钥或直接 OpenAPI 调用。
 - `src/cli.ts`（打包为 `confirm.js`）：共享 API 的 CLI 封装，每条成功执行的命令输出一个 JSON 结果。
 - `src/request.ts`：校验通用标题、摘要、有效期、目标、选项和业务上下文。
+- `src/resume.ts`：持久化恢复任务的后台派发，支持 Codex CLI 和 App Server proxy；不会执行回调提供的任意命令。`cancel-resume` 取消未派发任务。`dispatching`/`unknown` 不自动重试，避免重复启动；App 的 `started` 只代表新 turn 被接受。
 - `src/state.ts`：核验回调与请求的绑定关系，并持久化首个有效决定。
 - `src/lock.ts`：串行化 CLI 与回调服务进程对请求的修改。
 - `src/card.ts`：渲染 schema 2.0 卡片，包括多选项卡片及不含按钮的终态卡片。
@@ -42,6 +43,7 @@ node dist/confirm.js patch <request-id>
 
 - `title`：默认为 `操作确认`；调用方应提供对应的业务标题。
 - `options`：1–20 个互不重复的选项。每个选项包含 `id`、`label`、`result`（`confirmed`、`rejected` 或 `selected`），以及可选的 `type`（`default`、`primary`、`danger`）、`payload`、`resultText`。默认选项为确认/拒绝。`resultText` 描述已记录的选择，不得声称尚未执行的操作已经完成。
+- `actionHandling`：默认 `{mode:"local"}`，保存决定供 agent loop 读取；`{mode:"resume",agent:"codex-cli"|"codex-app",threadId,cwd,socketPath?}` 在收到有效按钮 action 后恢复指定会话。agent 类型、完整线程 UUID、现有绝对 cwd 必填，codex-app 还要求所属运行时的现有控制 socket。具体调用、状态和限制见 [lark-card 按钮处理](../../skills/global/lark-card/references/button-confirmation.md)。
 - `context`：与请求关联的本地业务元数据或快照版本，不包含在按钮回调值中。
 - `snapshotPath`：可选的快照关联。实际图片需通过 Botmux 单独发送到同一个已核验会话，并注明请求 ID。
 - `target`：已核验的 `larkAppId`、`chatId`、`operatorId`。省略时使用 `src/defaults.ts` 中已核验的 Mini 私聊映射。客户端还会通过 Botmux history 检查所提供会话当前对应的聊天。使用其他目标前，必须核验应用与操作人的映射。

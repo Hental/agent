@@ -17,7 +17,7 @@
 
 # Card messaging gateway
 
-- Route project Feishu/Lark card messages, card updates, and button interactions through Botmux. Follow `skills/global/lark-bot/SKILL.md` to verify the recipient and session.
+- Route project Feishu/Lark card messages, card updates, and button interactions through Botmux. Follow `skills/global/lark-card/SKILL.md` to verify the recipient and session.
 - Use `apps/botmux-card-confirmation/` for shared confirmation and selection handling; business workflows supply content/options and consume verified decisions. Additional interactive components must register their handlers with Botmux.
 - Keep business actions in their owning workflow. Do not add direct Feishu card senders or independent callback ingress. `apps/lark-bot/` is legacy code; new integrations use the Botmux gateway.
 

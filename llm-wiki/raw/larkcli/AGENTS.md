@@ -102,7 +102,7 @@ Botmux 使用另一应用和已确认的跨租户私聊：
 
 `open_id` 是应用相关标识，不能将 Mini 的 open_id 直接放进“刘韬的智能助手”的配置使用。使用已有 chat_id 也必须确认当前应用能访问对应会话。lark-cli 若配置为同一 Mini 应用并具备所需权限，可以使用相同的目标会话进行投递；本次尚未实测该配置下的 lark-cli 发送。
 
-结构化元数据见 `../../../skills/global/lark-bot/meta.json`，Botmux 流程见 `../../../skills/global/lark-bot/SKILL.md`。
+结构化元数据见 `../../../skills/global/lark-card/meta.json`，Botmux 流程见 `../../../skills/global/lark-card/SKILL.md`。
 
 ## 搜索与定位私聊
 

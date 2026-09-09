@@ -18,7 +18,7 @@ import type {
 
 export { DEFAULT_TARGET } from './defaults.js';
 export type {
-  BotmuxRunner, CardOption, Client, ConfirmationInput, ConfirmationResult,
+  ActionHandling, ResumeDelivery, BotmuxRunner, CardOption, Client, ConfirmationInput, ConfirmationResult,
   RequestStatus, SendResult, ServiceHealth, Target,
 } from './types.js';
 

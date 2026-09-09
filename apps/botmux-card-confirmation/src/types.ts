@@ -16,7 +16,23 @@ export interface CardOption {
   resultText?: string;
 }
 
+export type ActionHandling = { mode: 'local' } | {
+  mode: 'resume';
+  agent: 'codex-cli' | 'codex-app';
+  threadId: string;
+  cwd: string;
+  /** Required for codex-app: control socket of the owning runtime. */
+  socketPath?: string;
+};
+
+export interface ResumeDelivery {
+  status: 'queued' | 'dispatching' | 'started' | 'completed' | 'unknown' | 'cancelled';
+  updatedAt: string;
+  turnId?: string;
+}
+
 export interface ConfirmationInput {
+  actionHandling?: ActionHandling;
   title?: string;
   summary: string;
   expiresAt: string;
@@ -79,6 +95,8 @@ export interface ConfirmationRequest {
   status: RequestLifecycle;
   messageId: string | null;
   decision?: Decision;
+  actionHandling?: ActionHandling;
+  resumeDelivery?: ResumeDelivery;
   cardPatched?: boolean;
   cardPatchError?: string;
 }

@@ -2,38 +2,55 @@
 
 用于向已核验收件人展示待执行操作的信息，并取得“确认/拒绝”决定。操作内容由调用技能提供；确认能力本身不执行叫车、支付等业务动作。
 
-## 选择发送入口
+## 处理模式
 
-Botmux 3.18.14 有两种入口，不能混用其参数和回调协议：
+项目交互卡统一通过共享插件发送，以下两种模式共用同一个按钮协议和决定校验。`botmux ask buttons` 的原生阻塞提问不是本技能的持久化/恢复入口。
 
-- **Botmux 原生会话内的内置提问**：`botmux ask buttons` 自带按钮处理和结果返回，不需要插件。只在当前进程本来就由 Botmux daemon 启动，且当前应用和私聊已核验属于目标收件人时使用。该命令依赖 Botmux 注入的会话环境，不支持 `--session-id`/`--chat-id` 切换收件人；不能在普通 Codex/终端会话中手动伪造这些环境来冒充原生会话。
-- **普通 Codex/终端会话的自定义卡片**：按主技能选定完整 `--session-id`，通过已安装、已启用并实现该动作的 Botmux 插件发送和接收按钮回调。先运行 `botmux plugin list`，阅读对应插件声明，核验动作名称、按钮 value 格式、点击者身份、消息关联和结果查询方式。没有合适插件时，明确报告回调能力尚未接入，停止依赖确认的业务操作；不能猜测一个插件 ID 或发送无法处理的按钮。
-
-用户只要求修改技能时，完成规则修改并说明发现的运行限制；不要为验证按钮额外发测试消息、冒充用户点击，或把本次修改视为某次业务操作的批准。
-
-## 内置提问
-
-确认当前 `BOTMUX_LARK_APP_ID`、`BOTMUX_CHAT_ID` 和原生会话对应主技能中核实的应用及私聊。给默认收件人发送时，预期点击者为该应用对应的 `ou_0de0382daf0b601518c6eb63486207d3`；换绑应用后重新核验。
-
-```text
-botmux ask buttons --json --timeout <有效秒数> --options "confirm=确认呼叫,reject=拒绝" <完整确认正文>
-```
-
-正文必须包含操作信息、确认编号及有效期；不能只写“是否确认”。复杂正文从 `.reports/` 下的 UTF-8 文件读取，使用 `execFile`/`spawn` 的参数数组传给 CLI，避免把正文拼进 shell 命令。`ask` 不支持 `--content-file`、`--card-file`、`--images` 或 `--no-mention`；需要截图时先通过 `send --session-id <已核验会话> --no-mention --images <截图>` 发送，并在正文中关联同一确认编号。
-
-保留正在等待的同一次命令，分段读取输出以便继续响应用户；不要为了轮询而反复执行 `ask` 发新卡。等待期间不得执行依赖批准的操作。
-
-`--json` 成功返回形如：
+默认请求：
 
 ```json
-{"selected":"confirm","answers":[["confirm"]],"by":"ou_xxx","timedOut":false,"comment":null}
+{
+  "title": "操作确认",
+  "summary": "完整业务信息和待执行操作",
+  "expiresAt": "<未来的带时区 ISO 时间>",
+  "actionHandling": {"mode": "local"}
+}
 ```
 
-- 只有退出码为 `0`、`timedOut` 为 `false`、`selected` 为 `confirm` 且 `by` 为预期收件人，并满足调用技能的当前编号、有效期和参数核验时，才能按确认继续。
-- `selected` 为 `reject` 时停止本次待执行操作；退出码 `0` 本身不代表确认。
-- 超时返回退出码 `124`；环境/参数错误为 `2`；daemon 不可达或提问失效为 `3`。任何异常、未知选择、身份不符或无法对应本次提问的结果均不能批准。
-- 仅文字回复时 `selected` 可能为空，文字位于 `comment`；不能把它当作按钮点击。若同时有备注，先核对其中是否修改参数或要求停止，再按调用技能处理。
-- 命令 stdout 不会自动成为一条飞书回复。使用 `send --session-id <已核验会话> --no-mention` 回执处理结果；确认回执应描述待执行状态，不得在业务操作成功前宣称完成。
+agent loop 定期运行 `node apps/botmux-card-confirmation/dist/confirm.js status <requestId>`，在 pending 时继续等待，终态时核验 `decision`。不重复发卡。
+
+需要收到 action 后重新唤起原会话时，用以下字段替换 `actionHandling`：
+
+```json
+{
+  "mode": "resume",
+  "agent": "codex-cli",
+  "threadId": "<原 Codex 会话完整 UUID>",
+  "cwd": "/absolute/workspace"
+}
+```
+
+`codex-cli` 使用参数数组启动 `codex exec resume --json <threadId> -`，提示通过 stdin 输入，沿用服务进程的 Codex 登录和配置，不绕过审批。调用方必须核实原 CLI 会话已空闲并且属于该工作目录，不与仍在运行的 CLI 并发写入。
+
+`codex-app` 使用：
+
+```json
+{
+  "mode": "resume",
+  "agent": "codex-app",
+  "threadId": "<原 App 任务完整 UUID>",
+  "cwd": "/absolute/workspace",
+  "socketPath": "/absolute/path/to/owning-app-server.sock"
+}
+```
+
+该模式通过 `codex app-server proxy --sock` 连接既有运行时，依次 initialize、thread/resume、核验空闲状态和 cwd、turn/start。必须提供属于目标任务的实际控制 socket；不另起 app-server 冒充桌面 App，也不把 Codex 的内部工具当作 Hono 可调用的 HTTP 接口。部署时先确认桌面版本暴露该接口；缺少 socket 时不能选择此模式或悄悄退回 CLI。
+
+服务启动后自动扫描持久化队列，当前执行器串行派发，CLI 本轮结束前其余请求保持排队；回调线程不等待 agent 执行业务。运行服务的机器必须在线，拥有原 Codex 会话、工作目录和登录态，CLI 可通过服务环境的 `CARD_CODEX_BIN` 指定。Botmux 凭证不会传给新 agent 进程。恢复提示只定位权威请求文件，业务内容和按钮 payload 不拼成命令。
+
+`status` 的 `resumeDelivery.status` 与按钮决定分开：queued 为待派发，dispatching 为已认领，started 表示 App 接受新 turn（附 turnId），completed 表示 CLI 本轮正常结束，unknown 表示执行结果无法确认；这些状态都不保证业务成功。重复按钮不重新派发。服务崩溃遗留的 dispatching 和 unknown 不自动重试，先检查原任务和业务状态，避免重复操作；尚未认领的 queued 会在服务恢复后继续处理。
+
+取消尚未派发的恢复任务：`node apps/botmux-card-confirmation/dist/confirm.js cancel-resume <requestId>`。可以在按钮点击前取消，后续回调仍保存决定但不唤起。已经派发时必须到原 agent 运行时停止任务。业务参数变化还需 invalidate 原请求。测试模式的回调也可唤起，但原会话必须把结果当作测试，不能执行业务动作。
 
 ## 自定义卡片与插件回调
 

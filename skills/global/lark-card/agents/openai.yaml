@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lark Card via Botmux"
+  short_description: "通过 Botmux 发送卡片并处理按钮结果，支持本地读取或恢复 Codex 会话"
+  default_prompt: "使用 $lark-card 通过 Botmux 发送卡片并处理按钮 action；默认保存本地结果，需要恢复会话时显式声明 agent 类型。"
