@@ -1,2 +1,6 @@
 packages:
   - apps/resume
+  - apps/botmux-card-confirmation
+
+allowBuilds:
+  esbuild: true

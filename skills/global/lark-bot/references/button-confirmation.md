@@ -41,11 +41,11 @@ botmux ask buttons --json --timeout <有效秒数> --options "confirm=确认呼�
 
 统一使用项目中的 [botmux-card-confirmation](../../../../apps/botmux-card-confirmation/AGENTS.md)，Botmux 插件 ID 为 `card-confirmation`，动作名为 `card_confirmation_decide`。Botmux 中转卡片发送、更新及按钮回调；该插件核验请求并记录决定，具体业务流程读取结果后执行后续操作。
 
-在项目根目录运行 `node apps/botmux-card-confirmation/confirm.mjs send <请求JSON绝对路径> <已核验的完整会话ID>`。请求提供 `title`、完整 `summary`、`expiresAt`（未来时间，带时区）、可选 `context`/`snapshotPath` 和 `options`。每个选项声明唯一 `id`、显示 `label`、结果 `result`（`confirmed`/`rejected`/`selected`）以及可选的业务 `payload`、按钮 `type` 和结果提示 `resultText`。省略 options 时为通用确认/拒绝。高德调用者需显式设置标题和“确认呼叫”按钮文案，并提供当前行程快照。
+构建一次后在项目根目录运行 `node apps/botmux-card-confirmation/dist/confirm.js send <请求JSON绝对路径> <已核验的完整会话ID>`（先在该 app 目录执行 `pnpm install && pnpm run build`）。请求提供 `title`、完整 `summary`、`expiresAt`（未来时间，带时区）、可选 `context`/`snapshotPath` 和 `options`。每个选项声明唯一 `id`、显示 `label`、结果 `result`（`confirmed`/`rejected`/`selected`）以及可选的业务 `payload`、按钮 `type` 和结果提示 `resultText`。省略 options 时为通用确认/拒绝。高德调用者需显式设置标题和“确认呼叫”按钮文案，并提供当前行程快照。
 
 默认使用主技能中已核验的 Mini 私聊身份；其他目标通过 `target: {larkAppId, chatId, operatorId}` 提供已核验映射。客户端还会通过 Botmux history 核对完整会话与 chat_id。按返回的 `requestId` 运行 `status <requestId>` 获取结果；只有 `testOnly: false`、期望的状态和选择、`decision.source: botmux-card-action` 且符合调用业务的当前参数核验，才能继续执行。`selected` 只表示选择了某个选项；业务 payload 从已保存的选项读取，不接受回调自行增加的参数。
 
-发交互卡前运行 `node apps/botmux-card-confirmation/confirm.mjs health`。插件服务手动运行；服务启动和 Botmux 3.18.14 的兼容方式见插件 AGENTS.md。保留服务直到所有待确认流程结束。该共享插件使用机器默认启用，以使当前机器人加载回调路由；仅服务健康或发卡成功不能单独证明回调可用。
+发交互卡前运行 `node apps/botmux-card-confirmation/dist/confirm.js health`。插件服务手动运行；服务启动和 Botmux 3.18.14 的兼容方式见插件 AGENTS.md。保留服务直到所有待确认流程结束。该共享插件使用机器默认启用，以使当前机器人加载回调路由；仅服务健康或发卡成功不能单独证明回调可用。
 
 用户要求测试时使用 `send-test <已核验的完整会话ID>`，卡片醒目标注仅测试，记录为 `testOnly: true`；测试结果永远不能授权真实操作。明确要求端到端测试时可通过原生界面自动点击测试卡片，并注明由代理操作。
 

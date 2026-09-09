@@ -1,5 +1,11 @@
 import { readFileSync } from 'node:fs';
-const runtime = JSON.parse(readFileSync(new URL('../runtime.json', import.meta.url), 'utf8'));
+import { resolve } from 'node:path';
+
+// Bundled at dist/service/index.js, so ../runtime.json resolves to dist/runtime.json.
+const runtime = JSON.parse(readFileSync(resolve(import.meta.dirname, '../runtime.json'), 'utf8')) as {
+  stateDir: string;
+  node: string;
+};
 const port = 19361;
 export default {
   mode: 'manual', port,

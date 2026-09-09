@@ -1,4 +1,4 @@
-import { client, DEFAULT_TARGET, type ConfirmationInput, type Target } from '../../../../apps/botmux-card-confirmation/client.mjs';
+import { client, DEFAULT_TARGET, type ConfirmationInput, type Target } from '../../../../apps/botmux-card-confirmation/dist/client.js';
 
 const DEFAULT_EMAIL = 'liutao.fe@bytedance.com';
 function destination(email: string): { sessionId: string; target: Target } {

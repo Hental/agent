@@ -57,7 +57,7 @@ npm run workflow -- 2026-08-15 --qc-session-id "$QINGCHENG_SESSION_ID"
 
 统一通过 [`$lark-bot`](../lark-bot/SKILL.md) 核验收件人及完整 Botmux 会话；默认收件人为 `liutao.fe@bytedance.com`。在运行发卡流程前设置 `BOTMUX_SESSION_ID` 为该已核验会话。它只用于选择发送目标，不代表 Botmux 原生提问会话；不得补造其他会话环境来运行 `ask`。
 
-`card-gateway.ts` 调用项目 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md) 的共享客户端。课程列表、下单确认、支付链接和结果通知全部由 Botmux 中转；按钮事件通过 `card-confirmation` 插件接收。先按插件说明启动服务并检查健康，保持运行直到选择流程结束。普通卡片发送只需 Botmux 在线。
+`card-gateway.ts` 调用项目 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md) 构建后的共享客户端（`apps/botmux-card-confirmation/dist/client.js`，类型声明由构建自动生成）。课程列表、下单确认、支付链接和结果通知全部由 Botmux 中转；按钮事件通过 `card-confirmation` 插件接收。先按插件说明构建、启动服务并检查健康，保持运行直到选择流程结束。普通卡片发送只需 Botmux 在线。
 
 其他收件人需另提供已核验的 `BOTMUX_CARD_TARGET_JSON`，包含 `email`、`larkAppId`、`chatId`、`operatorId`，并指定该私聊的 `BOTMUX_SESSION_ID`。不再使用旧服务的 `LARK_BOT_DIR`、`LARK_BOT_URL` 或 `pnpm cli`。
 
