@@ -6,18 +6,7 @@
 
 项目交互卡统一通过共享插件发送，以下两种模式共用同一个按钮协议和决定校验。`botmux ask buttons` 的原生阻塞提问不是本技能的持久化/恢复入口。
 
-默认请求：
-
-```json
-{
-  "title": "操作确认",
-  "summary": "完整业务信息和待执行操作",
-  "expiresAt": "<未来的带时区 ISO 时间>",
-  "actionHandling": {"mode": "local"}
-}
-```
-
-agent loop 定期运行 `node apps/botmux-card-confirmation/dist/confirm.js status <requestId>`，在 pending 时继续等待，终态时核验 `decision`。不重复发卡。
+默认本地读取模式的请求、发送与 agent loop 处理步骤见 [default.md](default.md)。
 
 需要收到 action 后重新唤起原会话时，用以下字段替换 `actionHandling`：
 

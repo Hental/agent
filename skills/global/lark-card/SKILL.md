@@ -13,7 +13,7 @@ Botmux 是项目所有飞书/Lark 卡片消息和按钮交互的统一 gateway�
 
 交互卡片统一使用共享 `card-confirmation` 插件，发送时通过请求的 `actionHandling` 选择处理方式：
 
-1. **本地读取（默认）**：省略字段或传入 `{"mode":"local"}`。Hono 核验回调后把 `decision` 保存到本地，当前 agent loop 使用 `status <requestId>` 读取并继续。结束当前轮次不会自动恢复会话。
+1. **本地读取（默认）**：省略字段或传入 `{"mode":"local"}`。Hono 核验回调后把 `decision` 保存到本地，当前 agent loop 使用 `status <requestId>` 读取并继续。结束当前轮次不会自动恢复会话。使用此模式时阅读 [默认流程](references/default.md)。
 2. **恢复会话**：传入 `{"mode":"resume","agent":"codex-cli|codex-app",...}`。调用时必须明确 agent 类型、原会话完整 UUID 和绝对工作目录；`codex-app` 还必须提供目标运行时的控制 socket。Hono 先保存结果并入队，后台执行器恢复会话。不得猜测 agent 类型、使用最近会话或把 Botmux 会话 ID 当作 Codex thread ID。
 
 两种方式都保存 action 结果。拒绝按钮也会触发 resume，使原会话处理取消；恢复会话并不代表批准业务操作。只有在原会话准备等待按钮、没有其他运行中的轮次时使用 resume。发送后不再由当前 loop 同时消费该决定。参数、示例、取消方式和运行限制见 [按钮确认](references/button-confirmation.md)。
