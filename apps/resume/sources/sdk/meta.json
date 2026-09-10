@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "project_id": "sdk",
+  "title": "跨端 SDK 自动生成",
+  "period": "2024 Q2 落地",
+  "role": "生成工具与运行时",
+  "organized_at": "2026-09-10",
+  "summary_file": "project.md",
+  "report": {
+    "data_file": "../../data/report.json",
+    "markdown_file": "../../data/report.md",
+    "project_id": "sdk",
+    "blocks": {
+      "problem": "sdk.problem",
+      "responsibility": "sdk.responsibility",
+      "body": "sdk.body",
+      "results": "sdk.results",
+      "scope": "sdk.scope"
+    }
+  },
+  "materials": [
+    {
+      "file": "project.md",
+      "kind": "curated_summary",
+      "source_ids": [
+        "s4"
+      ],
+      "sources": [
+        {
+          "id": "s4",
+          "title": "本人旧简历",
+          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+        }
+      ],
+      "copied_from": null,
+      "sha256": "72d55ba505054ca12aba739490fef7b9965118dece2dbff0aaec3ff241fbf92b",
+      "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
+    },
+    {
+      "file": "04-old-resume.md",
+      "kind": "document_snapshot",
+      "source_ids": [
+        "s4"
+      ],
+      "sources": [
+        {
+          "id": "s4",
+          "title": "本人旧简历",
+          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+        }
+      ],
+      "copied_from": "apps/resume/sources/04-old-resume.md",
+      "sha256": "338e5eae988f91634787d8e5366e9bdc28fed4f827f1bedc7ea75d47befa89b3",
+      "note": "学历、任职月份、SDK 生成、商业化与携程经历。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+    },
+    {
+      "file": "03-handover.md",
+      "kind": "document_snapshot",
+      "source_ids": [
+        "s3"
+      ],
+      "sources": [
+        {
+          "id": "s3",
+          "title": "RTC 与互动白板交接",
+          "url": "https://bytedance.larkoffice.com/docx/KGsYdrCYdolfygx5UKnc4NQrnyd"
+        }
+      ],
+      "copied_from": "apps/resume/sources/03-handover.md",
+      "sha256": "b63cc15087aa95f572d8cf9d02c398aea9e942486bbdb2296f177ff78afa192f",
+      "note": "维护职责、跨端工作与产品实际状态。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+    }
+  ],
+  "evidence_policy": [
+    "区分个人贡献、团队结果、目标、估算与实测。",
+    "来源正文副本保留原样；整理摘要与原始证据分开标注。",
+    "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
+  ]
+}

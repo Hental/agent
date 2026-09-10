@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "project_id": "board",
+  "title": "火山互动白板",
+  "period": "2022.10 — 2024.03 主要建设期",
+  "role": "项目 Owner",
+  "organized_at": "2026-09-10",
+  "summary_file": "project.md",
+  "report": {
+    "data_file": "../../data/report.json",
+    "markdown_file": "../../data/report.md",
+    "project_id": "board",
+    "blocks": {
+      "problem": "board.problem",
+      "responsibility": "board.responsibility",
+      "body": "board.body",
+      "results": "board.results",
+      "scope": "board.scope"
+    }
+  },
+  "materials": [
+    {
+      "file": "project.md",
+      "kind": "curated_summary",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s3"
+      ],
+      "sources": [
+        {
+          "id": "s2",
+          "title": "述职报告",
+          "url": "https://bytedance.larkoffice.com/docx/DcnNdeK1KoU0IAxXEh2cqbVZnnc"
+        },
+        {
+          "id": "s4",
+          "title": "本人旧简历",
+          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+        },
+        {
+          "id": "s3",
+          "title": "RTC 与互动白板交接",
+          "url": "https://bytedance.larkoffice.com/docx/KGsYdrCYdolfygx5UKnc4NQrnyd"
+        }
+      ],
+      "copied_from": null,
+      "sha256": "d64b5d77267774418668a2f5fe929fce5ab2d6ad5150b1497e789aba60164aba",
+      "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
+    },
+    {
+      "file": "02-review.md",
+      "kind": "document_snapshot",
+      "source_ids": [
+        "s2"
+      ],
+      "sources": [
+        {
+          "id": "s2",
+          "title": "述职报告",
+          "url": "https://bytedance.larkoffice.com/docx/DcnNdeK1KoU0IAxXEh2cqbVZnnc"
+        }
+      ],
+      "copied_from": "apps/resume/sources/02-review.md",
+      "sha256": "e5c2fc312617f33a03d419361ce8570929c11e6c5a47b9dbc15d5b517dbec66a",
+      "note": "白板角色、架构和技术指标的核心来源。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+    },
+    {
+      "file": "03-handover.md",
+      "kind": "document_snapshot",
+      "source_ids": [
+        "s3"
+      ],
+      "sources": [
+        {
+          "id": "s3",
+          "title": "RTC 与互动白板交接",
+          "url": "https://bytedance.larkoffice.com/docx/KGsYdrCYdolfygx5UKnc4NQrnyd"
+        }
+      ],
+      "copied_from": "apps/resume/sources/03-handover.md",
+      "sha256": "b63cc15087aa95f572d8cf9d02c398aea9e942486bbdb2296f177ff78afa192f",
+      "note": "维护职责、跨端工作与产品实际状态。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+    },
+    {
+      "file": "04-old-resume.md",
+      "kind": "document_snapshot",
+      "source_ids": [
+        "s4"
+      ],
+      "sources": [
+        {
+          "id": "s4",
+          "title": "本人旧简历",
+          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+        }
+      ],
+      "copied_from": "apps/resume/sources/04-old-resume.md",
+      "sha256": "338e5eae988f91634787d8e5366e9bdc28fed4f827f1bedc7ea75d47befa89b3",
+      "note": "学历、任职月份、SDK 生成、商业化与携程经历。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+    }
+  ],
+  "evidence_policy": [
+    "区分个人贡献、团队结果、目标、估算与实测。",
+    "来源正文副本保留原样；整理摘要与原始证据分开标注。",
+    "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
+  ]
+}

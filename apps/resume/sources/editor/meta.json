@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "project_id": "editor",
+  "title": "商业化移动端落地页编辑器",
+  "period": "2020.10 — 2022.10",
+  "role": "设计与开发",
+  "organized_at": "2026-09-10",
+  "summary_file": "project.md",
+  "report": {
+    "data_file": "../../data/report.json",
+    "markdown_file": "../../data/report.md",
+    "project_id": "editor",
+    "blocks": {
+      "problem": "editor.problem",
+      "responsibility": "editor.responsibility",
+      "body": "editor.body",
+      "results": "editor.results",
+      "scope": "editor.scope"
+    }
+  },
+  "materials": [
+    {
+      "file": "project.md",
+      "kind": "curated_summary",
+      "source_ids": [
+        "s4"
+      ],
+      "sources": [
+        {
+          "id": "s4",
+          "title": "本人旧简历",
+          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+        }
+      ],
+      "copied_from": null,
+      "sha256": "722b40505534ed1a40ef7eb1590c50b17b259ea0d620572d6240ee4079503696",
+      "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
+    },
+    {
+      "file": "04-old-resume.md",
+      "kind": "document_snapshot",
+      "source_ids": [
+        "s4"
+      ],
+      "sources": [
+        {
+          "id": "s4",
+          "title": "本人旧简历",
+          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+        }
+      ],
+      "copied_from": "apps/resume/sources/04-old-resume.md",
+      "sha256": "338e5eae988f91634787d8e5366e9bdc28fed4f827f1bedc7ea75d47befa89b3",
+      "note": "学历、任职月份、SDK 生成、商业化与携程经历。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+    }
+  ],
+  "evidence_policy": [
+    "区分个人贡献、团队结果、目标、估算与实测。",
+    "来源正文副本保留原样；整理摘要与原始证据分开标注。",
+    "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
+  ]
+}

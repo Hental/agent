@@ -2,7 +2,9 @@
 
 - `data/report.md` and `data/report.json` are the editable report data. Preserve source attribution and the distinction between personal contributions, team outcomes, estimates, and measured results.
 - `sources/` contains the original Feishu Markdown documents and JSON search results. Keep these original records intact.
-- `template.html` controls presentation and browser interactions; `build-report.mjs` renders the data; `report.mjs` provides build, preview, and PDF commands.
+- `sources/<project-id>/` groups each selected project's `meta.json`, `project.md`, and supporting Markdown materials. Follow `sources/AGENTS.md` when organizing evidence; keep report data as the presentation source of truth.
+- `lib/` contains the build, preview, PDF export, and test scripts; root `.command` files remain double-click launchers.
+- `template.html` controls presentation and browser interactions; `lib/build-lib/report.mjs` renders the data; `lib/report.mjs` provides build, preview, and PDF commands.
 - `career-report.html`, `output/`, and QA artifacts are generated and ignored. Change source data or templates instead of editing generated files.
 - From the repository root, use `pnpm run resume test`, `pnpm run resume build`, `pnpm run resume preview`, and `pnpm run resume pdf`. Run the app tests and build after changing the generator. Check PDF rendering when changing print layout.
 
@@ -15,7 +17,7 @@ data/report.md     正文：背景、个人职责、技术工作、指标口径
        +
 data/report.json   结构化内容：元信息、时间线、项目、指标、来源与正文引用
        ↓
-template.html + build-report.mjs
+template.html + lib/build-lib/report.mjs
        ↓
 career-report.html        静态 HTML / 本地动态预览
        ↓
@@ -41,18 +43,18 @@ pnpm run resume test
 ./report.command pdf         # 重新读取数据、构建 HTML，再导出 PDF
 ```
 
-macOS 也可双击 `report.command` 启动预览，双击 `export-pdf.command` 导出 PDF。原有 `export-pdf.command` / `export-pdf.mjs` 入口已接入新的数据生成流程。
+macOS 也可双击 `report.command` 启动预览，双击 `export-pdf.command` 导出 PDF。原有 `export-pdf.command` / `lib/export-pdf.mjs` 入口已接入新的数据生成流程。
 
 跨平台使用：
 
 ```sh
-node report.mjs preview --port 8770 --no-open
-node report.mjs build
-node report.mjs pdf --output "./刘韬_工作回顾.pdf"
-node report.mjs --help
+node lib/report.mjs preview --port 8770 --no-open
+node lib/report.mjs build
+node lib/report.mjs pdf --output "./刘韬_工作回顾.pdf"
+node lib/report.mjs --help
 ```
 
-默认路径按命令文件所在目录解析；命令参数中的相对路径按当前终端目录解析。
+默认数据、模板和产物路径固定按应用根目录 `apps/resume/` 解析；命令参数中的相对路径按当前终端目录解析。
 
 ## 编辑原始数据
 
@@ -89,7 +91,7 @@ node report.mjs --help
 - 离线 HTML 中的“下载 PDF”：下载上一次已生成的 PDF；修改数据后请运行 `pdf` 命令更新。
 - 命令导出使用 A4，等待字体加载，展开所有项目与说明，保留来源链接和页码。
 
-不要直接修改 `career-report.html`：下次构建会覆盖它。页面样式和交互在 `template.html`，结构渲染在 `build-report.mjs`。
+不要直接修改 `career-report.html`：下次构建会覆盖它。页面样式和交互在 `template.html`，结构渲染在 `lib/build-lib/report.mjs`。
 
 ## 依赖与验证
 

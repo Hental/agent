@@ -9,4 +9,4 @@ else
   print -u2 '未找到 Node.js，请先安装 Node.js 20+。'
   exit 1
 fi
-exec "$report_node" "$report_dir/report.mjs" "$@"
+exec "$report_node" "$report_dir/lib/report.mjs" "$@"

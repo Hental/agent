@@ -4,7 +4,7 @@ import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-export const reportDir = dirname(fileURLToPath(import.meta.url));
+export const reportDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const defaultPaths = {
   data: join(reportDir, 'data/report.json'),
   markdown: join(reportDir, 'data/report.md'),
@@ -42,8 +42,8 @@ export async function renderReport(options = {}) {
   ]);
   const d = JSON.parse(json);
   assert(d.version === 1, 'report.json 的 version 必须为 1。');
-  for (const key of ['meta','hero','timeline','evidence','framework','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
-  for (const key of ['navigation','projects','gaps','sources','downloads']) assert(Array.isArray(d[key]), `缺少 JSON 数组：${key}`);
+  for (const key of ['meta','hero','timeline','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
+  for (const key of ['navigation','projects','sources','downloads']) assert(Array.isArray(d[key]), `缺少 JSON 数组：${key}`);
   const blocks = new Map();
   const pattern = /^## .*?\{#([\w.-]+)\}\s*$/gm;
   const headings = [...markdown.matchAll(pattern)];
@@ -79,11 +79,13 @@ export async function renderReport(options = {}) {
   };
   const projects = d.projects.map(p => `<article class="project" id="project-${e(p.id)}" aria-labelledby="tab-${e(p.id)}">
     <div class="project-header"><div><span class="eyebrow muted">${e(p.date)}</span><h3>${e(p.title)}</h3></div><span class="badge">${e(p.badge)}</span></div>
-    <div class="project-brief"><div><h4>业务问题</h4><p>${md(p.problem, true)}</p></div><div><h4>个人职责</h4><p>${md(p.responsibility, true)}</p></div></div>
+    <div class="project-brief"><div><h4>项目简介</h4><p><strong>时间：${e(p.date)}</strong></p><p>${md(p.problem, true)}</p></div><div><h4>个人职责</h4><p>${md(p.responsibility, true)}</p></div></div>
+    <h4>技术介绍</h4>
     <div class="flow" aria-label="${e(p.title)}技术链路">${p.flow.map(f => `<div>${e(f.title)}<span>${e(f.note)}</span></div>`).join('<b aria-hidden="true">→</b>')}</div>
-    ${p.body && blocks.get(p.body)?.startsWith('- ') ? md(p.body) : ''}
+    ${md(p.body)}
+    <h4>项目结果与收益</h4>
+    ${md(p.results)}
     ${p.chart ? chart(p.chart) : ''}${metrics(p.metrics)}
-    ${p.body && !blocks.get(p.body)?.startsWith('- ') ? md(p.body) : ''}
     <p class="scope">${md(p.scope, true)}</p><div class="source-line">来源：${p.references.map(link).join('')}</div>
   </article>`).join('\n');
   const downloadLinks = [...d.downloads, {label:'正文 Markdown',path:'data/report.md'},{label:'结构化 JSON',path:'data/report.json'}];
@@ -98,9 +100,6 @@ export async function renderReport(options = {}) {
   <p class="hero-caption">${md(d.hero.caption,true)}</p><div class="export-actions"><button type="button" class="print" data-print-report>导出 PDF</button><a href="output/pdf/career-report.pdf" download>下载 PDF</a></div></header>
   <section id="timeline" class="section">${head('timeline')}<div class="timeline">${d.timeline.items.map(t=>`<article class="phase"><div class="date mono">${e(t.date)}</div><h3>${e(t.title)}</h3><strong>${e(t.subtitle)}</strong><p>${md(t.body,true)}</p>${link(t.reference)}</article>`).join('')}</div><p class="tiny">${md(d.timeline.note,true)}</p><div class="callout"><p>${md(d.timeline.positioning,true)}</p></div></section>
   <section id="projects" class="section">${head('projects')}<div class="tabs" role="tablist" aria-label="选择代表项目">${d.projects.map((p,i)=>`<button type="button" role="tab" id="tab-${e(p.id)}" aria-controls="project-${e(p.id)}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${e(p.tab)}</button>`).join('')}</div>${projects}</section>
-  <section id="evidence" class="section">${head('evidence')}<div class="table-wrap"><table><caption>${e(d.evidence.caption)}</caption><thead><tr>${d.evidence.headers.map(h=>`<th scope="col">${e(h)}</th>`).join('')}</tr></thead><tbody>${d.evidence.rows.map(r=>`<tr><td>${e(r.label)}</td><td class="metric">${e(r.value)}</td><td>${e(r.scope)}</td><td>${link(r.reference)}</td></tr>`).join('')}</tbody></table></div>${d.evidence.notes.map(n=>`<details><summary>${e(n.title)}</summary>${md(n.body)}</details>`).join('')}</section>
-  <section id="framework" class="section">${head('framework')}<div class="framework">${d.framework.modules.map((m,i)=>`<article><span class="index mono">${String(i+1).padStart(2,'0')}</span><div><h3>${e(m.title)}</h3><p>${md(m.body,true)}</p></div></article>`).join('')}</div><div class="formula">${e(d.framework.formula)}</div><div class="pages">${d.framework.pages.map(p=>`<div class="page-outline"><h4>${e(p.title)}</h4><ol>${p.items.map(i=>`<li>${e(i)}</li>`).join('')}</ol></div>`).join('')}</div><p class="tiny">${md(d.framework.note,true)}</p></section>
-  <section id="gaps" class="section">${head('gaps')}<div class="missing">${d.gaps.map(g=>`<article><h3>${e(g.title)}</h3><p>${md(g.body,true)}</p></article>`).join('')}</div></section>
   <section id="sources" class="section">${head('sources')}<ol class="sources">${d.sources.map(s=>{
     assert(/^https?:\/\//i.test(s.url), `来源 URL 无效：${s.id}`);
     return `<li id="${e(s.id)}"><a href="${e(s.url)}" target="_blank" rel="noopener noreferrer">${e(s.title)}</a><small>${e(s.note)}</small></li>`;

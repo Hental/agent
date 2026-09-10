@@ -22,8 +22,8 @@ test('正文和结构化数据的修改共同进入生成结果，重复构建�
     await buildReport(paths);
     html = await readFile(paths.html,'utf8');
     assert.match(html,/UPDATED_SOURCE_CHECK/); assert.doesNotMatch(html,/MD_SOURCE_CHECK/);
-    assert.equal((html.match(/class="project"/g)||[]).length,4);
-    assert.equal((html.match(/id="s\d+"/g)||[]).length,12);
+    assert.equal((html.match(/class="project"/g)||[]).length,d.projects.length);
+    assert.equal((html.match(/id="s\d+"/g)||[]).length,d.sources.length);
 
     d.hero.intro = 'missing.block'; await writeFile(paths.data,JSON.stringify(d));
     await assert.rejects(()=>renderReport(paths),/Markdown 缺少正文块/);
@@ -64,6 +64,7 @@ test('预览实时读取 MD + JSON，错误可恢复且不暴露任意本地文�
     assert.match(html,/PREVIEW_JSON_UPDATED/); assert.match(html,/PREVIEW_MD_UPDATED/);
     assert.notEqual(await (await fetch(base+'/__version')).text(),version);
     assert.equal((await fetch(base+'/report.mjs')).status,404);
+    assert.equal((await fetch(base+'/lib/report.mjs')).status,404);
     await writeFile(data,'{'); assert.equal((await fetch(base)).status,500);
     await writeFile(data,JSON.stringify(d)); assert.equal((await fetch(base)).status,200);
   } finally {

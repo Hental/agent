@@ -23,18 +23,6 @@
       "label": "代表项目"
     },
     {
-      "id": "evidence",
-      "label": "指标与证据"
-    },
-    {
-      "id": "framework",
-      "label": "简历框架"
-    },
-    {
-      "id": "gaps",
-      "label": "待补信息"
-    },
-    {
       "id": "sources",
       "label": "参考材料"
     }
@@ -47,28 +35,13 @@
     },
     "projects": {
       "label": "03 / SELECTED WORK",
-      "title": "四个代表项目",
-      "description": "围绕问题、个人职责、技术选择与结果展开。"
-    },
-    "evidence": {
-      "label": "04 / EVIDENCE",
-      "title": "数字需要带着口径使用",
-      "description": "文档记载与原始计量不同；本次未重查监控或业务数据。"
-    },
-    "framework": {
-      "label": "05 / RESUME STRUCTURE",
-      "title": "简历的六个模块",
-      "description": "用责任和结果建立可信度，再展开技术深度。"
-    },
-    "gaps": {
-      "label": "06 / TO COMPLETE",
-      "title": "补全后更适合投递",
-      "description": ""
+      "title": "五个代表项目",
+      "description": "按时间降序，逐项说明背景与问题、个人职责、技术方案和结果收益。"
     },
     "sources": {
-      "label": "07 / REFERENCES",
-      "title": "12 份参考材料",
-      "description": "飞书链接需对应权限；保留原始来源供复核。"
+      "label": "04 / REFERENCES",
+      "title": "21 份参考材料",
+      "description": "文档、代码及消息保留来源；访问需对应权限。"
     }
   },
   "hero": {
@@ -151,6 +124,193 @@
   },
   "projects": [
     {
+      "id": "order-e2e",
+      "tab": "订单 E2E 自动化",
+      "date": "2026.01 — 至今",
+      "title": "订单 E2E 自动化",
+      "badge": "回归管线与流水线接入",
+      "problem": "e2e.problem",
+      "responsibility": "e2e.responsibility",
+      "flow": [
+        {
+          "title": "测试数据回放",
+          "note": "历史响应 / Anywhere"
+        },
+        {
+          "title": "真机截图",
+          "note": "ehome / Bytest"
+        },
+        {
+          "title": "UI Diff",
+          "note": "线上与 PPE 对比"
+        },
+        {
+          "title": "结果确认",
+          "note": "自动放行 / 人工确认"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "业务身份数据覆盖",
+          "value": "100%",
+          "note": "Q1 复盘口径，非页面状态或路径全覆盖"
+        },
+        {
+          "label": "研发流程接入",
+          "value": "订单火车回归",
+          "note": "Bits 原子节点 + 结果人工复核"
+        },
+        {
+          "label": "场景扩展",
+          "value": "单页 → 全链路",
+          "note": "商详 / 提单 / 订单；持续完善中"
+        }
+      ],
+      "scope": "e2e.scope",
+      "references": [
+        {
+          "source": "s15",
+          "label": "技术方案与职责分工"
+        },
+        {
+          "source": "s16",
+          "label": "Q1 复盘与指标口径"
+        },
+        {
+          "source": "s17",
+          "label": "火车接入与噪音治理"
+        },
+        {
+          "source": "s18",
+          "label": "全链路扩展"
+        },
+        {
+          "source": "s21",
+          "label": "接入调试消息"
+        },
+        {
+          "source": "s13",
+          "label": "当前管线源码"
+        }
+      ],
+      "body": "e2e.body",
+      "results": "e2e.results"
+    },
+    {
+      "id": "assets",
+      "tab": "交易研发资产",
+      "date": "2025 — 2026",
+      "title": "交易研发资产与场景复现",
+      "badge": "截图采集与资产质量",
+      "problem": "assets.problem",
+      "responsibility": "assets.responsibility",
+      "flow": [
+        {
+          "title": "真机与接口",
+          "note": "截图 / Mock 数据"
+        },
+        {
+          "title": "运行时标识",
+          "note": "卡片与业务身份"
+        },
+        {
+          "title": "DitoM 插件",
+          "note": "资产关联与管理"
+        },
+        {
+          "title": "场景消费",
+          "note": "预览 / 复现 / 排查"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "资产准确率",
+          "value": "81.81% → 92.31%",
+          "note": ""
+        },
+        {
+          "label": "场景与 UI 覆盖率",
+          "value": "38.71% → 58%",
+          "note": ""
+        },
+        {
+          "label": "团队内部试用",
+          "value": "18 个需求",
+          "note": "同期处理 32 个问题"
+        }
+      ],
+      "scope": "assets.scope",
+      "references": [
+        {
+          "source": "s8",
+          "label": "Q1 分工与进度"
+        },
+        {
+          "source": "s7",
+          "label": "Q2 团队复盘"
+        },
+        {
+          "source": "s10",
+          "label": "插件使用说明"
+        }
+      ],
+      "body": "assets.body",
+      "results": "assets.results"
+    },
+    {
+      "id": "sdk",
+      "tab": "SDK 自动生成",
+      "date": "2024 Q2 落地",
+      "title": "跨端 SDK 自动生成",
+      "badge": "生成工具与运行时",
+      "problem": "sdk.problem",
+      "responsibility": "sdk.responsibility",
+      "flow": [
+        {
+          "title": "Doxygen",
+          "note": "提取 Native API"
+        },
+        {
+          "title": "结构化 API",
+          "note": "按规则转换"
+        },
+        {
+          "title": "TypeScript SDK",
+          "note": "生成接口封装"
+        },
+        {
+          "title": "IPC 与反射",
+          "note": "运行时调用"
+        }
+      ],
+      "metrics": [
+        {
+          "label": "拉流 SDK · 69 个 API",
+          "value": "45 → 13 人天",
+          "note": "人工方案预估 → 实际投入"
+        },
+        {
+          "label": "推流 SDK · 242 个 API",
+          "value": "50 → 19 人天",
+          "note": "人工方案预估 → 实际投入"
+        },
+        {
+          "label": "迁移能力",
+          "value": "协议驱动生成",
+          "note": "将重复封装转化为工具"
+        }
+      ],
+      "scope": "sdk.scope",
+      "references": [
+        {
+          "source": "s4",
+          "label": "本人旧简历中的技术设计与业务进度"
+        }
+      ],
+      "body": "sdk.body",
+      "results": "sdk.results"
+    },
+    {
       "id": "board",
       "tab": "互动白板",
       "date": "2022.10 — 2024.03 主要建设期",
@@ -223,119 +383,8 @@
             "value": 100
           }
         ]
-      }
-    },
-    {
-      "id": "sdk",
-      "tab": "SDK 自动生成",
-      "date": "2024 Q2 落地",
-      "title": "跨端 SDK 自动生成",
-      "badge": "生成工具与运行时",
-      "problem": "sdk.problem",
-      "responsibility": "sdk.responsibility",
-      "flow": [
-        {
-          "title": "Doxygen",
-          "note": "提取 Native API"
-        },
-        {
-          "title": "结构化 API",
-          "note": "按规则转换"
-        },
-        {
-          "title": "TypeScript SDK",
-          "note": "生成接口封装"
-        },
-        {
-          "title": "IPC 与反射",
-          "note": "运行时调用"
-        }
-      ],
-      "metrics": [
-        {
-          "label": "拉流 SDK · 69 个 API",
-          "value": "45 → 13 人天",
-          "note": "人工方案预估 → 实际投入"
-        },
-        {
-          "label": "推流 SDK · 242 个 API",
-          "value": "50 → 19 人天",
-          "note": "人工方案预估 → 实际投入"
-        },
-        {
-          "label": "迁移能力",
-          "value": "协议驱动生成",
-          "note": "将重复封装转化为工具"
-        }
-      ],
-      "scope": "sdk.scope",
-      "references": [
-        {
-          "source": "s4",
-          "label": "本人旧简历中的技术设计与业务进度"
-        }
-      ],
-      "body": "sdk.body"
-    },
-    {
-      "id": "assets",
-      "tab": "交易研发资产",
-      "date": "2025 — 2026",
-      "title": "交易研发资产与场景复现",
-      "badge": "截图采集与资产质量",
-      "problem": "assets.problem",
-      "responsibility": "assets.responsibility",
-      "flow": [
-        {
-          "title": "真机与接口",
-          "note": "截图 / Mock 数据"
-        },
-        {
-          "title": "运行时标识",
-          "note": "卡片与业务身份"
-        },
-        {
-          "title": "DitoM 插件",
-          "note": "资产关联与管理"
-        },
-        {
-          "title": "场景消费",
-          "note": "预览 / 复现 / 排查"
-        }
-      ],
-      "metrics": [
-        {
-          "label": "资产准确率",
-          "value": "81.81% → 92.31%",
-          "note": ""
-        },
-        {
-          "label": "场景与 UI 覆盖率",
-          "value": "38.71% → 58%",
-          "note": ""
-        },
-        {
-          "label": "团队内部试用",
-          "value": "18 个需求",
-          "note": "同期处理 32 个问题"
-        }
-      ],
-      "scope": "assets.scope",
-      "references": [
-        {
-          "source": "s8",
-          "label": "Q1 分工与进度"
-        },
-        {
-          "source": "s7",
-          "label": "Q2 团队复盘"
-        },
-        {
-          "source": "s10",
-          "label": "插件使用说明"
-        }
-      ],
-      "body": "assets.body"
+      },
+      "results": "board.results"
     },
     {
       "id": "editor",
@@ -386,140 +435,9 @@
           "source": "s4",
           "label": "本人旧简历"
         }
-      ]
-    }
-  ],
-  "evidence": {
-    "caption": "可用于简历的代表指标及其范围",
-    "headers": [
-      "指标",
-      "材料记录",
-      "使用范围",
-      "来源"
-    ],
-    "rows": [
-      {
-        "label": "白板端到端延迟",
-        "value": "600 → 100ms",
-        "scope": "沿用述职口径，不与旧简历的 P95 描述混合。",
-        "reference": {
-          "source": "s2",
-          "label": "述职 ↗"
-        }
-      },
-      {
-        "label": "白板千行 Bug 率",
-        "value": "30+ → <1",
-        "scope": "项目工程质量指标，不是线上故障率。",
-        "reference": {
-          "source": "s2",
-          "label": "述职 ↗"
-        }
-      },
-      {
-        "label": "SDK 初始化代码",
-        "value": "约 100 → <10 行",
-        "scope": "仅为初始化逻辑，不代表 SDK 总代码量。",
-        "reference": {
-          "source": "s2",
-          "label": "述职 ↗"
-        }
-      },
-      {
-        "label": "RN 拉流 / 推流投入",
-        "value": "45 → 13 / 50 → 19 人天",
-        "scope": "人工方案预估与实际投入的比较。",
-        "reference": {
-          "source": "s4",
-          "label": "旧简历 ↗"
-        }
-      },
-      {
-        "label": "交易资产准确率",
-        "value": "81.81% → 92.31%",
-        "scope": "团队成果；个人负责截图采集及相关质量优化。",
-        "reference": {
-          "source": "s7",
-          "label": "Q2 复盘 ↗"
-        }
-      },
-      {
-        "label": "Oncall 平均工单时长",
-        "value": "404.01 → 131 小时",
-        "scope": "2025 Q2 个人复盘中的团队指标；样本和窗口待补。",
-        "reference": {
-          "source": "s11",
-          "label": "个人记录 ↗"
-        }
-      }
-    ],
-    "notes": [
-      {
-        "title": "未采用的量化信息及原因",
-        "body": "evidence.note1"
-      },
-      {
-        "title": "功能建设、实际采用与规模推广分别如何表述",
-        "body": "evidence.note2"
-      }
-    ]
-  },
-  "framework": {
-    "modules": [
-      {
-        "title": "基本信息",
-        "body": "framework.module1"
-      },
-      {
-        "title": "职业摘要",
-        "body": "framework.module2"
-      },
-      {
-        "title": "工作经历",
-        "body": "framework.module3"
-      },
-      {
-        "title": "代表项目",
-        "body": "framework.module4"
-      },
-      {
-        "title": "技术能力",
-        "body": "framework.module5"
-      },
-      {
-        "title": "教育与早期经历",
-        "body": "framework.module6"
-      }
-    ],
-    "formula": "业务问题 → 本人责任 → 技术决策 → 结果 → 口径",
-    "pages": [
-      {
-        "title": "第一页 · 当前职责与工程复用",
-        "items": [
-          "姓名、方向与职业摘要",
-          "生活服务交易与研发效能",
-          "视频云 SDK 自动生成"
-        ]
-      },
-      {
-        "title": "第二页 · 技术深度与职业基础",
-        "items": [
-          "火山互动白板",
-          "商业化移动端编辑器",
-          "携程、教育与技术能力"
-        ]
-      }
-    ],
-    "note": "framework.note"
-  },
-  "gaps": [
-    {
-      "title": "个人信息与目标",
-      "body": "gaps.1"
-    },
-    {
-      "title": "近期结果与统计说明",
-      "body": "gaps.2"
+      ],
+      "body": "editor.body",
+      "results": "editor.results"
     }
   ],
   "sources": [
@@ -594,9 +512,63 @@
       "title": "2026.06.29—07.05 周报",
       "url": "https://bytedance.larkoffice.com/docx/AuIRdUhF2oglzRxkvcOcjhA5nEb",
       "note": "Aily 自动生成，近期项目仅作补证线索。"
+    },
+    {
+      "id": "s13",
+      "title": "订单 E2E 自动化代码仓库",
+      "url": "https://code.byted.org/life_service/life_trade_c_fe_e2e",
+      "note": "2026.09.10 核对本地源码、references/e2e/project.md、metrics.md 与 liutao.fe 提交；重点为 lib/e2e 管线。"
+    },
+    {
+      "id": "s14",
+      "title": "订单 E2E Bits 流水线原子节点",
+      "url": "https://code.byted.org/devops/life_trade_c_order_e2e",
+      "note": "2026.09.10 核对本地 impl/、AGENTS.md 与 liutao.fe 提交；包含任务生命周期、进度、超时与终止清理。"
+    },
+    {
+      "id": "s15",
+      "title": "订单 E2E 测试技术方案",
+      "url": "https://bytedance.larkoffice.com/wiki/KAVKwkzXVijooHkOOLjcXwLenyJ",
+      "note": "背景、业务身份数据驱动方案及 FE / Client 分工；目标不作为达成结果。"
+    },
+    {
+      "id": "s16",
+      "title": "E2E Q1 Review 与 Q2 规划",
+      "url": "https://bytedance.larkoffice.com/wiki/Oo4vwRnGzibmPKkUiiZcC14Mnag",
+      "note": "Q1 覆盖与执行基线；95% 完成率和 10% 噪音率为 Q2 目标，未据此宣称达成。"
+    },
+    {
+      "id": "s17",
+      "title": "订单 E2E 拦截噪音优化",
+      "url": "https://bytedance.larkoffice.com/wiki/M9vYwRg2uinawHkFaIgcDjK2ndb",
+      "note": "订单火车发布模板接入及定期回归、结果复核机制。"
+    },
+    {
+      "id": "s18",
+      "title": "全链路订单 E2E 三仓改动与 CR 汇总",
+      "url": "https://bytedance.larkoffice.com/docx/ETw7d87VGovOxGx0r52cGAHtnkb",
+      "note": "2026.08.12 历史审查记录，说明全链路设计；当时存在合入阻塞，不据此证明上线。"
+    },
+    {
+      "id": "s19",
+      "title": "订单 E2E 周度审查（2026.09.04—09.10）",
+      "url": "https://bytedance.larkoffice.com/wiki/XUEZwMAgAiawsFksCr7cvxeUnpe",
+      "note": "部分内容由 AI 生成，记载 7 任务 / 1,534 Job 及异常，仅作运行线索；未重查底层快照。"
+    },
+    {
+      "id": "s20",
+      "title": "订单小组：E2E 部署与试用",
+      "url": "https://applink.feishu.cn/client/chat/open?openChatId=oc_cbaeeacd0e59ccc13c935a268f0f6bd4&position=93",
+      "note": "2026-03-06 13:54，刘韬，交易FE：订单小组（26Y）；消息 ID：om_x100b5592f10998a0c3a30d81ef69650。仅证明当时部署/接入调试状态。"
+    },
+    {
+      "id": "s21",
+      "title": "本人消息：集成回归阶段接入 E2E",
+      "url": "https://applink.feishu.cn/client/chat/open?openChatId=oc_b789094c27a36c6c57758544fbe63758&position=773",
+      "note": "2026-06-05 16:45，刘韬，私聊；消息 ID：om_x100b6d1c85b3b490c372b44b6930fb6。仅证明当时部署/接入调试状态。"
     }
   ],
-  "researchNote": "sources.note",
+  "researchNote": "sources.e2e",
   "downloads": [
     {
       "label": "框架 Markdown",

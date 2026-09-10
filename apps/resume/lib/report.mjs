@@ -14,9 +14,9 @@ const help = `Markdown + JSON → HTML 预览 / PDF 导出
   ./report.command pdf                    重新构建并导出完整 PDF
   ./export-pdf.command                    同上，保留原命令
 
-  node report.mjs preview --port 8770 --no-open
-  node report.mjs pdf --output ./我的报告.pdf
-  node report.mjs build --data ./data/report.json --markdown ./data/report.md
+  node lib/report.mjs preview --port 8770 --no-open
+  node lib/report.mjs pdf --output ./我的报告.pdf
+  node lib/report.mjs build --data ./data/report.json --markdown ./data/report.md
 
 参数：--data JSON路径，--markdown MD路径，--output 输出路径（build/pdf），
       --port 端口（preview），--no-open（preview）。
