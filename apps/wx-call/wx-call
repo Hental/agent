@@ -18,4 +18,4 @@ if [[ ! -x "$cache_dir/vision" || "$app_dir/vision.swift" -nt "$cache_dir/vision
   /usr/bin/xcrun swiftc "$app_dir/vision.swift" -o "$cache_dir/vision"
 fi
 echo "Artifacts: $report_dir" >&2
-/usr/bin/osascript "$app_dir/call.applescript" "$cache_dir/vision" "$click_bin" "$report_dir" "${1:-prepare}" "${2:-退款}" "${3:-余生}" "${4:-5}"
+/usr/bin/osascript "$app_dir/call.applescript" "$cache_dir/vision" "$click_bin" "$report_dir" "${1:-prepare}" "${2:-退款}" "${3:-余生}" "${4:-1}"

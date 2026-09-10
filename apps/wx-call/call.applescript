@@ -7,16 +7,14 @@ property sequenceNumber : 0
 
 on run argv
     if (count argv) is not 7 then error "Use the wx-call launcher."
-    set {visionBin, clickBin, reportDir, modeName, groupName, memberName, maxText} to argv
-    set maxAttempts to maxText as integer
-    if maxAttempts < 1 or maxAttempts > 5 then error "Maximum attempts must be between 1 and 5."
+    set {visionBin, clickBin, reportDir, modeName, groupName, memberName, countText} to argv
+    set requestedAttempts to countText as integer
+    if requestedAttempts < 1 then error "Requested attempts must be positive."
     if modeName is not in {"prepare", "call", "run", "status", "budget"} then error "Mode must be prepare, call, run, status, or budget."
     set ledger to reportDir & "/attempts.txt"
     if modeName is in {"call", "run", "budget"} then
         set attemptsUsed to my readBudget(ledger)
-        if modeName is "budget" then return "attempts=" & attemptsUsed & "; limit=" & maxAttempts
-        -- Exhausted budget returns BEFORE any application activation or UI operation.
-        if attemptsUsed >= maxAttempts then return "attempt limit reached: " & attemptsUsed
+        if modeName is "budget" then return "attempts=" & attemptsUsed
     end if
     tell application "System Events" to tell process "WeChat" to set frontmost to true
     delay 1
@@ -26,7 +24,7 @@ on run argv
         my prepareCall()
         return "prepared: only the requested recipient and self should be selected; no call sent"
     end if
-    repeat while attemptsUsed < maxAttempts
+    repeat with invocationAttempt from 1 to requestedAttempts
         my prepareCall()
         -- Persist before clicking: an uncertain submission must consume the budget.
         set attemptsUsed to attemptsUsed + 1
@@ -52,9 +50,9 @@ on run argv
         end repeat
         if my callExists() then return "call still open: stopped monitoring without hanging up"
         my logLine("attempt=" & attemptsUsed & " ended; last observed state=" & lastState)
-        if attemptsUsed < maxAttempts then delay 10
+        if invocationAttempt < requestedAttempts then delay 10
     end repeat
-    return "attempt limit reached: " & attemptsUsed
+    return "completed requested attempts: " & requestedAttempts & "; total attempts=" & attemptsUsed
 end run
 
 on readBudget(ledger)
