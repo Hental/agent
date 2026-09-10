@@ -254,35 +254,49 @@ async function main(): Promise<void> {
     return;
   }
   if (!courses.some((course) => course.scheduleId === selectedScheduleId)) throw new Error('回调中的课程不属于本次列表');
-
-  const refreshed = await availableCourses(sessionId, date);
-  const selected = refreshed.find((course) => course.scheduleId === selectedScheduleId);
-  if (!selected) throw new Error('所选课程已不可预约，未创建订单');
-  const [onlineCost, generalCardId] = await Promise.all([
-    preflight(sessionId, selectedScheduleId), fetchGeneralCardId(sessionId, date),
-  ]);
   const approved = courses.find(course => course.scheduleId === selectedScheduleId)!;
-  if (onlineCost !== approved.onlineCost || selected.startTime !== approved.startTime
-    || selected.endTime !== approved.endTime || selected.className !== approved.className
-    || selected.coachName !== approved.coachName) {
-    throw new Error('课程或费用已变化，需要重新确认，未创建订单');
+  await sendMessage(`已收到你的预订请求：${date} ${approved.startTime}–${approved.endTime} ${approved.className} · ${approved.coachName} · 个人支付 ${(approved.onlineCost / 100).toFixed(2)} 元。\n正在核验余位和费用，核验通过后立即创建待支付订单，无需再次确认。`, RECIPIENT_EMAIL, '超级猩猩 · 已收到');
+  let orderSubmitted = false;
+  let orderCreated = false;
+  try {
+    const refreshed = await availableCourses(sessionId, date);
+    const selected = refreshed.find((course) => course.scheduleId === selectedScheduleId);
+    if (!selected) throw new Error('所选课程已不可预约，未创建订单');
+    const [onlineCost, generalCardId] = await Promise.all([
+      preflight(sessionId, selectedScheduleId), fetchGeneralCardId(sessionId, date),
+    ]);
+    if (onlineCost !== approved.onlineCost || selected.startTime !== approved.startTime
+      || selected.endTime !== approved.endTime || selected.className !== approved.className
+      || selected.coachName !== approved.coachName) {
+      throw new Error('课程或费用已变化，需要重新确认，未创建订单');
+    }
+    orderSubmitted = true;
+    const order = await api(sessionId, '/api/corp/company/supermonkey/order/', {
+      method: 'POST',
+      body: JSON.stringify({
+        general_card_id: generalCardId,
+        sub_channel: 'ALIPAY_QRCODE',
+        online_cost: onlineCost,
+        schedule_id: selectedScheduleId,
+      }),
+    });
+    orderCreated = true;
+    const paymentUrl = findPaymentUrl(order.data);
+    if (!paymentUrl) throw new Error('订单已创建，但响应中没有找到 HTTP(S) 支付链接');
+    await sendMessage(`${selected.className}（${date} ${selected.startTime}–${selected.endTime}）支付宝待支付订单已创建：[打开支付链接](${paymentUrl})`);
+    process.stdout.write(`${JSON.stringify({
+      created: true, date, schedule_id: selectedScheduleId, class_name: selected.className,
+      online_cost: onlineCost, recipient: RECIPIENT_EMAIL, payment_url: paymentUrl,
+    }, null, 2)}\n`);
+  } catch (error) {
+    const status = orderCreated
+      ? '待支付订单已创建，但支付链接未能完整获取或送达。请先在飞书合作健身房中核对订单，不要重复预订。'
+      : orderSubmitted
+        ? '订单提交结果未能确认。请先核对订单记录，不要重复预订；本流程不会自动重试下单。'
+        : '课程、余位或费用核验未通过，或查询暂不可用，未创建订单。请重新查询后再预订。';
+    await sendMessage(`${date} ${approved.startTime} ${approved.className}\n${status}`, RECIPIENT_EMAIL, '超级猩猩 · 预订处理结果');
+    throw error;
   }
-  const order = await api(sessionId, '/api/corp/company/supermonkey/order/', {
-    method: 'POST',
-    body: JSON.stringify({
-      general_card_id: generalCardId,
-      sub_channel: 'ALIPAY_QRCODE',
-      online_cost: onlineCost,
-      schedule_id: selectedScheduleId,
-    }),
-  });
-  const paymentUrl = findPaymentUrl(order.data);
-  if (!paymentUrl) throw new Error('订单已创建，但响应中没有找到 HTTP(S) 支付链接');
-  await sendMessage(`${selected.className}（${date} ${selected.startTime}–${selected.endTime}）支付宝待支付订单已创建：[打开支付链接](${paymentUrl})`);
-  process.stdout.write(`${JSON.stringify({
-    created: true, date, schedule_id: selectedScheduleId, class_name: selected.className,
-    online_cost: onlineCost, recipient: RECIPIENT_EMAIL, payment_url: paymentUrl,
-  }, null, 2)}\n`);
 }
 
 main().catch((error: unknown) => {

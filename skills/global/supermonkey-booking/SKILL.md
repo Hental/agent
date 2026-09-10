@@ -5,6 +5,10 @@ description: 获取字节健康/青橙超级猩猩接口登录态，使用 TypeS
 
 # 超级猩猩预约
 
+## 执行边界
+
+创建订单只通过青橙 API：`POST /api/corp/company/supermonkey/order/`，不通过 AVD 或其他界面点击预约、提交订单。AVD 仅用于获取或刷新飞书 WebView 登录态；已有有效 `qc-session-id` 时，直接通过接口查询排期、余位、补贴和价格并下单，无需操作 AVD。接口登录态不可用时先恢复登录态，不降级为界面下单，不跳过身份或设备安全校验。区分“AVD 无法刷新登录态”和“接口下单失败”，不能将设备检查本身表述为接口请求失败。
+
 ## 获取登录态
 
 移动端操作使用 Android SDK 的 AVD（Android Emulator），不使用 MuMu。先通过 `adb devices -l` 和 `emulator -list-avds` 检查并复用已有 AVD；未运行时启动已有虚拟设备，不新建或清空设备。按 `$android-device-automation` 操作其中的飞书。桌面飞书提示“仅支持移动端”时，转到 AVD 继续，不将 MuMu 的登录状态作为本流程的阻碍。
@@ -63,7 +67,7 @@ npm run workflow -- 2026-08-15 --qc-session-id "$QINGCHENG_SESSION_ID"
 
 发送前按 `lark-card` 核验收件人及完整 Botmux 会话；默认收件人为 `liutao.fe@bytedance.com`。在运行发卡流程前设置 `BOTMUX_SESSION_ID` 为该已核验会话。它只用于选择发送目标，不代表 Botmux 原生提问会话；不得补造其他会话环境来运行 `ask`。
 
-默认按 [lark-card 本地读取流程](../lark-card/references/default.md) 处理按钮：`actionHandling: {mode: "local"}`，回调保存结果，当前工作流通过 `waitForChoice` 轮询同一请求并继续。现有 `workflow` 和 `request-order` 使用此模式；不要同时配置 resume 让另一个会话消费同一决定。若另行实现会话恢复流程，应按 lark-card 的 resume 约定声明 agent 类型，并交接业务步骤及防重复执行状态。
+默认按 [lark-card 本地读取流程](../lark-card/references/default.md) 处理按钮：`actionHandling: {mode: "local"}`，回调保存结果，当前工作流通过 `waitForChoice` 轮询同一请求并继续。收到有效预订提交后，立即通过 Botmux 另发“已收到”卡片，注明所选课程并告知正在核验和创建待支付订单；不得只更新原卡片或只回复聊天。随后直接核验并创建一次待支付订单，信息未变化时不再要求用户确认。成功发送支付链接；核验失败发送未下单通知，提交结果不明时发送待核对通知且不得自动重试。现有 `workflow` 和 `request-order` 使用此模式；不要同时配置 resume 让另一个会话消费同一决定。若另行实现会话恢复流程，应按 lark-card 的 resume 约定声明 agent 类型，并交接业务步骤及防重复执行状态。
 
 `card-gateway.ts` 是本业务对 lark-card 共享能力的适配层，调用项目 [botmux-card-confirmation](../../../apps/botmux-card-confirmation/AGENTS.md) 构建后的共享客户端（`apps/botmux-card-confirmation/dist/client.js`，类型声明由构建自动生成）。`sendMessage` 将普通信息包装成 schema 2.0 卡片，`sendConfirmation` 注册允许的按钮选项。课程列表、下单确认、支付链接和结果通知全部通过 lark-card 的 Botmux 网关中转；按钮事件通过 `card-confirmation` 插件接收。先按插件说明构建、启动服务并检查健康，保持运行直到选择流程结束。普通卡片发送只需 Botmux 在线。
 

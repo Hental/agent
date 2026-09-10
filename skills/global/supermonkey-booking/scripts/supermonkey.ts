@@ -239,12 +239,27 @@ async function requestOrder(): Promise<void> {
     print({ cancelled: true, message_id: sent.messageId, recipient: recipientEmail });
     return;
   }
-  await fetchPreflight(body.schedule_id, corpId, bizType);
-  const order = await submitOrder(body);
-  const paymentUrl = findPaymentUrl(order.data);
-  if (!paymentUrl) throw new Error("订单已创建，但响应中没有找到 HTTP(S) 支付宝支付链接");
-  await sendMessage(`支付宝待支付订单已创建：[打开支付链接](${paymentUrl})`, recipientEmail);
-  print({ created: true, recipient: recipientEmail, payment_url: paymentUrl, order });
+  await sendMessage(`已收到你的预订请求：${option("class-name")}（${option("start-time")}–${option("end-time")}）。\n正在核验并创建支付宝待支付订单，付款由你完成。`, recipientEmail, "超级猩猩 · 已收到");
+  let orderSubmitted = false;
+  let orderCreated = false;
+  try {
+    await fetchPreflight(body.schedule_id, corpId, bizType);
+    orderSubmitted = true;
+    const order = await submitOrder(body);
+    orderCreated = true;
+    const paymentUrl = findPaymentUrl(order.data);
+    if (!paymentUrl) throw new Error("订单已创建，但响应中没有找到 HTTP(S) 支付宝支付链接");
+    await sendMessage(`支付宝待支付订单已创建：[打开支付链接](${paymentUrl})`, recipientEmail);
+    print({ created: true, recipient: recipientEmail, payment_url: paymentUrl, order });
+  } catch (error) {
+    const status = orderCreated
+      ? "待支付订单已创建，但支付链接未能完整获取或送达。请先核对订单，不要重复预订。"
+      : orderSubmitted
+        ? "订单提交结果未能确认，请先核对订单记录；本流程不会自动重试下单。"
+        : "预约核验未通过或查询暂不可用，未创建订单。";
+    await sendMessage(status, recipientEmail, "超级猩猩 · 预订处理结果");
+    throw error;
+  }
 }
 
 function help(): void {
