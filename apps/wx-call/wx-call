@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+app_dir="$(cd "$(dirname "$0")" && pwd)"
+repo_dir="$(cd "$app_dir/../.." && pwd)"
+cache_dir="$repo_dir/.reports/wx-call-cache"
+report_dir="${WX_CALL_REPORT_DIR:-$repo_dir/.reports/wx-call-$(date +%Y%m%d)}"
+mkdir -p "$cache_dir" "$report_dir"
+click_bin="$(command -v cliclick || true)"
+[[ -n "$click_bin" ]] || { echo 'cliclick is required (brew install cliclick)' >&2; exit 1; }
+# Serialize calls across report directories. A stale lock is deliberately not removed automatically.
+lock_dir="$cache_dir/active.lock"
+mkdir "$lock_dir" 2>/dev/null || { echo "Another wx-call invocation is active: $lock_dir" >&2; exit 1; }
+trap 'rmdir "$lock_dir"' EXIT
+if [[ ! -e "$report_dir/attempts.txt" ]]; then
+  (set -o noclobber; printf '0\n' > "$report_dir/attempts.txt")
+fi
+if [[ ! -x "$cache_dir/vision" || "$app_dir/vision.swift" -nt "$cache_dir/vision" ]]; then
+  /usr/bin/xcrun swiftc "$app_dir/vision.swift" -o "$cache_dir/vision"
+fi
+echo "Artifacts: $report_dir" >&2
+/usr/bin/osascript "$app_dir/call.applescript" "$cache_dir/vision" "$click_bin" "$report_dir" "${1:-prepare}" "${2:-退款}" "${3:-余生}" "${4:-5}"
