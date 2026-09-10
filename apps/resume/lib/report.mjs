@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createServer } from 'node:http';
-import { readFile, writeFile, rm } from 'node:fs/promises';
+import { readFile, writeFile, rm, mkdir } from 'node:fs/promises';
 import { createHash, randomUUID } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { join, resolve, extname } from 'node:path';
@@ -9,10 +9,9 @@ import { buildReport, renderReport, reportDir, defaultPaths, escapeHtml } from '
 
 const help = `Markdown + JSON → HTML 预览 / PDF 导出
 
-  ./report.command build                  从原始数据生成 career-report.html
-  ./report.command preview                启动本地预览（默认操作，修改后自动刷新）
-  ./report.command pdf                    重新构建并导出完整 PDF
-  ./export-pdf.command                    同上，保留原命令
+  npm run build                  从原始数据生成 output/career-report.html
+  npm run preview                启动本地预览（默认操作，修改后自动刷新）
+  npm run pdf                    重新构建并导出完整 PDF
 
   node lib/report.mjs preview --port 8770 --no-open
   node lib/report.mjs pdf --output ./我的报告.pdf
@@ -68,15 +67,17 @@ export async function startPreview(options) {
       const pathname = decodeURIComponent(new URL(request.url, 'http://127.0.0.1').pathname);
       response.setHeader('Cache-Control','no-store');
       if (pathname === '/__version') { response.end(await version()); return; }
-      if (pathname === '/' || pathname === '/career-report.html') {
+      if (pathname === '/' || pathname === '/career-report.html' || pathname === '/output/career-report.html') {
         const initial = await version();
         const html = await renderReport(options);
         response.setHeader('Content-Type',mime['.html']);
         response.end(html.replace('</body>',reloadScript(initial)+'</body>')); return;
       }
-      if (pathname === '/output/pdf/career-report.pdf') {
+      if (pathname === '/output/pdf/career-report.pdf' || pathname === '/pdf/career-report.pdf') {
         const operation = pdfQueue.then(async () => {
-          const temporary = join(reportDir, `.preview-${randomUUID()}.html`);
+          const temporaryDir = resolve(reportDir, '../../.reports/resume-preview');
+          await mkdir(temporaryDir, {recursive:true});
+          const temporary = join(temporaryDir, `.preview-${randomUUID()}.html`);
           try {
             await writeFile(temporary, await renderReport(options));
             const { exportPdf } = await import('./pdf.mjs');

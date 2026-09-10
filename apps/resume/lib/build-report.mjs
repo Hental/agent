@@ -1,15 +1,15 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { homedir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, resolve, relative } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export const reportDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const defaultPaths = {
   data: join(reportDir, 'data/report.json'),
   markdown: join(reportDir, 'data/report.md'),
-  template: join(reportDir, 'template.html'),
-  html: join(reportDir, 'career-report.html'),
+  template: join(reportDir, 'template/template.html'),
+  html: join(reportDir, 'output/career-report.html'),
   pdf: join(reportDir, 'output/pdf/career-report.pdf'),
 };
 export const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -40,9 +40,10 @@ export async function renderReport(options = {}) {
   const [json, markdown, template, engine] = await Promise.all([
     readFile(paths.data, 'utf8'), readFile(paths.markdown, 'utf8'), readFile(paths.template, 'utf8'), markdownEngine(),
   ]);
+  const artifactLink = target => relative(dirname(paths.html), target).split('\\').join('/');
   const d = JSON.parse(json);
   assert(d.version === 1, 'report.json 的 version 必须为 1。');
-  for (const key of ['meta','hero','timeline','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
+  for (const key of ['meta','hero','timeline','education','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
   for (const key of ['navigation','projects','sources','downloads']) assert(Array.isArray(d[key]), `缺少 JSON 数组：${key}`);
   const blocks = new Map();
   const pattern = /^## .*?\{#([\w.-]+)\}\s*$/gm;
@@ -95,18 +96,20 @@ export async function renderReport(options = {}) {
   <div class="rail-foot"><strong class="mono">${d.sources.length}</strong><p>份飞书材料<br>检索于 ${e(d.meta.researchDate)}</p><button type="button" class="print" data-print-report>导出 PDF</button></div></aside>
   <main id="report-main"><div class="topline"><span class="eyebrow">Career review</span><span>报告版本 ${e(d.meta.reportDate)} · 基于已有检索材料</span></div>
   <header id="overview" class="hero"><p class="eyebrow">${e(d.meta.period)}</p><h1>${e(d.meta.name)}<span>${e(d.meta.title)}</span></h1><p class="intro">${md(d.hero.intro,true)}</p>
+  ${d.meta.personalInfo ? `<p class="personal-info">${e(d.meta.personalInfo.age)} 岁 · 邮箱：<a href="mailto:${e(d.meta.personalInfo.email)}">${e(d.meta.personalInfo.email)}</a> · 手机：<a href="tel:${e(d.meta.personalInfo.phone)}">${e(d.meta.personalInfo.phone)}</a></p>` : ''}
   <div class="tags" aria-label="建议简历方向">${d.hero.tags.map(t=>`<span>${e(t)}</span>`).join('')}</div>
   <div class="hero-facts">${d.hero.facts.map(f=>`<article><div class="fact-value">${e(f.value)} <small>${e(f.unit)}</small></div><div class="fact-label">${e(f.label)}</div><div class="fact-note">${e(f.note)} ${link(f.reference)}</div></article>`).join('')}</div>
-  <p class="hero-caption">${md(d.hero.caption,true)}</p><div class="export-actions"><button type="button" class="print" data-print-report>导出 PDF</button><a href="output/pdf/career-report.pdf" download>下载 PDF</a></div></header>
+  <p class="hero-caption">${md(d.hero.caption,true)}</p><div class="export-actions"><button type="button" class="print" data-print-report>导出 PDF</button><a href="${e(artifactLink(defaultPaths.pdf))}" download>下载 PDF</a></div></header>
   <section id="timeline" class="section">${head('timeline')}<div class="timeline">${d.timeline.items.map(t=>`<article class="phase"><div class="date mono">${e(t.date)}</div><h3>${e(t.title)}</h3><strong>${e(t.subtitle)}</strong><p>${md(t.body,true)}</p>${link(t.reference)}</article>`).join('')}</div><p class="tiny">${md(d.timeline.note,true)}</p><div class="callout"><p>${md(d.timeline.positioning,true)}</p></div></section>
   <section id="projects" class="section">${head('projects')}<div class="tabs" role="tablist" aria-label="选择代表项目">${d.projects.map((p,i)=>`<button type="button" role="tab" id="tab-${e(p.id)}" aria-controls="project-${e(p.id)}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${e(p.tab)}</button>`).join('')}</div>${projects}</section>
+  <section id="education" class="section">${head('education')}<article class="phase"><div class="date mono">${e(d.education.period)}</div><h3>${e(d.education.school)}</h3><p>${md(d.education.body,true)}</p></article></section>
   <section id="sources" class="section">${head('sources')}<ol class="sources">${d.sources.map(s=>{
     assert(/^https?:\/\//i.test(s.url), `来源 URL 无效：${s.id}`);
     return `<li id="${e(s.id)}"><a href="${e(s.url)}" target="_blank" rel="noopener noreferrer">${e(s.title)}</a><small>${e(s.note)}</small></li>`;
   }).join('')}</ol><p class="tiny">${md(d.researchNote,true)}</p></section>
   <footer class="foot"><span>${e(d.meta.name)} · 职业材料整理<br>${e(d.meta.reportDate)}</span><div class="downloads">${downloadLinks.map(a=>{
     assert(!/^(?:[a-z]+:|\/|.*\.\.)/i.test(a.path), `下载路径必须位于报告目录：${a.path}`);
-    return `<a href="${e(a.path)}" download>${e(a.label)}</a>`;
+    return `<a href="${e(artifactLink(join(reportDir,a.path)))}" download>${e(a.label)}</a>`;
   }).join('')}</div></footer></main></div>`;
   for (const match of body.matchAll(/href="#([\w.-]+)"/g)) assert(ids.has(match[1]), `链接引用了不存在的 ID：${match[1]}`);
   for (const name of ['BODY','TITLE','DESCRIPTION']) assert(template.includes(`{{${name}}}`), `模板缺少 {{${name}}}`);
@@ -119,6 +122,7 @@ export async function buildReport(options = {}) {
   for (const source of [options.data ?? defaultPaths.data, options.markdown ?? defaultPaths.markdown, options.template ?? defaultPaths.template]) {
     assert(output !== resolve(source), 'HTML 输出不能覆盖原始数据或模板。');
   }
+  await mkdir(dirname(output), {recursive:true});
   await writeFile(output, html);
   return output;
 }

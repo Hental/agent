@@ -7,7 +7,13 @@
     "edition": "2020—2026",
     "reportDate": "2026.09.07",
     "researchDate": "2026.09.06",
-    "rawDirectory": "../sources"
+    "rawDirectory": "../sources",
+    "personalInfo": {
+      "age": 31,
+      "email": "liutao_dev@outlook.com",
+      "phone": "17521698087",
+      "confirmedAt": "2026-09-10"
+    }
   },
   "navigation": [
     {
@@ -21,6 +27,10 @@
     {
       "id": "projects",
       "label": "代表项目"
+    },
+    {
+      "id": "education",
+      "label": "教育经历"
     },
     {
       "id": "sources",
@@ -39,9 +49,14 @@
       "description": "按时间降序，逐项说明背景与问题、个人职责、技术方案和结果收益。"
     },
     "sources": {
-      "label": "04 / REFERENCES",
+      "label": "05 / REFERENCES",
       "title": "21 份参考材料",
       "description": "文档、代码及消息保留来源；访问需对应权限。"
+    },
+    "education": {
+      "label": "04 / EDUCATION",
+      "title": "教育经历",
+      "description": ""
     }
   },
   "hero": {
@@ -571,10 +586,6 @@
   "researchNote": "sources.e2e",
   "downloads": [
     {
-      "label": "框架 Markdown",
-      "path": "简历框架.md"
-    },
-    {
       "label": "简历 Markdown",
       "path": "刘韬_简历.md"
     },
@@ -584,7 +595,13 @@
     },
     {
       "label": "完整证据记录",
-      "path": "字节近六年工作回顾与证据.md"
+      "path": "sources/summary/字节近六年工作回顾与证据.md"
     }
-  ]
+  ],
+  "education": {
+    "school": "四川大学",
+    "period": "2013 — 2017",
+    "body": "education.details",
+    "provenance": "用户于 2026-09-10 提供并确认"
+  }
 }

@@ -2,10 +2,10 @@
 
 - `data/report.md` and `data/report.json` are the editable report data. Preserve source attribution and the distinction between personal contributions, team outcomes, estimates, and measured results.
 - `sources/` contains the original Feishu Markdown documents and JSON search results. Keep these original records intact.
-- `sources/<project-id>/` groups each selected project's `meta.json`, `project.md`, and supporting Markdown materials. Follow `sources/AGENTS.md` when organizing evidence; keep report data as the presentation source of truth.
-- `lib/` contains the build, preview, PDF export, and test scripts; root `.command` files remain double-click launchers.
-- `template.html` controls presentation and browser interactions; `lib/build-lib/report.mjs` renders the data; `lib/report.mjs` provides build, preview, and PDF commands.
-- `career-report.html`, `output/`, and QA artifacts are generated and ignored. Change source data or templates instead of editing generated files.
+- `sources/<序号_团队_project-id>/` groups each selected project's `meta.json`, `project.md`, and supporting Markdown materials. Follow `sources/AGENTS.md` when organizing evidence; keep report data as the presentation source of truth.
+- `lib/` contains the build, preview, PDF export, and test scripts. Use package.json scripts as the command entrypoints.
+- `template/template.html` controls presentation and browser interactions; `lib/build-report.mjs` renders the data; `lib/report.mjs` provides build, preview, and PDF commands.
+- `output/`, and QA artifacts are generated and ignored. Change source data or templates instead of editing generated files.
 - From the repository root, use `pnpm run resume test`, `pnpm run resume build`, `pnpm run resume preview`, and `pnpm run resume pdf`. Run the app tests and build after changing the generator. Check PDF rendering when changing print layout.
 
 # MD + JSON 驱动的工作回顾报告
@@ -17,9 +17,9 @@ data/report.md     正文：背景、个人职责、技术工作、指标口径
        +
 data/report.json   结构化内容：元信息、时间线、项目、指标、来源与正文引用
        ↓
-template.html + lib/build-lib/report.mjs
+template/template.html + lib/build-report.mjs
        ↓
-career-report.html        静态 HTML / 本地动态预览
+output/career-report.html 静态 HTML / 本地动态预览
        ↓
 output/pdf/career-report.pdf
 ```
@@ -38,12 +38,14 @@ pnpm run resume test
 在本目录运行：
 
 ```sh
-./report.command preview     # 本地预览；编辑 MD / JSON 后自动刷新
-./report.command build       # 生成可离线打开的 HTML
-./report.command pdf         # 重新读取数据、构建 HTML，再导出 PDF
+npm run preview     # 本地预览；编辑 MD / JSON 后自动刷新
+npm run build       # 生成可离线打开的 HTML
+npm run pdf         # 重新读取数据、构建 HTML，再导出 PDF
 ```
 
-macOS 也可双击 `report.command` 启动预览，双击 `export-pdf.command` 导出 PDF。原有 `export-pdf.command` / `lib/export-pdf.mjs` 入口已接入新的数据生成流程。
+npm scripts 是统一入口；依赖仍由工作区 pnpm 管理，无需额外运行 npm install。导出 PDF 使用 `npm run pdf`，自定义路径使用 `npm run pdf -- --output ./刘韬_工作回顾.pdf`。
+
+在工作区根目录也可使用 `npm --prefix apps/resume run build`（或 `preview` / `pdf` / `test`）。向脚本传参时添加 `--`，例如 `npm run preview -- --port 8770 --no-open`。
 
 跨平台使用：
 
@@ -91,7 +93,7 @@ node lib/report.mjs --help
 - 离线 HTML 中的“下载 PDF”：下载上一次已生成的 PDF；修改数据后请运行 `pdf` 命令更新。
 - 命令导出使用 A4，等待字体加载，展开所有项目与说明，保留来源链接和页码。
 
-不要直接修改 `career-report.html`：下次构建会覆盖它。页面样式和交互在 `template.html`，结构渲染在 `lib/build-lib/report.mjs`。
+不要直接修改 `output/career-report.html`：下次构建会覆盖它。页面样式和交互在 `template/template.html`，结构渲染在 `lib/build-report.mjs`。
 
 ## 依赖与验证
 
@@ -111,8 +113,8 @@ PDF 导出也可使用已安装的 Google Chrome；可设置 `CHROME_PATH` 指�
 
 - `sources/`：原始飞书文档 Markdown 和搜索结果 JSON，保持原样，供追溯。
 - `data/`：整理后的可编辑报告源数据。
-- `简历框架.md`、`刘韬_简历.md`：此前产出的简历材料，独立保留，不随报告自动改写。
+- `刘韬_简历.md`：此前产出的简历材料，独立保留，不随报告自动改写。
 - `liutao-resume.tex`：此前的 LaTeX 简历。
-- `字节近六年工作回顾与证据.md`：完整研究记录。
+- `sources/summary/字节近六年工作回顾与证据.md`：完整研究记录。
 
 HTML / PDF 是包含证据和待补信息的完整工作回顾，篇幅长于投递简历。
