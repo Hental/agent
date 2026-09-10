@@ -1,7 +1,7 @@
 {
   "version": 1,
   "project_id": "board",
-  "title": "火山互动白板",
+  "title": "火山引擎视频云 - 互动白板",
   "period": "2022.10 — 2024.03 主要建设期",
   "role": "项目 Owner",
   "organized_at": "2026-09-10",
@@ -45,7 +45,7 @@
         }
       ],
       "copied_from": null,
-      "sha256": "d64b5d77267774418668a2f5fe929fce5ab2d6ad5150b1497e789aba60164aba",
+      "sha256": "b832b602209c650530eb0be4ca2be54ebfcd624ff2d592e2b0608fe47a7129a4",
       "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
     },
     {
@@ -106,5 +106,5 @@
     "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
   ],
   "order": 4,
-  "team": "视频云"
+  "team": "火山引擎视频云"
 }

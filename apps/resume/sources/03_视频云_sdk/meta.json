@@ -1,7 +1,7 @@
 {
   "version": 1,
   "project_id": "sdk",
-  "title": "跨端 SDK 自动生成",
+  "title": "火山引擎视频云 - 跨端 SDK 自动生成",
   "period": "2024 Q2 落地",
   "role": "生成工具与运行时",
   "organized_at": "2026-09-10",
@@ -33,7 +33,7 @@
         }
       ],
       "copied_from": null,
-      "sha256": "72d55ba505054ca12aba739490fef7b9965118dece2dbff0aaec3ff241fbf92b",
+      "sha256": "a59ee4997be193713eaa7630c83bb11d99c82122946fa23a705aa5d21345f865",
       "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
     },
     {
@@ -77,5 +77,5 @@
     "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
   ],
   "order": 3,
-  "team": "视频云"
+  "team": "火山引擎视频云"
 }

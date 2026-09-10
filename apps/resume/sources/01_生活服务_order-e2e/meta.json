@@ -1,7 +1,7 @@
 {
   "version": 1,
   "project_id": "order-e2e",
-  "title": "订单 E2E 自动化",
+  "title": "生活服务 - 订单 E2E 自动化",
   "period": "2026.01 — 至今",
   "role": "回归管线与流水线接入",
   "organized_at": "2026-09-10",
@@ -81,7 +81,7 @@
         }
       ],
       "copied_from": null,
-      "sha256": "92e986a0f19b6c61b73b34b1ec0e16ae5a716219ffac26548081b14fd0eada25",
+      "sha256": "42f27515a6a563728e0f4c0a45ce3b635db48efda47599e48b09c71e75a7b909",
       "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
     },
     {

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "project_id": "editor",
-  "title": "商业化移动端落地页编辑器",
+  "title": "广告 - 移动端落地页编辑器",
   "period": "2020.10 — 2022.10",
   "role": "设计与开发",
   "organized_at": "2026-09-10",
@@ -33,7 +33,7 @@
         }
       ],
       "copied_from": null,
-      "sha256": "722b40505534ed1a40ef7eb1590c50b17b259ea0d620572d6240ee4079503696",
+      "sha256": "88006e9d038cd39ea3ac4603b482538bf3ced6602ce43ef1b1aebecfc28fee96",
       "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
     },
     {
@@ -60,5 +60,5 @@
     "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
   ],
   "order": 5,
-  "team": "商业化"
+  "team": "广告"
 }

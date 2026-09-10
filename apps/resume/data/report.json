@@ -2,7 +2,7 @@
   "version": 1,
   "meta": {
     "name": "刘韬",
-    "title": "技术工作回顾与简历框架",
+    "title": "研发工程师简历",
     "period": "2020.10 — 2026.09 / 近六年",
     "edition": "2020—2026",
     "reportDate": "2026.09.07",
@@ -12,7 +12,9 @@
       "age": 31,
       "email": "liutao_dev@outlook.com",
       "phone": "17521698087",
-      "confirmedAt": "2026-09-10"
+      "confirmedAt": "2026-09-10",
+      "targetRole": "研发工程师",
+      "city": "成都"
     }
   },
   "navigation": [
@@ -21,12 +23,8 @@
       "label": "职业定位"
     },
     {
-      "id": "timeline",
-      "label": "工作时间线"
-    },
-    {
       "id": "projects",
-      "label": "代表项目"
+      "label": "项目经历"
     },
     {
       "id": "education",
@@ -38,126 +36,50 @@
     }
   ],
   "sections": {
-    "timeline": {
-      "label": "02 / EXPERIENCE",
-      "title": "三个阶段，一条技术主线",
-      "description": "业务交付 → 复杂 SDK 与架构 → 可复用研发工具"
-    },
     "projects": {
-      "label": "03 / SELECTED WORK",
-      "title": "五个代表项目",
-      "description": "按时间降序，逐项说明背景与问题、个人职责、技术方案和结果收益。"
+      "label": "02 / PROJECT EXPERIENCE",
+      "title": "项目经历（最近 6 年）",
+      "description": ""
     },
     "sources": {
-      "label": "05 / REFERENCES",
+      "label": "04 / REFERENCES",
       "title": "21 份参考材料",
       "description": "文档、代码及消息保留来源；访问需对应权限。"
     },
     "education": {
-      "label": "04 / EDUCATION",
+      "label": "03 / EDUCATION",
       "title": "教育经历",
       "description": ""
     }
   },
   "hero": {
-    "intro": "overview.intro",
-    "caption": "overview.caption",
     "tags": [
       "前端架构",
       "跨端 SDK",
       "研发效能",
-      "互动白板项目 Owner"
-    ],
-    "facts": [
-      {
-        "value": "600 → 100",
-        "unit": "ms",
-        "label": "互动白板端到端延迟",
-        "note": "项目指标 ·",
-        "reference": {
-          "source": "s2",
-          "label": "原始述职"
-        }
-      },
-      {
-        "value": "69 / 242",
-        "unit": "API",
-        "label": "RN 拉流 / 推流 SDK 自动生成",
-        "note": "2024 Q2 ·",
-        "reference": {
-          "source": "s4",
-          "label": "本人旧简历"
-        }
-      },
-      {
-        "value": "81.81 → 92.31",
-        "unit": "%",
-        "label": "交易研发资产准确率",
-        "note": "2026 Q2 团队结果 ·",
-        "reference": {
-          "source": "s7",
-          "label": "团队复盘"
-        }
-      }
+      "互动白板项目 负责人"
     ]
-  },
-  "timeline": {
-    "items": [
-      {
-        "date": "2020.10 — 2022.10",
-        "title": "商业化",
-        "subtitle": "把页面制作流程产品化",
-        "body": "timeline.1",
-        "reference": {
-          "source": "s4",
-          "label": "依据：本人旧简历 ↗"
-        }
-      },
-      {
-        "date": "2022.10 — 2024.10*",
-        "title": "视频云",
-        "subtitle": "承担复杂产品与架构责任",
-        "body": "timeline.2",
-        "reference": {
-          "source": "s2",
-          "label": "依据：述职与交接 ↗"
-        }
-      },
-      {
-        "date": "2024.11* — 至今",
-        "title": "生活服务",
-        "subtitle": "在交易业务中沉淀研发能力",
-        "body": "timeline.3",
-        "reference": {
-          "source": "s6",
-          "label": "依据：个人周报与团队复盘 ↗"
-        }
-      }
-    ],
-    "note": "timeline.note",
-    "positioning": "timeline.positioning"
   },
   "projects": [
     {
       "id": "order-e2e",
       "tab": "订单 E2E 自动化",
       "date": "2026.01 — 至今",
-      "title": "订单 E2E 自动化",
-      "badge": "回归管线与流水线接入",
+      "title": "生活服务 - 订单 E2E 自动化",
       "problem": "e2e.problem",
       "responsibility": "e2e.responsibility",
       "flow": [
         {
           "title": "测试数据回放",
-          "note": "历史响应 / Anywhere"
+          "note": "历史响应 / 接口模拟服务"
         },
         {
           "title": "真机截图",
-          "note": "ehome / Bytest"
+          "note": "真机测试平台"
         },
         {
-          "title": "UI Diff",
-          "note": "线上与 PPE 对比"
+          "title": "界面差异检测",
+          "note": "线上与 预发布 对比"
         },
         {
           "title": "结果确认",
@@ -166,19 +88,19 @@
       ],
       "metrics": [
         {
-          "label": "业务身份数据覆盖",
+          "label": "业务场景标识数据覆盖",
           "value": "100%",
           "note": "Q1 复盘口径，非页面状态或路径全覆盖"
         },
         {
           "label": "研发流程接入",
-          "value": "订单火车回归",
-          "note": "Bits 原子节点 + 结果人工复核"
+          "value": "订单发布回归",
+          "note": "持续集成流水线任务节点 + 结果人工复核"
         },
         {
           "label": "场景扩展",
           "value": "单页 → 全链路",
-          "note": "商详 / 提单 / 订单；持续完善中"
+          "note": "商品详情页 / 订单提交页 / 订单；持续完善中"
         }
       ],
       "scope": "e2e.scope",
@@ -193,7 +115,7 @@
         },
         {
           "source": "s17",
-          "label": "火车接入与噪音治理"
+          "label": "发布流水线接入与噪音治理"
         },
         {
           "source": "s18",
@@ -209,14 +131,19 @@
         }
       ],
       "body": "e2e.body",
-      "results": "e2e.results"
+      "results": "e2e.results",
+      "print": {
+        "results": "order-e2e.print.results",
+        "problem": "order-e2e.print.problem",
+        "responsibility": "order-e2e.print.responsibility",
+        "body": "order-e2e.print.body"
+      }
     },
     {
       "id": "assets",
       "tab": "交易研发资产",
       "date": "2025 — 2026",
-      "title": "交易研发资产与场景复现",
-      "badge": "截图采集与资产质量",
+      "title": "生活服务 - 交易研发资产",
       "problem": "assets.problem",
       "responsibility": "assets.responsibility",
       "flow": [
@@ -226,14 +153,14 @@
         },
         {
           "title": "运行时标识",
-          "note": "卡片与业务身份"
+          "note": "卡片与业务场景标识"
         },
         {
-          "title": "DitoM 插件",
+          "title": "资产管理",
           "note": "资产关联与管理"
         },
         {
-          "title": "场景消费",
+          "title": "场景使用",
           "note": "预览 / 复现 / 排查"
         }
       ],
@@ -270,14 +197,19 @@
         }
       ],
       "body": "assets.body",
-      "results": "assets.results"
+      "results": "assets.results",
+      "print": {
+        "results": "assets.print.results",
+        "problem": "assets.print.problem",
+        "responsibility": "assets.print.responsibility",
+        "body": "assets.print.body"
+      }
     },
     {
       "id": "sdk",
       "tab": "SDK 自动生成",
       "date": "2024 Q2 落地",
-      "title": "跨端 SDK 自动生成",
-      "badge": "生成工具与运行时",
+      "title": "火山引擎视频云 - 跨端 SDK 自动生成",
       "problem": "sdk.problem",
       "responsibility": "sdk.responsibility",
       "flow": [
@@ -323,14 +255,19 @@
         }
       ],
       "body": "sdk.body",
-      "results": "sdk.results"
+      "results": "sdk.results",
+      "print": {
+        "results": "sdk.print.results",
+        "problem": "sdk.print.problem",
+        "responsibility": "sdk.print.responsibility",
+        "body": "sdk.print.body"
+      }
     },
     {
       "id": "board",
       "tab": "互动白板",
       "date": "2022.10 — 2024.03 主要建设期",
-      "title": "火山互动白板",
-      "badge": "项目 Owner",
+      "title": "火山引擎视频云 - 互动白板",
       "problem": "board.problem",
       "responsibility": "board.responsibility",
       "flow": [
@@ -339,7 +276,7 @@
           "note": "绘制与输入"
         },
         {
-          "title": "RTS / Protobuf",
+          "title": "实时信令 / Protobuf",
           "note": "实时消息"
         },
         {
@@ -399,14 +336,19 @@
           }
         ]
       },
-      "results": "board.results"
+      "results": "board.results",
+      "print": {
+        "results": "board.print.results",
+        "problem": "board.print.problem",
+        "responsibility": "board.print.responsibility",
+        "body": "board.print.body"
+      }
     },
     {
       "id": "editor",
-      "tab": "商业化编辑器",
+      "tab": "广告编辑器",
       "date": "2020.10 — 2022.10",
-      "title": "商业化移动端落地页编辑器",
-      "badge": "设计与开发",
+      "title": "广告 - 移动端落地页编辑器",
       "problem": "editor.problem",
       "responsibility": "editor.responsibility",
       "flow": [
@@ -452,7 +394,13 @@
         }
       ],
       "body": "editor.body",
-      "results": "editor.results"
+      "results": "editor.results",
+      "print": {
+        "results": "editor.print.results",
+        "problem": "editor.print.problem",
+        "responsibility": "editor.print.responsibility",
+        "body": "editor.print.body"
+      }
     }
   ],
   "sources": [
@@ -520,7 +468,7 @@
       "id": "s11",
       "title": "刘韬 1on1 月度 Q2",
       "url": "https://bytedance.larkoffice.com/docx/OG4bdZON5oyrXpxNN8EcDD5hnMg",
-      "note": "正文为 2025 Q2，包含标准化与 Oncall 结果。"
+      "note": "正文为 2025 Q2，包含标准化与 值班问题处理 结果。"
     },
     {
       "id": "s12",
@@ -544,7 +492,7 @@
       "id": "s15",
       "title": "订单 E2E 测试技术方案",
       "url": "https://bytedance.larkoffice.com/wiki/KAVKwkzXVijooHkOOLjcXwLenyJ",
-      "note": "背景、业务身份数据驱动方案及 FE / Client 分工；目标不作为达成结果。"
+      "note": "背景、业务场景标识数据驱动方案及 前端 / 客户端 分工；目标不作为达成结果。"
     },
     {
       "id": "s16",
@@ -556,7 +504,7 @@
       "id": "s17",
       "title": "订单 E2E 拦截噪音优化",
       "url": "https://bytedance.larkoffice.com/wiki/M9vYwRg2uinawHkFaIgcDjK2ndb",
-      "note": "订单火车发布模板接入及定期回归、结果复核机制。"
+      "note": "订单发布流水线发布模板接入及定期回归、结果复核机制。"
     },
     {
       "id": "s18",
@@ -568,7 +516,7 @@
       "id": "s19",
       "title": "订单 E2E 周度审查（2026.09.04—09.10）",
       "url": "https://bytedance.larkoffice.com/wiki/XUEZwMAgAiawsFksCr7cvxeUnpe",
-      "note": "部分内容由 AI 生成，记载 7 任务 / 1,534 Job 及异常，仅作运行线索；未重查底层快照。"
+      "note": "部分内容由 AI 生成，记载 7 任务 / 1,534 个子任务 及异常，仅作运行线索；未重查底层快照。"
     },
     {
       "id": "s20",

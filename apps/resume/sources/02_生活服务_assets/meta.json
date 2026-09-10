@@ -1,7 +1,7 @@
 {
   "version": 1,
   "project_id": "assets",
-  "title": "交易研发资产与场景复现",
+  "title": "生活服务 - 交易研发资产",
   "period": "2025 — 2026",
   "role": "截图采集与资产质量",
   "organized_at": "2026-09-10",
@@ -45,7 +45,7 @@
         }
       ],
       "copied_from": null,
-      "sha256": "25e8b21589ebb7d46a8fdf7bc3f234e91d2bb40100e0e5e4b8bd6b4846e2a41f",
+      "sha256": "6acdf3a60b4a698759f54f9f564531d759a33f0c8f4f625fa00560e394e2487c",
       "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
     },
     {

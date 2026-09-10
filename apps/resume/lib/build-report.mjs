@@ -43,7 +43,7 @@ export async function renderReport(options = {}) {
   const artifactLink = target => relative(dirname(paths.html), target).split('\\').join('/');
   const d = JSON.parse(json);
   assert(d.version === 1, 'report.json 的 version 必须为 1。');
-  for (const key of ['meta','hero','timeline','education','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
+  for (const key of ['meta','hero','education','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
   for (const key of ['navigation','projects','sources','downloads']) assert(Array.isArray(d[key]), `缺少 JSON 数组：${key}`);
   const blocks = new Map();
   const pattern = /^## .*?\{#([\w.-]+)\}\s*$/gm;
@@ -79,29 +79,29 @@ export async function renderReport(options = {}) {
     }).join('')}<div class="bar-axis" aria-hidden="true"><span>0</span><span>${e(c.max / 2)}</span><span>${e(c.max)} ${e(c.unit)}</span></div></figure>`;
   };
   const projects = d.projects.map(p => `<article class="project" id="project-${e(p.id)}" aria-labelledby="tab-${e(p.id)}">
-    <div class="project-header"><div><span class="eyebrow muted">${e(p.date)}</span><h3>${e(p.title)}</h3></div><span class="badge">${e(p.badge)}</span></div>
+    <div class="project-header"><div><span class="eyebrow muted">${e(p.date)}</span><h3>${e(p.title)}</h3></div></div>
+    <div class="project-detail">
+    <h4>项目结果与收益</h4>
+    ${md(p.results)}
+    ${p.chart ? chart(p.chart) : ''}${metrics(p.metrics)}
     <div class="project-brief"><div><h4>项目简介</h4><p><strong>时间：${e(p.date)}</strong></p><p>${md(p.problem, true)}</p></div><div><h4>个人职责</h4><p>${md(p.responsibility, true)}</p></div></div>
     <h4>技术介绍</h4>
     <div class="flow" aria-label="${e(p.title)}技术链路">${p.flow.map(f => `<div>${e(f.title)}<span>${e(f.note)}</span></div>`).join('<b aria-hidden="true">→</b>')}</div>
     ${md(p.body)}
-    <h4>项目结果与收益</h4>
-    ${md(p.results)}
-    ${p.chart ? chart(p.chart) : ''}${metrics(p.metrics)}
     <p class="scope">${md(p.scope, true)}</p><div class="source-line">来源：${p.references.map(link).join('')}</div>
+    </div><div class="project-print">${[['results','结果'],['problem','背景'],['responsibility','职责'],['body','技术']].map(([key,label])=>`<p><strong>${label}：</strong>${md(p.print[key],true)}</p>`).join('')}</div>
   </article>`).join('\n');
   const downloadLinks = [...d.downloads, {label:'正文 Markdown',path:'data/report.md'},{label:'结构化 JSON',path:'data/report.json'}];
   const body = `<a class="skip" href="#overview">跳到报告正文</a>
   <div class="layout"><aside class="rail" aria-label="报告导航"><div class="brand"><span class="brand-mark" aria-hidden="true">LT</span>技术工作档案</div><div class="edition">${e(d.meta.name)} / ${e(d.meta.edition)}</div>
   <nav>${d.navigation.map((n,i) => `<a href="#${e(n.id)}"${i === 0 ? ' aria-current="location"' : ''}><span>${String(i+1).padStart(2,'0')}</span>${e(n.label)}</a>`).join('')}</nav>
   <div class="rail-foot"><strong class="mono">${d.sources.length}</strong><p>份飞书材料<br>检索于 ${e(d.meta.researchDate)}</p><button type="button" class="print" data-print-report>导出 PDF</button></div></aside>
-  <main id="report-main"><div class="topline"><span class="eyebrow">Career review</span><span>报告版本 ${e(d.meta.reportDate)} · 基于已有检索材料</span></div>
-  <header id="overview" class="hero"><p class="eyebrow">${e(d.meta.period)}</p><h1>${e(d.meta.name)}<span>${e(d.meta.title)}</span></h1><p class="intro">${md(d.hero.intro,true)}</p>
-  ${d.meta.personalInfo ? `<p class="personal-info">${e(d.meta.personalInfo.age)} 岁 · 邮箱：<a href="mailto:${e(d.meta.personalInfo.email)}">${e(d.meta.personalInfo.email)}</a> · 手机：<a href="tel:${e(d.meta.personalInfo.phone)}">${e(d.meta.personalInfo.phone)}</a></p>` : ''}
+  <main id="report-main">
+  <header id="overview" class="hero"><h1>${e(d.meta.name)}</h1>
+  ${d.meta.personalInfo ? `<p class="personal-info">${e(d.meta.name)} · <a href="tel:${e(d.meta.personalInfo.phone)}">${e(String(d.meta.personalInfo.phone).replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'))}</a> · <a href="mailto:${e(d.meta.personalInfo.email)}">${e(d.meta.personalInfo.email)}</a> · ${e(d.meta.personalInfo.targetRole)}${d.meta.personalInfo.city ? `（${e(d.meta.personalInfo.city)}）` : ''}</p>` : ''}
   <div class="tags" aria-label="建议简历方向">${d.hero.tags.map(t=>`<span>${e(t)}</span>`).join('')}</div>
-  <div class="hero-facts">${d.hero.facts.map(f=>`<article><div class="fact-value">${e(f.value)} <small>${e(f.unit)}</small></div><div class="fact-label">${e(f.label)}</div><div class="fact-note">${e(f.note)} ${link(f.reference)}</div></article>`).join('')}</div>
-  <p class="hero-caption">${md(d.hero.caption,true)}</p><div class="export-actions"><button type="button" class="print" data-print-report>导出 PDF</button><a href="${e(artifactLink(defaultPaths.pdf))}" download>下载 PDF</a></div></header>
-  <section id="timeline" class="section">${head('timeline')}<div class="timeline">${d.timeline.items.map(t=>`<article class="phase"><div class="date mono">${e(t.date)}</div><h3>${e(t.title)}</h3><strong>${e(t.subtitle)}</strong><p>${md(t.body,true)}</p>${link(t.reference)}</article>`).join('')}</div><p class="tiny">${md(d.timeline.note,true)}</p><div class="callout"><p>${md(d.timeline.positioning,true)}</p></div></section>
-  <section id="projects" class="section">${head('projects')}<div class="tabs" role="tablist" aria-label="选择代表项目">${d.projects.map((p,i)=>`<button type="button" role="tab" id="tab-${e(p.id)}" aria-controls="project-${e(p.id)}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${e(p.tab)}</button>`).join('')}</div>${projects}</section>
+  <div class="export-actions"><button type="button" class="print" data-print-report>导出 PDF</button><a href="${e(artifactLink(defaultPaths.pdf))}" download>下载 PDF</a></div></header>
+  <section id="projects" class="section">${head('projects')}<div class="tabs" role="tablist" aria-label="选择项目经历">${d.projects.map((p,i)=>`<button type="button" role="tab" id="tab-${e(p.id)}" aria-controls="project-${e(p.id)}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${e(p.tab)}</button>`).join('')}</div>${projects}</section>
   <section id="education" class="section">${head('education')}<article class="phase"><div class="date mono">${e(d.education.period)}</div><h3>${e(d.education.school)}</h3><p>${md(d.education.body,true)}</p></article></section>
   <section id="sources" class="section">${head('sources')}<ol class="sources">${d.sources.map(s=>{
     assert(/^https?:\/\//i.test(s.url), `来源 URL 无效：${s.id}`);

@@ -1,4 +1,10 @@
-# 订单 E2E 自动化
+# 生活服务 - 订单 E2E 自动化
+
+## 项目结果与收益
+
+- **回归能力落地：**2026 年 3 月向订单小组开放 PPE 试用，6 月本人消息确认在集成回归阶段加入 E2E 调试；订单火车接入文档安排集成后触发、次日复核结果，形成发布前发现 UI 差异的检查流程。见 [部署消息](https://applink.feishu.cn/client/chat/open?openChatId=oc_cbaeeacd0e59ccc13c935a268f0f6bd4&position=93)、[接入消息](https://applink.feishu.cn/client/chat/open?openChatId=oc_b789094c27a36c6c57758544fbe63758&position=773)、[治理方案](https://bytedance.larkoffice.com/wiki/M9vYwRg2uinawHkFaIgcDjK2ndb)。
+- **覆盖与复用：**Q1 复盘记录业务身份数据覆盖度 **100%**；复用平台与共享数据，建设单页回归并扩展多页面回放，减少逐场景重复准备数据与执行步骤。时间收益未单独测量。
+- **运行情况与限制：**9 月 4—10 日周度审查记载 **7 个任务、1,534 个 Job**，包含订单火车及酒旅、餐综测试，同时记录大量数据缺失、执行异常和未完成任务。该材料为部分 AI 生成的二手快照，未复核底层数据，仅说明运行场景；不作为高成功率或提效证明。见 [周度审查](https://bytedance.larkoffice.com/wiki/XUEZwMAgAiawsFksCr7cvxeUnpe)。
 
 ## 项目简介
 
@@ -16,12 +22,6 @@
 - **执行与流程编排：**建设任务、Job 与 replay → ehome → diff → resolve 四阶段管线，封装 Bits 原子节点和 cronjob，管理任务触发、进度、动态超时与终止清理。
 - **差异与稳定性治理：**针对设备尺寸差异、白屏与状态栏噪音，完善截图有效性校验、白屏复检及 Diff 引擎降级；结合阈值自动放行与人工确认，上报执行成功率、噪音率和耗时。
 - **全链路扩展：**通过 Tea 日志关联商详—提单—订单，重建多页面响应并合并 Mock，支持完整性校验与页面级结果展示。见 [当前源码](https://code.byted.org/life_service/life_trade_c_fe_e2e)、[原子节点](https://code.byted.org/devops/life_trade_c_order_e2e)、[三仓改动](https://bytedance.larkoffice.com/docx/ETw7d87VGovOxGx0r52cGAHtnkb)。
-
-## 项目结果与收益
-
-- **回归能力落地：**2026 年 3 月向订单小组开放 PPE 试用，6 月本人消息确认在集成回归阶段加入 E2E 调试；订单火车接入文档安排集成后触发、次日复核结果，形成发布前发现 UI 差异的检查流程。见 [部署消息](https://applink.feishu.cn/client/chat/open?openChatId=oc_cbaeeacd0e59ccc13c935a268f0f6bd4&position=93)、[接入消息](https://applink.feishu.cn/client/chat/open?openChatId=oc_b789094c27a36c6c57758544fbe63758&position=773)、[治理方案](https://bytedance.larkoffice.com/wiki/M9vYwRg2uinawHkFaIgcDjK2ndb)。
-- **覆盖与复用：**Q1 复盘记录业务身份数据覆盖度 **100%**；复用平台与共享数据，建设单页回归并扩展多页面回放，减少逐场景重复准备数据与执行步骤。时间收益未单独测量。
-- **运行情况与限制：**9 月 4—10 日周度审查记载 **7 个任务、1,534 个 Job**，包含订单火车及酒旅、餐综测试，同时记录大量数据缺失、执行异常和未完成任务。该材料为部分 AI 生成的二手快照，未复核底层数据，仅说明运行场景；不作为高成功率或提效证明。见 [周度审查](https://bytedance.larkoffice.com/wiki/XUEZwMAgAiawsFksCr7cvxeUnpe)。
 
 ## 证据与统计口径
 
