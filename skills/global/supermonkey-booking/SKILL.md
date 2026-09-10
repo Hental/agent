@@ -42,7 +42,7 @@ npm run workflow -- 2026-08-15 --qc-session-id "$QINGCHENG_SESSION_ID"
 
 也可直接运行 `npx tsx scripts/supermonkey.ts <command>`。`create-order` 只预览参数；只有 `request-order` 会在飞书确认后提交一个订单。金额单位为分。添加 `--dry-run` 可检查下单参数而不联网、不发消息、不创建订单。
 
-`workflow.ts` 接收日期和 `qc-session-id`，查询天府三街当天 18:30–21:00 的可预约课程，向 `liutao.fe@bytedance.com` 发送课程选择卡片；选择课程后重新校验并创建支付宝待支付订单，再发送支付链接。点击“取消预订”时不下单。优先通过 `QINGCHENG_SESSION_ID` 环境变量传递会话，避免凭据进入 shell 历史；`--dry-run` 只执行只读查询并输出脱敏后的课程列表。
+`workflow.ts` 接收日期和 `qc-session-id`，查询天府三街当天 18:30–21:00 的可预约课程，向 `liutao.fe@bytedance.com` 发送带课程下拉框和“预订”按钮的卡片；用户点击预订后重新校验，再创建支付宝待支付订单并发送支付链接。点击取消不下单。优先通过 `QINGCHENG_SESSION_ID` 环境变量传递会话，避免凭据进入 shell 历史；`--dry-run` 只执行只读查询并输出脱敏后的课程列表。
 
 ### 已观测标识
 
@@ -58,6 +58,8 @@ npm run workflow -- 2026-08-15 --qc-session-id "$QINGCHENG_SESSION_ID"
 ## 通过 lark-card 发送信息与确认
 
 课程查询结果、门店与时间、价格和补贴、无可预约课程提示、下单确认、支付链接及预约结果，统一通过 [`$lark-card`](../lark-card/SKILL.md) 发送卡片。需要用户选择或确认时，使用同一技能的 button action；不能用只在终端输出的信息替代面向用户的信息卡片。`--dry-run` 保持只输出预览，不发送卡片。
+
+查询到可预约课程时，默认使用同一张卡片上的课程下拉框（`select_static`）和“预订”按钮，不把每节课程渲染为按钮。调用共享插件时传入 `selection: {placeholder: "请选择课程", submitLabel: "预订"}`，课程选项使用 `result: "confirmed"`，另加 `result: "rejected"` 的取消选项。下拉范围覆盖本次展示的课程，选项注明时间、课程、教练与个人支付金额。不预选课程；更改下拉选项不下单，只有点击预订才提交表单。收到真实提交后重新核验课程、时间、教练、余位与个人支付金额；有变化时重新确认，未变化时创建一次待支付订单。必须接通真实 Botmux 回调及后续处理后再发卡，不能发送无人消费的预订按钮。
 
 发送前按 `lark-card` 核验收件人及完整 Botmux 会话；默认收件人为 `liutao.fe@bytedance.com`。在运行发卡流程前设置 `BOTMUX_SESSION_ID` 为该已核验会话。它只用于选择发送目标，不代表 Botmux 原生提问会话；不得补造其他会话环境来运行 `ask`。
 

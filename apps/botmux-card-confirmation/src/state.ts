@@ -57,7 +57,17 @@ export function decide(dir: string, event: unknown, now?: number, lockTimeoutMs?
   try {
     const effectiveNow = now ?? Date.now();
     const request = readRequest(dir, value.requestId);
-    const option = request.options.find(item => item.id === value.optionId);
+    let optionId = value.optionId;
+    if (request.selection && optionId === '__submit') {
+      // Botmux normalizes Feishu's action.form_value to action.formValue.
+      const fields = event.action?.formValue;
+      if (!isRecord(fields) || typeof fields.choice !== 'string') throw new Error('Missing form selection');
+      optionId = fields.choice;
+      if (!request.options.some(item => item.id === optionId && item.result !== 'rejected')) throw new Error('Unknown form selection');
+    } else if (request.selection && request.options.some(item => item.id === optionId && item.result !== 'rejected')) {
+      throw new Error('Selection requires form submission');
+    }
+    const option = request.options.find(item => item.id === optionId);
     if (!option || value.action !== ACTION_NAME) throw new Error('Unknown option');
     if (event.larkAppId !== request.larkAppId || event.operator?.open_id !== request.operatorId
         || event.context?.open_chat_id !== request.chatId

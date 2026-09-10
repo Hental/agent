@@ -118,3 +118,88 @@ test('request validation rejects malformed expiry, duplicate options and unsuppo
     invalid({ ...input, options: [{ id: 'a', label: 'A', result: 'execute' }] }),
   ]) assert.throws(() => createRequest(data, sid));
 });
+
+function formFixture(t: test.TestContext) {
+  const result = fixture(t);
+  result.request.selection = { placeholder: '选择课程', submitLabel: '预订' };
+  result.request.options = [
+    { id: 'course_1', label: '18:40 搏击 19元', result: 'confirmed', type: 'default', payload: { scheduleId: 'approved', onlineCost: 1900 }, resultText: null },
+    { id: 'reject', label: '取消', result: 'rejected', type: 'danger', payload: null, resultText: null },
+  ];
+  saveRequest(result.dir, result.request);
+  result.event.action = {
+    value: { ...result.event.action!.value!, optionId: '__submit' },
+    formValue: { choice: 'course_1', onlineCost: 1 },
+  };
+  return result;
+}
+
+test('Botmux normalized formValue submits a registered option and uses only its stored business payload', t => {
+  const { dir, request, event } = formFixture(t);
+  const card = renderCard(request) as { body: { elements: any[] } };
+  const form = card.body.elements.find(element => element.tag === 'form');
+  assert.equal(form.elements[0].tag, 'select_static');
+  assert.equal(form.elements[0].name, 'choice');
+  assert.equal(form.elements[0].required, true);
+  assert.equal(form.elements[0].initial_option, undefined);
+  assert.equal(form.elements[0].behaviors, undefined, 'selection alone does not send a callback');
+  assert.deepEqual(form.elements[0].options.map((option: { value: string }) => option.value), ['course_1']);
+  assert.equal(form.elements[1].form_action_type, 'submit');
+  assert.deepEqual(form.elements[1].value, form.elements[1].behaviors[0].value);
+  const result = decide(dir, event).request;
+  assert.equal(result.status, 'confirmed');
+  assert.equal(result.decision?.value, 'course_1');
+  assert.deepEqual(result.decision?.payload, { scheduleId: 'approved', onlineCost: 1900 });
+  assert.ok(!JSON.stringify(renderCard(result)).includes('select_static'));
+  assert.equal(decide(dir, event).repeated, true);
+});
+
+test('missing, forged, rejected or non-string form choices cannot authorize booking', t => {
+  const { dir, request, event } = formFixture(t);
+  for (const formValue of [undefined, null, [], {}, { choice: ['course_1'] }, { choice: 'forged' }, { choice: 'reject' }]) {
+    const invalid = structuredClone(event);
+    invalid.action!.formValue = formValue;
+    assert.throws(() => decide(dir, invalid));
+    assert.equal(readRequest(dir, request.id).status, 'pending');
+  }
+  event.action!.value!.optionId = 'course_1';
+  assert.throws(() => decide(dir, event), /form submission/);
+});
+
+test('raw Feishu form_value cannot substitute for the Botmux gateway contract', t => {
+  const { dir, request, event } = formFixture(t);
+  const raw = { ...event, action: { value: event.action!.value, form_value: event.action!.formValue } };
+  assert.throws(() => decide(dir, raw), /Missing form selection/);
+  assert.equal(readRequest(dir, request.id).status, 'pending');
+  assert.equal(decide(dir, event).request.status, 'confirmed');
+});
+
+test('form cancellation works without a choice and cannot later be replaced by a booking', t => {
+  const { dir, event } = formFixture(t);
+  event.action = { value: { ...event.action!.value!, optionId: 'reject' } };
+  assert.equal(decide(dir, event).request.status, 'rejected');
+  event.action = { value: { ...event.action!.value!, optionId: '__submit' }, formValue: { choice: 'course_1' } };
+  assert.equal(decide(dir, event).request.status, 'rejected');
+});
+
+test('form submission still checks the recipient, message, nonce and expiry', t => {
+  const { dir, request, event } = formFixture(t);
+  for (const mutate of [
+    (e: CardActionEvent) => { e.operator!.open_id = 'wrong'; },
+    (e: CardActionEvent) => { e.context!.open_message_id = 'wrong'; },
+    (e: CardActionEvent) => { e.action!.value!.nonce = 'wrong'; },
+  ]) {
+    const invalid = structuredClone(event);
+    mutate(invalid);
+    assert.throws(() => decide(dir, invalid), /identity/);
+  }
+  assert.equal(decide(dir, event, Date.parse(request.expiresAt)).request.status, 'expired');
+  assert.equal(readRequest(dir, request.id).decision, undefined);
+});
+
+test('form configuration rejects a reserved submit ID and an empty choice list', () => {
+  const input = { summary: 'Booking', expiresAt: new Date(Date.now() + 60000).toISOString(), selection: { placeholder: 'Course', submitLabel: 'Book' } };
+  assert.throws(() => createRequest({ ...input, options: [{ id: '__submit', label: 'Course', result: 'confirmed' }] }, randomUUID()));
+  assert.throws(() => createRequest({ ...input, options: [{ id: 'reject', label: 'Cancel', result: 'rejected' }] }, randomUUID()));
+  assert.throws(() => createRequest({ ...input, selection: { placeholder: '', submitLabel: 'Book' } }, randomUUID()));
+});

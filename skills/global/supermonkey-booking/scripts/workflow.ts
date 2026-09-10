@@ -196,7 +196,7 @@ async function waitForSelection(requestId: string, timeout: string): Promise<str
   const result = await waitForChoice(requestId, durationMs(timeout));
   if (result.status === 'rejected') return null;
   const payload = result.decision?.payload;
-  if (result.status === 'selected' && payload && typeof payload === 'object'
+  if (result.status === 'confirmed' && payload && typeof payload === 'object'
     && 'scheduleId' in payload && typeof payload.scheduleId === 'string') return payload.scheduleId;
   throw new Error('回调缺少有效的课程选择');
 }
@@ -237,13 +237,14 @@ async function main(): Promise<void> {
   }
   const sent = await sendConfirmation({
     title: '超级猩猩 · 选择课程',
-    summary: `${date} · ${GYM_NAME}\n选择课程后将创建支付宝待支付订单，由你完成付款。\n\n` + courses.map(course =>
+    selection: { placeholder: '请选择课程', submitLabel: '预订' },
+    summary: `${date} · ${GYM_NAME}\n选择课程并点击预订后，将按下列个人支付金额创建支付宝待支付订单，由你完成付款。\n\n` + courses.map(course =>
       `**${course.className}**\n${course.startTime}–${course.endTime} · ${course.coachName} · 个人支付 ${(course.onlineCost / 100).toFixed(2)} 元`).join('\n\n'),
     expiresAt: new Date(Date.now() + durationMs(timeout)).toISOString(),
     context: { workflow: 'supermonkey-course-selection', date, courses: cardCourses },
     options: [
-      ...courses.map((course, index) => ({ id: `course_${index}`, label: `${course.startTime} ${course.className}`,
-        result: 'selected' as const, payload: { scheduleId: course.scheduleId } })),
+      ...courses.map((course, index) => ({ id: `course_${index}`, label: `${course.startTime} ${course.className} · ${course.coachName} · ${(course.onlineCost / 100).toFixed(2)}元`,
+        result: 'confirmed' as const, payload: { scheduleId: course.scheduleId } })),
       { id: 'reject', label: '取消预订', result: 'rejected' as const, type: 'danger' as const },
     ],
   });
@@ -262,7 +263,8 @@ async function main(): Promise<void> {
   ]);
   const approved = courses.find(course => course.scheduleId === selectedScheduleId)!;
   if (onlineCost !== approved.onlineCost || selected.startTime !== approved.startTime
-    || selected.endTime !== approved.endTime || selected.className !== approved.className) {
+    || selected.endTime !== approved.endTime || selected.className !== approved.className
+    || selected.coachName !== approved.coachName) {
     throw new Error('课程或费用已变化，需要重新确认，未创建订单');
   }
   const order = await api(sessionId, '/api/corp/company/supermonkey/order/', {

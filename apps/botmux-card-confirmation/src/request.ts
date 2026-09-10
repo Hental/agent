@@ -54,6 +54,13 @@ export function createRequest(data: ConfirmationInput, sessionId: string, now = 
   if (!Array.isArray(options) || !options.length || options.length > 20) throw new Error('Provide 1–20 options');
   const ids = new Set<string>();
   const normalized = options.map(option => normalizeOption(option, ids));
+  if (data.selection !== undefined) {
+    if (!data.selection || typeof data.selection.placeholder !== 'string' || !data.selection.placeholder.trim()
+      || typeof data.selection.submitLabel !== 'string' || !data.selection.submitLabel.trim()
+      || ids.has('__submit') || !normalized.some(option => option.result !== 'rejected')) {
+      throw new Error('Invalid select form configuration');
+    }
+  }
   if (data.title !== undefined && (typeof data.title !== 'string' || !data.title.trim())) throw new Error('Invalid card title');
   const handling = data.actionHandling ?? { mode: 'local' };
   if (!handling || (handling.mode !== 'local' && handling.mode !== 'resume')) throw new Error('Invalid actionHandling mode');
@@ -70,6 +77,7 @@ export function createRequest(data: ConfirmationInput, sessionId: string, now = 
     }
   }
   return {
+    ...(data.selection ? { selection: { placeholder: data.selection.placeholder, submitLabel: data.selection.submitLabel } } : {}),
     actionHandling: handling.mode === 'local' ? { mode: 'local' } : {
       mode: 'resume', agent: handling.agent, threadId: handling.threadId, cwd: handling.cwd,
       ...(handling.agent === 'codex-app' ? { socketPath: handling.socketPath } : {}),

@@ -32,6 +32,7 @@ export interface ResumeDelivery {
 }
 
 export interface ConfirmationInput {
+  selection?: { placeholder: string; submitLabel: string };
   actionHandling?: ActionHandling;
   title?: string;
   summary: string;
@@ -78,6 +79,7 @@ export interface Decision {
 
 /** Internal persisted request; `nonce` is never exposed to callers. */
 export interface ConfirmationRequest {
+  selection?: { placeholder: string; submitLabel: string };
   larkAppId: string;
   chatId: string;
   operatorId: string;
@@ -152,5 +154,5 @@ export interface CardActionEvent {
   eventId?: string;
   operator?: { open_id?: string };
   context?: { open_chat_id?: string; open_message_id?: string };
-  action?: { value?: CardActionValue };
+  action?: { value?: CardActionValue; formValue?: unknown };
 }

@@ -43,6 +43,7 @@ node dist/confirm.js patch <request-id>
 
 - `title`：默认为 `操作确认`；调用方应提供对应的业务标题。
 - `options`：1–20 个互不重复的选项。每个选项包含 `id`、`label`、`result`（`confirmed`、`rejected` 或 `selected`），以及可选的 `type`（`default`、`primary`、`danger`）、`payload`、`resultText`。默认选项为确认/拒绝。`resultText` 描述已记录的选择，不得声称尚未执行的操作已经完成。
+- `selection`：可选 `{placeholder, submitLabel}`，启用原生 `form` + `select_static` + 提交按钮。非 rejected 选项进入必填下拉框，不预选；rejected 选项在表单外保留为取消按钮。选择本身不回调，提交通过现有 `card_confirmation_decide` 处理器核验 `action.formValue.choice`。Botmux 将飞书原始 `action.form_value` 规范化为 `action.formValue`，插件不得读取原始字段名。只能引用已注册选项，业务 payload 始终从本地快照读取。`__submit` 为保留 ID。未提供 `selection` 时保留原按钮布局。协议见[飞书表单容器](https://open.feishu.cn/document/feishu-cards/card-json-v2-components/containers/form-container)。
 - `actionHandling`：默认 `{mode:"local"}`，保存决定供 agent loop 读取；`{mode:"resume",agent:"codex-cli"|"codex-app",threadId,cwd,socketPath?}` 在收到有效按钮 action 后恢复指定会话。agent 类型、完整线程 UUID、现有绝对 cwd 必填，codex-app 还要求所属运行时的现有控制 socket。具体调用、状态和限制见 [lark-card 按钮处理](../../skills/global/lark-card/references/button-confirmation.md)。
 - `context`：与请求关联的本地业务元数据或快照版本，不包含在按钮回调值中。
 - `snapshotPath`：可选的快照关联。实际图片需通过 Botmux 单独发送到同一个已核验会话，并注明请求 ID。

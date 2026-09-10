@@ -16,10 +16,30 @@ export function renderCard(request: ConfirmationRequest): Record<string, unknown
   ];
   if (request.testOnly) elements.unshift({ tag: 'markdown', content: '**仅测试卡片及按钮回调。点击不会执行实际业务操作。**' });
   if (request.status === 'pending') {
-    for (let i = 0; i < request.options.length; i += 2) {
+    if (request.selection) {
+      const value = { action: ACTION_NAME, requestId: request.id, nonce: request.nonce, optionId: '__submit' };
+      elements.push({
+        tag: 'form', name: 'selection_form', elements: [
+          {
+            tag: 'select_static', name: 'choice', required: true,
+            placeholder: { tag: 'plain_text', content: request.selection.placeholder },
+            options: request.options.filter(option => option.result !== 'rejected').map(option => ({
+              text: { tag: 'plain_text', content: option.label }, value: option.id,
+            })),
+          },
+          {
+            tag: 'button', name: 'selection_submit', form_action_type: 'submit', type: 'primary',
+            text: { tag: 'plain_text', content: request.selection.submitLabel },
+            value, behaviors: [{ type: 'callback', value }],
+          },
+        ],
+      });
+    }
+    const buttons = request.selection ? request.options.filter(option => option.result === 'rejected') : request.options;
+    for (let i = 0; i < buttons.length; i += 2) {
       elements.push({
         tag: 'column_set', flex_mode: 'none',
-        columns: request.options.slice(i, i + 2).map(option => {
+        columns: buttons.slice(i, i + 2).map(option => {
           const value = { action: ACTION_NAME, requestId: request.id, nonce: request.nonce, optionId: option.id };
           return {
             tag: 'column', width: 'weighted', weight: 1,
