@@ -6,13 +6,15 @@
     "board.problem": {
       "facts": [
         "board-01",
-        "board-05"
+        "board-05",
+        "U11"
       ]
     },
     "board.responsibility": {
       "facts": [
         "board-02",
-        "U08"
+        "U08",
+        "U11"
       ]
     },
     "board.scope": {
@@ -40,7 +42,8 @@
       "facts": [
         "board-01",
         "board-02",
-        "board-05"
+        "board-05",
+        "U11"
       ]
     },
     "board.print.bullets": {

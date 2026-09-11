@@ -43,6 +43,9 @@ summary: "按项目索引已归档来源，直接引用唯一原始快照。"
 - [s29 · 跨平台方案运行时设计](03_视频云_sdk/s29-sdk-runtime.md) · `document_snapshot`
 - [s30 · 交接下跨端 2024年10月28日](03_视频云_sdk/s30-sdk-handover.md) · `meeting_summary`
 
+- [s31 · BytePlus RTC RN SDK 开发技术评审](03_视频云_sdk/s31-sdk-rtc-design.md) · `document_snapshot`
+- [s32 · RTC RN SDK 提测报告](03_视频云_sdk/s32-sdk-rtc-test.md) · `document_snapshot`；节选
+
 ## 火山引擎视频云 - 互动白板
 
 - [s2 · 述职报告](04_视频云_board/02-review.md) · `document_snapshot`
@@ -59,7 +62,7 @@ summary: "按项目索引已归档来源，直接引用唯一原始快照。"
 
 - [携程 Foxpage 事实](../data/00_公共资料/foxpage.md)，来源 [s4 旧简历](00_公共资料/04-old-resume.md)。
 
-- [全部 30 份来源清单](catalog.json)；其他年度总结和周报作为上下文保留，不默认归入某个项目成果。
+- [全部 32 份来源清单](catalog.json)；其他年度总结和周报作为上下文保留，不默认归入某个项目成果。
 
 ## 跨项目历史整理
 

@@ -356,6 +356,28 @@
       "retrieved_at": "2026-09-11",
       "content_sha256": "30bda69df33881c8fd889069659c3fd9b77e7e02463230318ab02267e4641a9c",
       "source_title": "《交接下跨端 2024年10月28日》"
+    },
+    {
+      "id": "s31",
+      "title": "BytePlus RTC RN SDK 开发技术评审",
+      "url": "https://bytedance.larkoffice.com/docx/VTgxdD06So1uMyxJgcEcyjeonMh",
+      "snapshot": "03_视频云_sdk/s31-sdk-rtc-design.md",
+      "sha256": "6318927a4cb6f840d82d69da1fe4bb3137912f33eea36ca2c6f2324da5229168",
+      "content_sha256": "19dbd613d094571064977dffb0f05ae3049d53e00e7e58104d0e0b9442e60751",
+      "kind": "document_snapshot",
+      "source_title": "《BytePlus RTC RN SDK 开发技术评审》",
+      "note": "RTC RN SDK 技术评审；记录客户需求、自动生成配置及两端 API 差异，不证明全部功能已交付。"
+    },
+    {
+      "id": "s32",
+      "title": "RTC RN SDK 提测报告",
+      "url": "https://bytedance.larkoffice.com/docx/OZEDdTbDkomu9oxImZ1cvzu4nce",
+      "snapshot": "03_视频云_sdk/s32-sdk-rtc-test.md",
+      "sha256": "4d07d91f43eff40ae0ea53fdb9d4158d7b3804790c13638c8d62a78f3db59948",
+      "content_sha256": "7995edd7376961e3087f78ef35103316fd4f218914bfc59cbc1484645dcebff1",
+      "kind": "document_snapshot",
+      "source_title": "《RTC RN SDK 提测报告》",
+      "note": "RTC RN SDK 提测报告原文节选：保留需求背景、测试结论、基本信息与自测用例；未收录测试包资源及后续章节。不以提测代替验收或上线。"
     }
   ]
 }

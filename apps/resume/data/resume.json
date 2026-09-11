@@ -51,7 +51,7 @@
     },
     "sources": {
       "label": "05 / REFERENCES",
-      "title": "30 份参考材料",
+      "title": "32 份参考材料",
       "description": "文档、代码及消息保留来源；访问需对应权限。"
     },
     "education": {
@@ -72,10 +72,10 @@
   },
   "hero": {
     "tags": [
-      "前端架构",
+      "前端开发",
       "跨端 SDK",
       "研发效能",
-      "互动白板项目 负责人"
+      "互动白板项目负责人"
     ]
   },
   "projects": [
@@ -262,7 +262,7 @@
       ],
       "metrics": [
         {
-          "label": "直播推拉流覆盖",
+          "label": "直播推拉流涉及 API",
           "value": "311 个 API",
           "note": "两类 SDK 的 69 + 242 个 API 合计"
         },
@@ -302,6 +302,14 @@
         {
           "source": "s30",
           "label": "交接下跨端 2024年10月28日"
+        },
+        {
+          "label": "RTC 技术评审",
+          "source": "s31"
+        },
+        {
+          "label": "RTC 提测报告",
+          "source": "s32"
         }
       ],
       "body": "sdk.body",
@@ -343,12 +351,12 @@
           "note": ""
         },
         {
-          "label": "静态转码最终成功率",
+          "label": "静态转换最终成功率",
           "value": "96% → 99%",
           "note": "排除用户文件原因"
         },
         {
-          "label": "动态转码成功率",
+          "label": "动态转换成功率",
           "value": "82% → 98%",
           "note": "排除用户文件原因"
         }
@@ -630,6 +638,18 @@
       "title": "交接下跨端 2024年10月28日",
       "url": "https://bytedance.larkoffice.com/wiki/YWQew6593i8zXgk2nvLc65dXnIg",
       "note": "原始正文已归档；运行时设计与交接事件各按其证据范围使用。"
+    },
+    {
+      "id": "s31",
+      "title": "BytePlus RTC RN SDK 开发技术评审",
+      "url": "https://bytedance.larkoffice.com/docx/VTgxdD06So1uMyxJgcEcyjeonMh",
+      "note": "RTC RN SDK 技术评审；记录客户需求、自动生成配置及两端 API 差异，不证明全部功能已交付。"
+    },
+    {
+      "id": "s32",
+      "title": "RTC RN SDK 提测报告",
+      "url": "https://bytedance.larkoffice.com/docx/OZEDdTbDkomu9oxImZ1cvzu4nce",
+      "note": "RTC RN SDK 提测报告原文节选：保留需求背景、测试结论、基本信息与自测用例；未收录测试包资源及后续章节。不以提测代替验收或上线。"
     }
   ],
   "researchNote": "sources.e2e",

@@ -6,7 +6,8 @@
     "sdk.problem": {
       "facts": [
         "sdk-01",
-        "U10"
+        "U10",
+        "sdk-10"
       ]
     },
     "sdk.responsibility": {
@@ -22,20 +23,25 @@
         "sdk-06",
         "sdk-07",
         "sdk-08",
-        "U10"
+        "U10",
+        "sdk-10",
+        "sdk-11"
       ]
     },
     "sdk.body": {
       "facts": [
         "sdk-03",
         "sdk-04",
-        "sdk-07"
+        "sdk-07",
+        "sdk-09"
       ]
     },
     "sdk.results": {
       "facts": [
         "sdk-05",
-        "sdk-06"
+        "sdk-06",
+        "sdk-10",
+        "sdk-11"
       ]
     },
     "sdk.print.summary": {
@@ -52,7 +58,8 @@
         "sdk-05",
         "sdk-06",
         "sdk-07",
-        "U01"
+        "U01",
+        "sdk-09"
       ]
     }
   },

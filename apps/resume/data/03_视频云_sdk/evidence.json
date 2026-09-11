@@ -193,6 +193,75 @@
           "line": 60
         }
       ]
+    },
+    {
+      "id": "sdk-09",
+      "section": "关键技术与实施状态",
+      "text": "点播技术评审说明：通过 Mapping 配置生成类、属性、方法和类型，配合少量适配代码统一 Android／iOS 的对外 API。",
+      "status": "方案记录",
+      "scope": "说明生成工具与运行时提供的差异适配机制，不将点播业务方编写全部配置和适配代码的工作归为本人。",
+      "evidence": [
+        {
+          "source": "s27",
+          "quote": "通过接入运行时，以配置的方式及少量适配代码，可以抹平平台间的差异性，让开发者可以用同一套api统一开发iOS 或 android 应用。",
+          "snapshot": "03_视频云_sdk/s27-sdk-vod-design.md",
+          "line": 44
+        },
+        {
+          "source": "s27",
+          "quote": "Mapping 配置自动生成 class、 属性、方法及类型，统一为对外的ts语言类型的api",
+          "snapshot": "03_视频云_sdk/s27-sdk-vod-design.md",
+          "line": 77
+        }
+      ]
+    },
+    {
+      "id": "sdk-10",
+      "section": "RTC 方案与提测状态",
+      "text": "RTC RN SDK 技术评审记录：客户使用 React Native，需要 RTC 接入；方案通过平台差异配置与脚手架自动生成 RN 代码。",
+      "status": "方案记录",
+      "scope": "证明 RTC 接入自动生成方案的技术设计，不证明最终发布状态或全部 API 自动生成数量。",
+      "evidence": [
+        {
+          "source": "s31",
+          "quote": "配置 lux-codegen.config.{PLATFORM}.mjs （差异性配置）",
+          "snapshot": "03_视频云_sdk/s31-sdk-rtc-design.md",
+          "line": 62
+        },
+        {
+          "source": "s31",
+          "quote": "最后通过脚手架自动生成即可。",
+          "snapshot": "03_视频云_sdk/s31-sdk-rtc-design.md",
+          "line": 87
+        }
+      ]
+    },
+    {
+      "id": "sdk-11",
+      "section": "RTC 方案与提测状态",
+      "text": "RTC RN SDK 提测报告列出测试时间 2024/09/06 10:00，刘韬为审核人；测试结论为自测部分通过、遗留少数问题。",
+      "status": "原文记录",
+      "scope": "提测报告支持当时已进入测试及审核分工，不等同客户验收、完整交付或生产收益；后续状态须另行核实。",
+      "evidence": [
+        {
+          "source": "s32",
+          "quote": "自测部分通过，遗留少数问题",
+          "snapshot": "03_视频云_sdk/s32-sdk-rtc-test.md",
+          "line": 13
+        },
+        {
+          "source": "s32",
+          "quote": "2024/09/06 10:00",
+          "snapshot": "03_视频云_sdk/s32-sdk-rtc-test.md",
+          "line": 16
+        },
+        {
+          "source": "s32",
+          "quote": "<strong>审核人</strong></td><td><a href=\"mailto:liutao.fe@bytedance.com\">@刘韬(liutao.fe)</a>",
+          "snapshot": "03_视频云_sdk/s32-sdk-rtc-test.md",
+          "line": 16
+        }
+      ]
     }
   ]
 }
