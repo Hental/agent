@@ -51,7 +51,7 @@
     },
     "sources": {
       "label": "05 / REFERENCES",
-      "title": "32 份参考材料",
+      "title": "35 份参考材料",
       "description": "文档、代码及消息保留来源；访问需对应权限。"
     },
     "education": {
@@ -262,19 +262,19 @@
       ],
       "metrics": [
         {
-          "label": "直播推拉流涉及 API",
-          "value": "311 个 API",
-          "note": "两类 SDK 的 69 + 242 个 API 合计"
+          "label": "三方向涉及 API",
+          "value": "550 个 API",
+          "note": "拉流 69 + 推流 242 + 点播 54 + RTC 185；非去重／自动生成总数"
         },
         {
-          "label": "点播开发测试投入",
-          "value": "19 人天",
-          "note": "方案复用后的团队投入"
+          "label": "业务开发测试投入",
+          "value": "89 人天",
+          "note": "13 + 19 + 19 + 38；不含自动生成项目开发投入"
         },
         {
           "label": "较手写预估降低",
-          "value": "约 51%",
-          "note": "(39−19)/39；39 人天是人工方案预估"
+          "value": "约 57%",
+          "note": "(206−89)/206；206 人天为手写方案预估"
         }
       ],
       "scope": "sdk.scope",
@@ -310,6 +310,18 @@
         {
           "label": "RTC 提测报告",
           "source": "s32"
+        },
+        {
+          "source": "s33",
+          "label": "RTC ReactNative SDK 工时统计"
+        },
+        {
+          "source": "s34",
+          "label": "开放平台-2024 总结"
+        },
+        {
+          "source": "s35",
+          "label": "开放平台-2024 月报"
         }
       ],
       "body": "sdk.body",
@@ -650,6 +662,24 @@
       "title": "RTC RN SDK 提测报告",
       "url": "https://bytedance.larkoffice.com/docx/OZEDdTbDkomu9oxImZ1cvzu4nce",
       "note": "RTC RN SDK 提测报告原文节选：保留需求背景、测试结论、基本信息与自测用例；未收录测试包资源及后续章节。不以提测代替验收或上线。"
+    },
+    {
+      "id": "s33",
+      "title": "RTC ReactNative SDK 工时统计",
+      "url": "https://bytedance.larkoffice.com/wiki/BV64wtuY4it3QWkPXHPcxf01nvy",
+      "note": "RTC API 生成数量、开发测试投入与手写预估；保留开发阶段与开发加测试两种口径。"
+    },
+    {
+      "id": "s34",
+      "title": "开放平台-2024 总结",
+      "url": "https://bytedance.larkoffice.com/wiki/RAHbwLNzJiRJhLkvtK5clezanoe",
+      "note": "开放平台 2024 年总结原文，包含直播、点播、RTC React Native SDK 上线与效率数据；直播工时与专项明细存在口径冲突。"
+    },
+    {
+      "id": "s35",
+      "title": "开放平台-2024 月报",
+      "url": "https://bytedance.larkoffice.com/wiki/HplXwCF8QizFN8k0i05crratn6b",
+      "note": "开放平台 2024 月报原文；5 月拉流工时预估与 Q2、Q3 汇总口径不同，不能直接作为同范围实际投入。"
     }
   ],
   "researchNote": "sources.e2e",

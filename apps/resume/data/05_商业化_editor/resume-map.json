@@ -11,7 +11,8 @@
     "editor.responsibility": {
       "facts": [
         "editor-02",
-        "editor-04"
+        "editor-04",
+        "U12"
       ]
     },
     "editor.scope": {
@@ -44,7 +45,8 @@
         "editor-02",
         "editor-03",
         "editor-04",
-        "editor-05"
+        "editor-05",
+        "U12"
       ]
     }
   },

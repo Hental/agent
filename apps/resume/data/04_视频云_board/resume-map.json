@@ -13,15 +13,18 @@
     "board.responsibility": {
       "facts": [
         "board-02",
-        "U08",
-        "U11"
+        "U11",
+        "board-08",
+        "U13"
       ]
     },
     "board.scope": {
       "facts": [
         "board-05",
         "board-06",
-        "board-07"
+        "board-07",
+        "board-08",
+        "U13"
       ]
     },
     "board.body": {
@@ -29,13 +32,17 @@
         "board-03",
         "board-04",
         "board-05",
-        "board-06"
+        "board-06",
+        "board-08",
+        "U13"
       ]
     },
     "board.results": {
       "facts": [
         "board-06",
-        "board-07"
+        "board-07",
+        "board-08",
+        "U13"
       ]
     },
     "board.print.summary": {
@@ -52,12 +59,12 @@
         "board-04",
         "board-05",
         "board-06",
-        "board-07"
+        "board-07",
+        "board-08",
+        "U13"
       ]
     }
   },
   "calculations": [],
-  "not_used": [
-    "白板 Native 迁移及三端共享个人贡献"
-  ]
+  "not_used": []
 }

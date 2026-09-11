@@ -46,6 +46,13 @@ summary: "按项目索引已归档来源，直接引用唯一原始快照。"
 - [s31 · BytePlus RTC RN SDK 开发技术评审](03_视频云_sdk/s31-sdk-rtc-design.md) · `document_snapshot`
 - [s32 · RTC RN SDK 提测报告](03_视频云_sdk/s32-sdk-rtc-test.md) · `document_snapshot`；节选
 
+- [s33 · RTC ReactNative SDK 工时统计](03_视频云_sdk/s33-sdk-rtc-effort.md) · `document_snapshot`
+- [s34 · 开放平台-2024 总结](00_公共资料/s34-platform-2024-summary.md) · `document_snapshot`
+- [s35 · 开放平台-2024 月报](00_公共资料/s35-platform-2024-monthly.md) · `document_snapshot`
+
+- [s36 · RN适配层设计](03_视频云_sdk/s36-sdk-live-adapter.md) · `document_snapshot`
+- [s37 · 直播 React Native SDK 历史代码核实](03_视频云_sdk/s37-sdk-live-code-evidence.md) · `code_reading_summary`
+
 ## 火山引擎视频云 - 互动白板
 
 - [s2 · 述职报告](04_视频云_board/02-review.md) · `document_snapshot`
@@ -62,7 +69,7 @@ summary: "按项目索引已归档来源，直接引用唯一原始快照。"
 
 - [携程 Foxpage 事实](../data/00_公共资料/foxpage.md)，来源 [s4 旧简历](00_公共资料/04-old-resume.md)。
 
-- [全部 32 份来源清单](catalog.json)；其他年度总结和周报作为上下文保留，不默认归入某个项目成果。
+- [全部 37 份来源清单](catalog.json)；其他年度总结和周报作为上下文保留，不默认归入某个项目成果。
 
 ## 跨项目历史整理
 

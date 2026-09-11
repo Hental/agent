@@ -378,6 +378,61 @@
       "kind": "document_snapshot",
       "source_title": "《RTC RN SDK 提测报告》",
       "note": "RTC RN SDK 提测报告原文节选：保留需求背景、测试结论、基本信息与自测用例；未收录测试包资源及后续章节。不以提测代替验收或上线。"
+    },
+    {
+      "id": "s33",
+      "title": "RTC ReactNative SDK 工时统计",
+      "url": "https://bytedance.larkoffice.com/wiki/BV64wtuY4it3QWkPXHPcxf01nvy",
+      "note": "RTC API 生成数量、开发测试投入与手写预估；保留开发阶段与开发加测试两种口径。",
+      "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+      "sha256": "3d132e36f5b24a5d502481fba4c738d69552bd38c494ebedb23d3f588400145e",
+      "kind": "document_snapshot",
+      "content_sha256": "54ebbf32c920984374391c85b6b2976f5a935644a80679663e5f3ee4b79e4f45",
+      "source_title": "《RTC ReactNative SDK 工时统计》"
+    },
+    {
+      "id": "s34",
+      "title": "开放平台-2024 总结",
+      "url": "https://bytedance.larkoffice.com/wiki/RAHbwLNzJiRJhLkvtK5clezanoe",
+      "note": "开放平台 2024 年总结原文，包含直播、点播、RTC React Native SDK 上线与效率数据；直播工时与专项明细存在口径冲突。",
+      "snapshot": "00_公共资料/s34-platform-2024-summary.md",
+      "sha256": "feef542b9d63a7fdb7a9af7bdb0ce982ff0891cf0cb8283da42f0323cb46f63e",
+      "kind": "document_snapshot",
+      "content_sha256": "3405edd991296c19df6fcf13aa973a6f5ee9e90ea6d893685cfd979316ff0406",
+      "source_title": "《开放平台-2024 总结》"
+    },
+    {
+      "id": "s35",
+      "title": "开放平台-2024 月报",
+      "url": "https://bytedance.larkoffice.com/wiki/HplXwCF8QizFN8k0i05crratn6b",
+      "note": "开放平台 2024 月报原文；5 月拉流工时预估与 Q2、Q3 汇总口径不同，不能直接作为同范围实际投入。",
+      "snapshot": "00_公共资料/s35-platform-2024-monthly.md",
+      "sha256": "db2469bfff1f1be2ef11641f29f62e96479d0cd53a3dbf6852f9fc8d2ab55120",
+      "kind": "document_snapshot",
+      "content_sha256": "5bd31bfa7f74bfeb0a54e02a72f3bb6064027b6c00512e3a265ab2cf0064e08b",
+      "source_title": "《开放平台-2024 月报》"
+    },
+    {
+      "id": "s36",
+      "title": "RN适配层设计",
+      "url": "https://bytedance.larkoffice.com/wiki/PDJdwIU0Di468KkWxescaZKEnHf",
+      "note": "适配层设计原文；描述自动合并、Mapping 和手动处理方法，不提供直播自动生成 API 总数。",
+      "snapshot": "03_视频云_sdk/s36-sdk-live-adapter.md",
+      "kind": "document_snapshot",
+      "source_title": "《RN适配层设计》",
+      "sha256": "9064ae8b59d5c666c4c6768f6ac91dc22e16eb205e0e4909fad4e13c31591e78",
+      "content_sha256": "b52cc49757c9d46ef3fcd529cb5ed527a81776d5d99082fb82971be3567538c9"
+    },
+    {
+      "id": "s37",
+      "title": "直播 React Native SDK 历史代码核实",
+      "url": "https://code.byted.org/vcloud-fe/velive-react-native-sdk/tree/c15469592fe8b0ee80bfde70ed9bac0a86bb0b6c",
+      "note": "固定 2024-08-09 的 1.0.2 发布提交，核实生成代码与额外适配实现的关系；不将代码成员数量当原文 API 计数。",
+      "snapshot": "03_视频云_sdk/s37-sdk-live-code-evidence.md",
+      "kind": "code_reading_summary",
+      "source_title": "《直播 React Native SDK 历史代码核实》",
+      "sha256": "3c691be37aebbe2f9a116607447b602181b3e728e5738d7fc4f5bb7fafbbd4dc",
+      "content_sha256": "ab8603b4f501066ce4ce471e93cc7ad274d96e1605ec4352eef449ecc72fbf6d"
     }
   ]
 }

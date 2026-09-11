@@ -176,9 +176,9 @@
     {
       "id": "sdk-08",
       "section": "统计边界与冲突",
-      "text": "直播推流工时写明 50 人天预估对比 36 人天基建加自动化生成人力；拉流标题写 13 人天，下面另列其他人员投入。",
+      "text": "直播工时口径存在差异：推流专项明细为预估 50 人天对比两人合计 36 人天，年度／季度总结为 50→19；拉流专项标题为 45→13，下方另列刘韬 20、窦雅宁 10 人天，5 月月报写能效提升预估 45→43，后续总结写 45→13。",
       "status": "原文记录",
-      "scope": "不把旧简历 13／19 人天当完整项目总投入；拉流总口径未厘清，简历不采用直播工时提效。",
+      "scope": "原文汇总和专项明细仍保留各自记录。最新用户确认 U14 明确采用推流 19、拉流 13 人天，自动生成项目本身的开发时间不计入；据此可按业务 SDK 开发测试范围汇总。43 在 5 月月报为预估，不升级为最终实际值；不自行推断其他人员工时分摊，也不把汇总解释为含全部建设成本的项目总投入。",
       "evidence": [
         {
           "source": "s24",
@@ -191,6 +191,24 @@
           "quote": "45d（非自动方案评估人力） -> 13d",
           "snapshot": "03_视频云_sdk/s24-sdk-live-effort.md",
           "line": 60
+        },
+        {
+          "source": "s24",
+          "quote": "20 pd",
+          "snapshot": "03_视频云_sdk/s24-sdk-live-effort.md",
+          "line": 72
+        },
+        {
+          "source": "s35",
+          "quote": "能效提升预估 45d -&gt; 43d",
+          "snapshot": "00_公共资料/s35-platform-2024-monthly.md",
+          "line": 38
+        },
+        {
+          "source": "s34",
+          "quote": "50d（非自动方案评估人力）-&gt; 19d",
+          "snapshot": "00_公共资料/s34-platform-2024-summary.md",
+          "line": 11
         }
       ]
     },
@@ -260,6 +278,141 @@
           "quote": "<strong>审核人</strong></td><td><a href=\"mailto:liutao.fe@bytedance.com\">@刘韬(liutao.fe)</a>",
           "snapshot": "03_视频云_sdk/s32-sdk-rtc-test.md",
           "line": 16
+        }
+      ]
+    },
+    {
+      "id": "sdk-12",
+      "section": "RTC 结果与指标",
+      "text": "RTC 工时统计记涉及 185 个 API，自动生成 165 个、占比 89%；开发加测试投入 38 人天，其中开发 24 人天、测试 14 人天。手写开发预估 44 人天，文档给出开发加测试预估公式 44 + (14 * 2)，年度总结明确记为 72 人天。",
+      "status": "原文记录",
+      "scope": "均为业务 SDK 的开发测试投入，不是本人单独投入，也不能视为已包含通用生成工具和运行时全部建设成本。83% 是原文“效率提升”的表述；不能写成投入降低 83%。按开发加测试基线计算为 (72−38)/72≈47.22%；按仅开发基线计算为 (44−24)/44≈45.45%。",
+      "evidence": [
+        {
+          "source": "s33",
+          "quote": "涉及 api: 185",
+          "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+          "line": 10
+        },
+        {
+          "source": "s33",
+          "quote": "自动生成 api：165，占比 89%",
+          "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+          "line": 11
+        },
+        {
+          "source": "s33",
+          "quote": "开发 + 测试：38pd",
+          "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+          "line": 12
+        },
+        {
+          "source": "s33",
+          "quote": "开发：24 pd",
+          "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+          "line": 13
+        },
+        {
+          "source": "s33",
+          "quote": "预估手写开发时间 44",
+          "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+          "line": 14
+        },
+        {
+          "source": "s33",
+          "quote": "44 + (14 * 2)",
+          "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+          "line": 29
+        },
+        {
+          "source": "s33",
+          "quote": "效率提升 83%",
+          "snapshot": "03_视频云_sdk/s33-sdk-rtc-effort.md",
+          "line": 15
+        },
+        {
+          "source": "s34",
+          "quote": "72d（非自动方案评估人力）-&gt; 38d",
+          "snapshot": "00_公共资料/s34-platform-2024-summary.md",
+          "line": 11
+        }
+      ]
+    },
+    {
+      "id": "sdk-13",
+      "section": "三个业务方向的落地范围",
+      "text": "开放平台 2024 年总结明确记录直播拉流、直播推流、点播、RTC React Native SDK 完成上线；分别涉及 69、242、54、185 个 API。2024 月报 Q3 总结也列出这四项。",
+      "status": "原文记录",
+      "scope": "四项原文计数之和为 550（69+242+54+185），是三个业务方向、四类 SDK 的涉及 API 计数之和，不是跨 SDK 去重数，也不是全部自动生成数量。点播 54 包含回调和初始化等分类。年度总结证明上线，不证明上线精确日期或所有版本无遗留问题。只统计 React Native，不加入另列的点播 UniAPP 54 个 API。",
+      "evidence": [
+        {
+          "source": "s34",
+          "quote": "涉及 API 69",
+          "snapshot": "00_公共资料/s34-platform-2024-summary.md",
+          "line": 11
+        },
+        {
+          "source": "s34",
+          "quote": "涉及 API 242",
+          "snapshot": "00_公共资料/s34-platform-2024-summary.md",
+          "line": 11
+        },
+        {
+          "source": "s34",
+          "quote": "涉及 API 54",
+          "snapshot": "00_公共资料/s34-platform-2024-summary.md",
+          "line": 11
+        },
+        {
+          "source": "s34",
+          "quote": "涉及 API 185",
+          "snapshot": "00_公共资料/s34-platform-2024-summary.md",
+          "line": 11
+        },
+        {
+          "source": "s35",
+          "quote": "RTC ReactNative SDK 完成上线",
+          "snapshot": "00_公共资料/s35-platform-2024-monthly.md",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "id": "sdk-14",
+      "section": "直播自动生成数量核实",
+      "text": "适配层方案安排了 RN SDK 封装及手动处理方法。2024-08-09 的 1.0.2 发布代码同时保留生成目录和额外适配实现：拉流初始化与五个属性扩展，推流四个 API 方法及编码配置初始化扩展。",
+      "status": "方案记录及代码阅读摘要",
+      "scope": "本次检索和历史代码阅读未核实与拉流 69、推流 242 同范围的自动生成数量。两项继续按“涉及 API”使用，不能把生成目录成员数作为交付统计，也不能以 311 减去扩展项数量。额外适配不否定对应方法曾有生成产物，生成／适配不能简单作为互斥分类。代码摘要只证明固定提交结构，不证明生产收益。",
+      "evidence": [
+        {
+          "source": "s36",
+          "quote": "RN SDK 封装，手动处理方法实现",
+          "snapshot": "03_视频云_sdk/s36-sdk-live-adapter.md",
+          "line": 539
+        },
+        {
+          "source": "s37",
+          "quote": "拉流 `src/core/player.ts:60` 定义 `initPlayer`",
+          "snapshot": "03_视频云_sdk/s37-sdk-live-code-evidence.md",
+          "line": 21
+        },
+        {
+          "source": "s37",
+          "quote": "拉流 `src/core/keytype.ts:19、43、67、106、144`",
+          "snapshot": "03_视频云_sdk/s37-sdk-live-code-evidence.md",
+          "line": 22
+        },
+        {
+          "source": "s37",
+          "quote": "推流 `src/core/api.ts:32、44、73、102`",
+          "snapshot": "03_视频云_sdk/s37-sdk-live-code-evidence.md",
+          "line": 23
+        },
+        {
+          "source": "s37",
+          "quote": "推流 `src/core/keytype.ts:54`",
+          "snapshot": "03_视频云_sdk/s37-sdk-live-code-evidence.md",
+          "line": 24
         }
       ]
     }
