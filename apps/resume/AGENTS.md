@@ -51,7 +51,7 @@
 ```sh
 pnpm run resume build     # 生成 output/career-report.html
 pnpm run resume preview   # 本地预览，数据或模板修改后自动刷新
-pnpm run resume pdf       # 重新构建并导出 output/pdf/career-report.pdf
+pnpm run resume pdf       # 重新构建并导出 output/career-report.pdf
 pnpm run resume test      # 运行现有测试
 ```
 
