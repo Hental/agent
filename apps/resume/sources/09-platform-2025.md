@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/TIFxdp90lofVHCxnNWIclSKYn0e"
+source_title: "《智能纪要：资产管理平台介绍 2025年4月16日》"
+type: "meeting_summary"
+summary: "资产管理平台介绍的智能纪要；不能单独证明实现或收益。"
+---
 > 会议主题：资产管理平台介绍
 > 会议时间：4月16号（周三） 15:30 - 15:58 （GMT+08）
 > 参会人：[@刘韬(liutao.fe)](mailto:liutao.fe@bytedance.com) [@陈柏昆(chenbokun)](mailto:chenbokun@bytedance.com) [@何奔(heben)](mailto:heben@bytedance.com) [@李鑫(lixin.zheng)](mailto:lixin.zheng@bytedance.com) [@李杨韬(liyangtao)](mailto:liyangtao@bytedance.com) [@邱念(qiunian)](mailto:qiunian@bytedance.com) [@赵镇澜(zhaozhenlan)](mailto:zhaozhenlan@bytedance.com) [@钟嘉豪(zhongjiahao.09)](mailto:zhongjiahao.09@bytedance.com) [@朱凌霄(zhulingxiao)](mailto:zhulingxiao@bytedance.com) 

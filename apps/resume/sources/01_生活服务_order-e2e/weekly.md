@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/wiki/XUEZwMAgAiawsFksCr7cvxeUnpe"
+source_title: "《订单E2E周度审查报告_20260904-20260910》"
+type: "document_snapshot"
+summary: "订单 E2E 周度审查（2026.09.04—09.10）。原文快照；目标、进展和实际结果按原文区分。"
+---
 <title>订单E2E周度审查报告_20260904-20260910</title>
 
 > 部分内容由豆包生成

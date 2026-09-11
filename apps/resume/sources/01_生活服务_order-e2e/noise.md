@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/wiki/M9vYwRg2uinawHkFaIgcDjK2ndb"
+source_title: "《订单 E2E 拦截噪音优化》"
+type: "document_snapshot"
+summary: "订单 E2E 拦截噪音优化。原文快照；目标、进展和实际结果按原文区分。"
+---
 <title>订单 E2E 拦截噪音优化</title>
 
 # 目标

@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/LnNLdD37Jooty2xJf8mcFlTGnOb"
+source_title: "《2025年度个人总结-刘韬》"
+type: "document_snapshot"
+summary: "2025 年度个人总结。原文快照；目标、进展和实际结果按原文区分。"
+---
 ### 一、2025年度贡献回顾
 
 2025年是聚焦于研发提效和业务深入支持的一年。本年度的工作核心在于主导并从零到一构建了服务于本地生活业务的研发提效平台（`ies/poi-zetton`），同时深度参与到家旅等业务（`life_service/life_trip_c_mono`）的日常迭代与稳定性维护中。

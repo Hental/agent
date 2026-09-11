@@ -4,7 +4,7 @@
   "title": "生活服务 - 订单 E2E 自动化",
   "period": "2026.01 — 至今",
   "role": "回归管线与流水线接入",
-  "organized_at": "2026-09-10",
+  "organized_at": "2026-09-11",
   "summary_file": "project.md",
   "report": {
     "data_file": "../../data/report.json",
@@ -21,7 +21,7 @@
   "materials": [
     {
       "file": "project.md",
-      "kind": "curated_summary",
+      "kind": "curated_index",
       "source_ids": [
         "s15",
         "s13",
@@ -81,11 +81,12 @@
         }
       ],
       "copied_from": null,
-      "sha256": "42f27515a6a563728e0f4c0a45ce3b635db48efda47599e48b09c71e75a7b909",
-      "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
+      "sha256": "20484fd7e5d983544bd9cd4a53bb3e3086854d54bd41271a24d1136c21762ee9",
+      "note": "指向 data 项目事实的入口，不是独立证据。",
+      "content_sha256": "662361c8ecd6f513d8074ee74c14db9e2b3d36605751e326f08e3a7e2840f73c"
     },
     {
-      "file": "11-2026-review.md",
+      "file": "../11-2026-review.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s11"
@@ -94,15 +95,17 @@
         {
           "id": "s11",
           "title": "刘韬 1on1 月度 Q2",
-          "url": "https://bytedance.larkoffice.com/docx/OG4bdZON5oyrXpxNN8EcDD5hnMg"
+          "url": "https://bytedance.larkoffice.com/docx/OG4bdZON5oyrXpxNN8EcDD5hnMg",
+          "source_title": "《刘韬1on1记录-月度(Q2)》"
         }
       ],
       "copied_from": "apps/resume/sources/11-2026-review.md",
-      "sha256": "8aa2f19090672d501bf12d9931e73882d538fe9fe08145556c7dd295cd82cbc7",
-      "note": "正文为 2025 Q2，包含标准化与 Oncall 结果。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "364e661e7874278b9e97428c84ee3b2423b44886dd2101cf2026ba467f5d115f",
+      "note": "正文为 2025 Q2，包含标准化与 Oncall 结果。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "8aa2f19090672d501bf12d9931e73882d538fe9fe08145556c7dd295cd82cbc7"
     },
     {
-      "file": "12-2026-weekly.md",
+      "file": "../12-2026-weekly.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s12"
@@ -111,12 +114,14 @@
         {
           "id": "s12",
           "title": "2026.06.29—07.05 周报",
-          "url": "https://bytedance.larkoffice.com/docx/AuIRdUhF2oglzRxkvcOcjhA5nEb"
+          "url": "https://bytedance.larkoffice.com/docx/AuIRdUhF2oglzRxkvcOcjhA5nEb",
+          "source_title": "《刘韬 · 周报（2026-06-29 ~ 2026-07-05）》"
         }
       ],
       "copied_from": "apps/resume/sources/12-2026-weekly.md",
-      "sha256": "ee6f09847b0118d91e8940d2ecf7e06328c80808c46f3b0736b95c540f4374f5",
-      "note": "Aily 自动生成，近期项目仅作补证线索。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "0016b08ac4d253bec38e7343f0fb3e03ee339545fee07d9c133a8895fd277e2d",
+      "note": "Aily 自动生成，近期项目仅作补证线索。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "ee6f09847b0118d91e8940d2ecf7e06328c80808c46f3b0736b95c540f4374f5"
     },
     {
       "file": "design.md",
@@ -128,12 +133,14 @@
         {
           "id": "s15",
           "title": "订单 E2E 测试技术方案",
-          "url": "https://bytedance.larkoffice.com/wiki/KAVKwkzXVijooHkOOLjcXwLenyJ"
+          "url": "https://bytedance.larkoffice.com/wiki/KAVKwkzXVijooHkOOLjcXwLenyJ",
+          "source_title": "《【技术方案】订单 E2E 测试》"
         }
       ],
       "copied_from": ".reports/resume-order-e2e-research/design.md",
-      "sha256": "66453bfc834aa1df63df264f61e7c26d68e934269a83f9102f943f8dd8b6a23e",
-      "note": "背景、业务身份数据驱动方案及 FE / Client 分工；目标不作为达成结果。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。"
+      "sha256": "b1ee0a38e58523dc4c87b7978c44a2e1cbb29ebd88486838e5c7f33602e7e639",
+      "note": "背景、业务身份数据驱动方案及 FE / Client 分工；目标不作为达成结果。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。",
+      "content_sha256": "66453bfc834aa1df63df264f61e7c26d68e934269a83f9102f943f8dd8b6a23e"
     },
     {
       "file": "review.md",
@@ -145,12 +152,14 @@
         {
           "id": "s16",
           "title": "E2E Q1 Review 与 Q2 规划",
-          "url": "https://bytedance.larkoffice.com/wiki/Oo4vwRnGzibmPKkUiiZcC14Mnag"
+          "url": "https://bytedance.larkoffice.com/wiki/Oo4vwRnGzibmPKkUiiZcC14Mnag",
+          "source_title": "《E2E Q1 Review & Q2  规划》"
         }
       ],
       "copied_from": ".reports/resume-order-e2e-research/review.md",
-      "sha256": "f8abdcd64fd68ca44e927e9668a29ad9ab3a9b9417921aa51938d2e6fba3a630",
-      "note": "Q1 覆盖与执行基线；95% 完成率和 10% 噪音率为 Q2 目标，未据此宣称达成。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。"
+      "sha256": "2d07ba0893ce3cd6554ed02eb7dec87f7d9778206d71dd4176e047b081c4678c",
+      "note": "Q1 覆盖与执行基线；95% 完成率和 10% 噪音率为 Q2 目标，未据此宣称达成。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。",
+      "content_sha256": "f8abdcd64fd68ca44e927e9668a29ad9ab3a9b9417921aa51938d2e6fba3a630"
     },
     {
       "file": "noise.md",
@@ -162,12 +171,14 @@
         {
           "id": "s17",
           "title": "订单 E2E 拦截噪音优化",
-          "url": "https://bytedance.larkoffice.com/wiki/M9vYwRg2uinawHkFaIgcDjK2ndb"
+          "url": "https://bytedance.larkoffice.com/wiki/M9vYwRg2uinawHkFaIgcDjK2ndb",
+          "source_title": "《订单 E2E 拦截噪音优化》"
         }
       ],
       "copied_from": ".reports/resume-order-e2e-research/noise.md",
-      "sha256": "c7574981d05fbd589445b02e9cc96608fb18301c675af765e0316bf6562477e2",
-      "note": "订单火车发布模板接入及定期回归、结果复核机制。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。"
+      "sha256": "06562d6a60417985e32fb6f9b603174ee9a2d83141aae50ce2fd53e40154bdf6",
+      "note": "订单火车发布模板接入及定期回归、结果复核机制。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。",
+      "content_sha256": "c7574981d05fbd589445b02e9cc96608fb18301c675af765e0316bf6562477e2"
     },
     {
       "file": "fullchain.md",
@@ -179,12 +190,14 @@
         {
           "id": "s18",
           "title": "全链路订单 E2E 三仓改动与 CR 汇总",
-          "url": "https://bytedance.larkoffice.com/docx/ETw7d87VGovOxGx0r52cGAHtnkb"
+          "url": "https://bytedance.larkoffice.com/docx/ETw7d87VGovOxGx0r52cGAHtnkb",
+          "source_title": "《全链路订单 E2E 三仓 MR 改动与 CR 汇总（2026-08-12）》"
         }
       ],
       "copied_from": ".reports/resume-order-e2e-research/fullchain.md",
-      "sha256": "6bc137c448945399092e412daff8ee6658abdef9e35aef2477958977c1dc065e",
-      "note": "2026.08.12 历史审查记录，说明全链路设计；当时存在合入阻塞，不据此证明上线。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。"
+      "sha256": "7901ba8da4b7d8c6436b90fbcac9d5e94b8edab6b9b2efe6ffcd290ae2df1582",
+      "note": "2026.08.12 历史审查记录，说明全链路设计；当时存在合入阻塞，不据此证明上线。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。",
+      "content_sha256": "6bc137c448945399092e412daff8ee6658abdef9e35aef2477958977c1dc065e"
     },
     {
       "file": "weekly.md",
@@ -196,12 +209,14 @@
         {
           "id": "s19",
           "title": "订单 E2E 周度审查（2026.09.04—09.10）",
-          "url": "https://bytedance.larkoffice.com/wiki/XUEZwMAgAiawsFksCr7cvxeUnpe"
+          "url": "https://bytedance.larkoffice.com/wiki/XUEZwMAgAiawsFksCr7cvxeUnpe",
+          "source_title": "《订单E2E周度审查报告_20260904-20260910》"
         }
       ],
       "copied_from": ".reports/resume-order-e2e-research/weekly.md",
-      "sha256": "b08ef1e959392ac8e45becb9fa9a85eb1995a5ec5f8dea68b4514550473d1d3b",
-      "note": "部分内容由 AI 生成，记载 7 任务 / 1,534 Job 及异常，仅作运行线索；未重查底层快照。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。"
+      "sha256": "72364f7f7d1699bfa45fc070e8ce560ae034fc3e0725061975e5a2d1c1b41b62",
+      "note": "部分内容由 AI 生成，记载 7 任务 / 1,534 Job 及异常，仅作运行线索；未重查底层快照。 2026-09-10 获取的文档正文快照；嵌入资源仅保留原标签。",
+      "content_sha256": "b08ef1e959392ac8e45becb9fa9a85eb1995a5ec5f8dea68b4514550473d1d3b"
     },
     {
       "file": "messages.md",
@@ -214,21 +229,24 @@
         {
           "id": "s20",
           "title": "订单小组：E2E 部署与试用",
-          "url": "https://applink.feishu.cn/client/chat/open?openChatId=oc_cbaeeacd0e59ccc13c935a268f0f6bd4&position=93"
+          "url": "https://applink.feishu.cn/client/chat/open?openChatId=oc_cbaeeacd0e59ccc13c935a268f0f6bd4&position=93",
+          "source_title": "《订单小组：E2E 部署与试用》"
         },
         {
           "id": "s21",
           "title": "本人消息：集成回归阶段接入 E2E",
-          "url": "https://applink.feishu.cn/client/chat/open?openChatId=oc_b789094c27a36c6c57758544fbe63758&position=773"
+          "url": "https://applink.feishu.cn/client/chat/open?openChatId=oc_b789094c27a36c6c57758544fbe63758&position=773",
+          "source_title": "《本人消息：集成回归阶段接入 E2E》"
         }
       ],
       "copied_from": null,
-      "sha256": "e3b6d21308f00c310a0eab3c1b0faf75a2ebdcb62f0893431803e11e5b07fe69",
-      "note": "2026-09-10 搜索读取；另含 2026-07-24 修复后重跑消息，链接和 ID 见正文。图片仅保留占位符。"
+      "sha256": "2a1dfbea88e9d96d10a4a79316f01098ba36e1fc5ed2c76979c273b0c14c5bbb",
+      "note": "2026-09-10 搜索读取；另含 2026-07-24 修复后重跑消息，链接和 ID 见正文。图片仅保留占位符。",
+      "content_sha256": "e3b6d21308f00c310a0eab3c1b0faf75a2ebdcb62f0893431803e11e5b07fe69"
     },
     {
       "file": "code-evidence.md",
-      "kind": "code_review_summary",
+      "kind": "code_reading_summary",
       "source_ids": [
         "s13",
         "s14"
@@ -237,17 +255,20 @@
         {
           "id": "s13",
           "title": "订单 E2E 自动化代码仓库",
-          "url": "https://code.byted.org/life_service/life_trade_c_fe_e2e"
+          "url": "https://code.byted.org/life_service/life_trade_c_fe_e2e",
+          "source_title": "《订单 E2E 自动化代码仓库》"
         },
         {
           "id": "s14",
           "title": "订单 E2E Bits 流水线原子节点",
-          "url": "https://code.byted.org/devops/life_trade_c_order_e2e"
+          "url": "https://code.byted.org/devops/life_trade_c_order_e2e",
+          "source_title": "《订单 E2E Bits 流水线原子节点》"
         }
       ],
       "copied_from": null,
-      "sha256": "52e5cced9ffcb66c482c29351bc182601dd8cf19d4819ad26c567f3ab9210ec1",
-      "note": "整理此前本地代码核对的路径与结论，非源码镜像。"
+      "sha256": "db0d94493dfd11c2f10b60ced0ab5609ecc3a7aa6e1189dc6cae995985eee31c",
+      "note": "整理此前本地代码核对的路径与结论，非源码镜像。",
+      "content_sha256": "52e5cced9ffcb66c482c29351bc182601dd8cf19d4819ad26c567f3ab9210ec1"
     }
   ],
   "evidence_policy": [
@@ -256,5 +277,18 @@
     "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
   ],
   "order": 1,
-  "team": "生活服务"
+  "team": "生活服务",
+  "facts_file": "../../data/projects/e2e.md",
+  "reading_sources": [
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s22",
+    "s13",
+    "s14",
+    "s20",
+    "s21"
+  ]
 }

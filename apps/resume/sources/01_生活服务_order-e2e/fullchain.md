@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/ETw7d87VGovOxGx0r52cGAHtnkb"
+source_title: "《全链路订单 E2E 三仓 MR 改动与 CR 汇总（2026-08-12）》"
+type: "document_snapshot"
+summary: "全链路订单 E2E 三仓改动与 CR 汇总。原文快照；目标、进展和实际结果按原文区分。"
+---
 <title>全链路订单 E2E 三仓 MR 改动与 CR 汇总（2026-08-12）</title>
 
 **报告范围：**life_trade_c_fe_e2e MR 77、life_trade_fe_tool_mono MR 206、life_e2e_optimus MR 169。

@@ -1,3 +1,11 @@
+---
+source:
+  - "https://code.byted.org/life_service/life_trade_c_fe_e2e"
+  - "https://code.byted.org/devops/life_trade_c_order_e2e"
+source_title: "《订单 E2E 自动化代码仓库》；《订单 E2E Bits 流水线原子节点》"
+type: "code_reading_summary"
+summary: "订单 E2E 自动化代码仓库；订单 E2E Bits 流水线原子节点。代码阅读摘要，不是完整源码或生产运行指标。"
+---
 # 订单 E2E 本地代码证据索引
 
 核对日期：2026-09-10。以下为代码阅读摘要，不是生产运行结果或完整源码快照。

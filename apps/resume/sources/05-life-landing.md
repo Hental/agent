@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/KpB6duzbwo7KQlxIMGWcgeAlnVh"
+source_title: "《生活服务 Landing》"
+type: "document_snapshot"
+summary: "生活服务 Landing。原文快照；目标、进展和实际结果按原文区分。"
+---
 [周报 - 刘韬](https://bytedance.larkoffice.com/wiki/ZShvwIckMijDM8kYXuEctK0ynTh)
 [新人Landing任务 - 刘韬](https://bytedance.larkoffice.com/wiki/SInJwo2dIiPSbLkK22CcjAlNn8c?table=tblzwJRXfTn4POOs&view=vewz7oUzud)
 [交易FE仓库&页面汇总(持续更新ing)](https://bytedance.larkoffice.com/wiki/YJbUwSQD4is9NnkxVANcFLainDb?table=tblzJYcIZ5t1KTUL&view=vew7sB3pOi)

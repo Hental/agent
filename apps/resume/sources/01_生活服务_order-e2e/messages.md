@@ -1,3 +1,11 @@
+---
+source:
+  - "https://applink.feishu.cn/client/chat/open?openChatId=oc_cbaeeacd0e59ccc13c935a268f0f6bd4&position=93"
+  - "https://applink.feishu.cn/client/chat/open?openChatId=oc_b789094c27a36c6c57758544fbe63758&position=773"
+source_title: "《订单小组：E2E 部署与试用》；《本人消息：集成回归阶段接入 E2E》"
+type: "message_excerpt"
+summary: "订单小组：E2E 部署与试用；本人消息：集成回归阶段接入 E2E。项目相关消息摘录，仅证明消息记录时点的交流内容。"
+---
 # 订单 E2E 消息证据
 
 仅保留与部署、接入和维护直接相关的本人消息；搜索结果不代表完整会话，不能据此推断未展示的上下文。

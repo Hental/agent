@@ -4,7 +4,7 @@
   "title": "火山引擎视频云 - 跨端 SDK 自动生成",
   "period": "2024 Q2 落地",
   "role": "生成工具与运行时",
-  "organized_at": "2026-09-10",
+  "organized_at": "2026-09-11",
   "summary_file": "project.md",
   "report": {
     "data_file": "../../data/report.json",
@@ -21,7 +21,7 @@
   "materials": [
     {
       "file": "project.md",
-      "kind": "curated_summary",
+      "kind": "curated_index",
       "source_ids": [
         "s4"
       ],
@@ -33,11 +33,12 @@
         }
       ],
       "copied_from": null,
-      "sha256": "a59ee4997be193713eaa7630c83bb11d99c82122946fa23a705aa5d21345f865",
-      "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
+      "sha256": "962b54c354a1934d6ee7772f242e7e75ce2fa51cb182278ab37894acb480df9e",
+      "note": "指向 data 项目事实的入口，不是独立证据。",
+      "content_sha256": "8b3631322bdb220084193b48a114c7e61b27a49ff2f4e3ad888ac3caff34eea7"
     },
     {
-      "file": "04-old-resume.md",
+      "file": "../04-old-resume.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s4"
@@ -46,16 +47,18 @@
         {
           "id": "s4",
           "title": "本人旧简历",
-          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+          "url": "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd",
+          "source_title": "《简历》"
         }
       ],
       "copied_from": "apps/resume/sources/04-old-resume.md",
-      "sha256": "338e5eae988f91634787d8e5366e9bdc28fed4f827f1bedc7ea75d47befa89b3",
-      "note": "学历、任职月份、SDK 生成、商业化与携程经历。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "3e3642db7074c5ee04a704ffc6bbca89ff1e5c24d383bca58d3c709217d9b462",
+      "note": "学历、任职月份、SDK 生成、商业化与携程经历。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "338e5eae988f91634787d8e5366e9bdc28fed4f827f1bedc7ea75d47befa89b3"
     },
     {
-      "file": "03-handover.md",
-      "kind": "document_snapshot",
+      "file": "../03-handover.md",
+      "kind": "meeting_summary",
       "source_ids": [
         "s3"
       ],
@@ -63,12 +66,14 @@
         {
           "id": "s3",
           "title": "RTC 与互动白板交接",
-          "url": "https://bytedance.larkoffice.com/docx/KGsYdrCYdolfygx5UKnc4NQrnyd"
+          "url": "https://bytedance.larkoffice.com/docx/KGsYdrCYdolfygx5UKnc4NQrnyd",
+          "source_title": "《RTC & 互动白板交接文档》"
         }
       ],
       "copied_from": "apps/resume/sources/03-handover.md",
-      "sha256": "b63cc15087aa95f572d8cf9d02c398aea9e942486bbdb2296f177ff78afa192f",
-      "note": "维护职责、跨端工作与产品实际状态。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "c0a1ca186959ea9fd18d0405240e223323e28395e7af718fb38678c394c0c013",
+      "note": "维护职责、跨端工作与产品实际状态。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "b63cc15087aa95f572d8cf9d02c398aea9e942486bbdb2296f177ff78afa192f"
     }
   ],
   "evidence_policy": [
@@ -77,5 +82,14 @@
     "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
   ],
   "order": 3,
-  "team": "火山引擎视频云"
+  "team": "火山引擎视频云",
+  "facts_file": "../../data/projects/sdk.md",
+  "reading_sources": [
+    "s4",
+    "s24",
+    "s25",
+    "s27",
+    "s29",
+    "s30"
+  ]
 }

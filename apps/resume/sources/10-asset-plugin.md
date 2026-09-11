@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/wiki/DU6DwPLjkievy1kVozacAssnnjc"
+source_title: "《交易资产管理插件使用说明》"
+type: "document_snapshot"
+summary: "交易资产插件使用说明。原文快照；目标、进展和实际结果按原文区分。"
+---
 > [!NOTE]
 > 资产平台是一个 ditom 平台插件，扩展了 ditom 物料管理能力，物料在不同场景下的测试商品管理和截图预览。
 >

@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/wiki/KAVKwkzXVijooHkOOLjcXwLenyJ"
+source_title: "《【技术方案】订单 E2E 测试》"
+type: "document_snapshot"
+summary: "订单 E2E 测试技术方案。原文快照；目标、进展和实际结果按原文区分。"
+---
 <title>【技术方案】订单 E2E 测试</title>
 
 ![图片为订单E2E测试架构图，展示了真实/品放数据驱动订单双环境截面。触达层有Public API、Bits流水线、Cronjob；核心执行层包含Replay数据回放、守护者平台/Bytecut截图、UI Diff、Resolve结果处理；算法迭代闭环有AI生成本地算法、单元测试用例、人工check不准确case、补充case到源码、AI优化算法；核心数据模型有test_task、test_job、test_ui_case、守护者平台job。该图与文档中交易FE - 25年线上问题分析上下文相关，直观呈现了订单E2E测试的架构。](https://feishu.cn/file/KrIVbZEW2olxGVxRSWscHAnmnTc)

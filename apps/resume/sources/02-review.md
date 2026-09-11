@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/DcnNdeK1KoU0IAxXEh2cqbVZnnc"
+source_title: "《述职报告 - 刘韬》"
+type: "document_snapshot"
+summary: "述职报告。原文快照；目标、进展和实际结果按原文区分。"
+---
 # 个人信息
 
 ## 个人履历

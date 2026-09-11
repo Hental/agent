@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/VoGYdEgSXokLLaxT4uDcxuVanCg"
+source_title: "《资产信息上翻 Q1周进展》"
+type: "document_snapshot"
+summary: "资产信息上翻 Q1 周进展。原文快照；目标、进展和实际结果按原文区分。"
+---
 ## 基本信息
 
 <table data-lark-table="docx-table" data-block-id="AbHtdgrRAoxsG4xStKdcNh25nxg"><thead><tr><th>项</th><th>信息</th></tr></thead><tbody><tr><td>项目参与人</td><td><a href="mailto:tuhaotian@bytedance.com">@涂昊天(tuhaotian)</a> <a href="mailto:laihuamin@bytedance.com">@来铧敏(laihuamin)</a> <a href="mailto:liutao.fe@bytedance.com">@刘韬(liutao.fe)</a> <a href="mailto:zhangtaihao@bytedance.com">@张泰豪(zhangtaihao)</a></td></tr><tr><td>日程</td><td>[Unsupported block: type=999, id=GXOadWrpWo4obLxjwktcs0WFnAh]</td></tr></tbody></table>

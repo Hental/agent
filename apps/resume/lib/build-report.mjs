@@ -8,7 +8,7 @@ export const reportDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const defaultPaths = {
   data: join(reportDir, 'data/report.json'),
   markdown: join(reportDir, 'data/report.md'),
-  template: join(reportDir, 'template/template.html'),
+  template: join(reportDir, 'lib/template/template.html'),
   html: join(reportDir, 'output/career-report.html'),
   pdf: join(reportDir, 'output/pdf/career-report.pdf'),
 };

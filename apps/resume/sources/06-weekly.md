@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/wiki/ZShvwIckMijDM8kYXuEctK0ynTh"
+source_title: "《周报 - 刘韬》"
+type: "document_snapshot"
+summary: "个人周报。原文快照；目标、进展和实际结果按原文区分。"
+---
 # 2024.12.16 - 2024.12.20
 
 ## 本周做了哪些事

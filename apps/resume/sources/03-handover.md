@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/KGsYdrCYdolfygx5UKnc4NQrnyd"
+source_title: "《RTC & 互动白板交接文档》"
+type: "meeting_summary"
+summary: "RTC 与互动白板交接。会议记录，含智能纪要；不能单独证明实现或收益。"
+---
 # 会议信息
 
 会议主题：交接 RTC & 白板

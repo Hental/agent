@@ -5,8 +5,8 @@
     "title": "前端研发工程师简历",
     "period": "2020.10 — 2026.09 / 近六年",
     "edition": "2020—2026",
-    "reportDate": "2026.09.07",
-    "researchDate": "2026.09.06",
+    "reportDate": "2026.09.11",
+    "researchDate": "2026.09.11",
     "rawDirectory": "../sources",
     "personalInfo": {
       "age": 31,
@@ -51,7 +51,7 @@
     },
     "sources": {
       "label": "05 / REFERENCES",
-      "title": "28 份参考材料",
+      "title": "30 份参考材料",
       "description": "文档、代码及消息保留来源；访问需对应权限。"
     },
     "education": {
@@ -106,19 +106,19 @@
       ],
       "metrics": [
         {
-          "label": "升级回归覆盖",
+          "label": "升级覆盖",
           "value": "157 个业务场景",
-          "note": "订单 ReactLynx 3 升级"
+          "note": "该次订单 ReactLynx 3 升级"
         },
         {
-          "label": "回归发现问题",
-          "value": "30+",
-          "note": "未把所有问题归类为卡片/按钮缺失"
+          "label": "实际投入",
+          "value": "18 人天",
+          "note": "E2E 开发调试与 AI 测试"
         },
         {
-          "label": "升级上线后",
-          "value": "无 UI 类线上问题",
-          "note": "该次升级；非长期零故障承诺"
+          "label": "较纯人工预估降低",
+          "value": "约 71%",
+          "note": "(62−18)/62；62 人天为预估"
         }
       ],
       "scope": "e2e.scope",
@@ -193,7 +193,7 @@
         {
           "label": "图片准确率",
           "value": "99%",
-          "note": "AI 校验与人工复核"
+          "note": "本人 Q2 复盘；非资产全维度准确率"
         },
         {
           "label": "非弹窗卡片覆盖",
@@ -294,6 +294,14 @@
         {
           "source": "s27",
           "label": "自动生成层次与接口分类"
+        },
+        {
+          "source": "s29",
+          "label": "跨平台方案运行时设计"
+        },
+        {
+          "source": "s30",
+          "label": "交接下跨端 2024年10月28日"
         }
       ],
       "body": "sdk.body",
@@ -324,8 +332,8 @@
           "note": "协同和回放"
         },
         {
-          "title": "Hybrid 复用",
-          "note": "三端共享核心"
+          "title": "课件转换",
+          "note": "PPT / WPS 在线展示"
         }
       ],
       "metrics": [
@@ -337,12 +345,12 @@
         {
           "label": "静态转码最终成功率",
           "value": "96% → 99%",
-          "note": ""
+          "note": "排除用户文件原因"
         },
         {
           "label": "动态转码成功率",
           "value": "82% → 98%",
-          "note": ""
+          "note": "排除用户文件原因"
         }
       ],
       "scope": "board.scope",
@@ -415,8 +423,8 @@
         },
         {
           "label": "项目广告转化率",
-          "value": "高于大盘 3 个百分点",
-          "note": "所在自助创意项目生成的落地页；非编辑器单独因果收益"
+          "value": "高于大盘 3 个点",
+          "note": "保留原文；自助创意项目结果，非编辑器独立收益"
         }
       ],
       "scope": "editor.scope",
@@ -610,21 +618,33 @@
       "title": "广告述职报告",
       "url": "https://bytedance.larkoffice.com/docx/Ko7sdmM53oSq82x5Wo3co2oCnMg",
       "note": "所见即所得编辑器、Controller设计；自助创意落地页CVR高于大盘3个百分点。消耗未明确币种，其他派生业务成果不归给编辑器。"
+    },
+    {
+      "id": "s29",
+      "title": "跨平台方案运行时设计",
+      "url": "https://bytedance.larkoffice.com/wiki/AmjzwtggMi2amTk9JescrQBrnFf",
+      "note": "原始正文已归档；运行时设计与交接事件各按其证据范围使用。"
+    },
+    {
+      "id": "s30",
+      "title": "交接下跨端 2024年10月28日",
+      "url": "https://bytedance.larkoffice.com/wiki/YWQew6593i8zXgk2nvLc65dXnIg",
+      "note": "原始正文已归档；运行时设计与交接事件各按其证据范围使用。"
     }
   ],
   "researchNote": "sources.e2e",
   "downloads": [
     {
-      "label": "简历 Markdown",
-      "path": "刘韬_简历.md"
+      "label": "项目事实索引",
+      "path": "data/AGENTS.md"
     },
     {
-      "label": "LaTeX 源码",
-      "path": "liutao-resume.tex"
+      "label": "来源阅读索引",
+      "path": "sources/INDEX.md"
     },
     {
-      "label": "完整证据记录",
-      "path": "sources/summary/字节近六年工作回顾与证据.md"
+      "label": "简历写作要求",
+      "path": "RULE.md"
     }
   ],
   "education": {

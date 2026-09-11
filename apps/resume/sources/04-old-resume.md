@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/VEqedXzgEojTDGxafKQcREx6nOd"
+source_title: "《简历》"
+type: "document_snapshot"
+summary: "本人旧简历。原文快照；目标、进展和实际结果按原文区分。"
+---
 # 个人信息
 
 [@刘韬(liutao.fe)](mailto:liutao.fe@bytedance.com) 

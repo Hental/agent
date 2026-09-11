@@ -1,3 +1,10 @@
+---
+source:
+  - "https://bytedance.larkoffice.com/docx/FjOPdC8Fpo1hNexnJnxci0evn5f"
+source_title: "《26 Q2 研发平台&资产上翻》"
+type: "document_snapshot"
+summary: "2026 Q2 研发平台与资产上翻。原文快照；目标、进展和实际结果按原文区分。"
+---
 ## Q2 总结
 
 ### 目标&完成情况

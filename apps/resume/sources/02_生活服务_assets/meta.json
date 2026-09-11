@@ -4,7 +4,7 @@
   "title": "生活服务 - 交易研发资产",
   "period": "2025 — 2026",
   "role": "截图采集与资产质量",
-  "organized_at": "2026-09-10",
+  "organized_at": "2026-09-11",
   "summary_file": "project.md",
   "report": {
     "data_file": "../../data/report.json",
@@ -21,7 +21,7 @@
   "materials": [
     {
       "file": "project.md",
-      "kind": "curated_summary",
+      "kind": "curated_index",
       "source_ids": [
         "s8",
         "s7",
@@ -45,11 +45,12 @@
         }
       ],
       "copied_from": null,
-      "sha256": "6acdf3a60b4a698759f54f9f564531d759a33f0c8f4f625fa00560e394e2487c",
-      "note": "整理自 data/report.md 与 data/report.json；不是独立原始证据。"
+      "sha256": "7f55ae9d54c1ae46aadf7ec2142b6595adfefa86b4bcba9b2eec78c3e912283d",
+      "note": "指向 data 项目事实的入口，不是独立证据。",
+      "content_sha256": "5a8320d73922887d7958a99f53679dc8e111ff92d83a076f9e3c559050dd18bd"
     },
     {
-      "file": "01-2025-summary.md",
+      "file": "../01-2025-summary.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s1"
@@ -58,15 +59,17 @@
         {
           "id": "s1",
           "title": "2025 年度个人总结",
-          "url": "https://bytedance.larkoffice.com/docx/LnNLdD37Jooty2xJf8mcFlTGnOb"
+          "url": "https://bytedance.larkoffice.com/docx/LnNLdD37Jooty2xJf8mcFlTGnOb",
+          "source_title": "《2025年度个人总结-刘韬》"
         }
       ],
       "copied_from": "apps/resume/sources/01-2025-summary.md",
-      "sha256": "30e774a235b97639055814ebb6636e56c77ab43a09d5f8490a821655856cfddb",
-      "note": "仅作线索；部分提效数字未采用。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "361d168de63d0cacb9802a75473b93a4f06d75697747bc1c6aa60dca40fa4b1f",
+      "note": "仅作线索；部分提效数字未采用。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "30e774a235b97639055814ebb6636e56c77ab43a09d5f8490a821655856cfddb"
     },
     {
-      "file": "07-platform-q2.md",
+      "file": "../07-platform-q2.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s7"
@@ -75,15 +78,17 @@
         {
           "id": "s7",
           "title": "2026 Q2 研发平台与资产上翻",
-          "url": "https://bytedance.larkoffice.com/docx/FjOPdC8Fpo1hNexnJnxci0evn5f"
+          "url": "https://bytedance.larkoffice.com/docx/FjOPdC8Fpo1hNexnJnxci0evn5f",
+          "source_title": "《26 Q2 研发平台&资产上翻》"
         }
       ],
       "copied_from": "apps/resume/sources/07-platform-q2.md",
-      "sha256": "02c1bf68ca19c6d1740cd6083fcab33279eb3a315787ec48f0e52719b1ec82da",
-      "note": "团队分工、内部试用状态与指标。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "b8b9bd665340e98e5f607c275f862b338f7879fb46d70b30833672ee05cab3ea",
+      "note": "团队分工、内部试用状态与指标。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "02c1bf68ca19c6d1740cd6083fcab33279eb3a315787ec48f0e52719b1ec82da"
     },
     {
-      "file": "08-assets-q1.md",
+      "file": "../08-assets-q1.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s8"
@@ -92,16 +97,18 @@
         {
           "id": "s8",
           "title": "资产信息上翻 Q1 周进展",
-          "url": "https://bytedance.larkoffice.com/docx/VoGYdEgSXokLLaxT4uDcxuVanCg"
+          "url": "https://bytedance.larkoffice.com/docx/VoGYdEgSXokLLaxT4uDcxuVanCg",
+          "source_title": "《资产信息上翻 Q1周进展》"
         }
       ],
       "copied_from": "apps/resume/sources/08-assets-q1.md",
-      "sha256": "2f28024b6cdf41c01028039b6fbe77cf2adc752b4705b55e925714b5593219a4",
-      "note": "截图采集的个人职责与实现方案。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "7a86f5f6009e00eeba520e9c9cad5ced3896ed52e5ab387a2747217c2a234014",
+      "note": "截图采集的个人职责与实现方案。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "2f28024b6cdf41c01028039b6fbe77cf2adc752b4705b55e925714b5593219a4"
     },
     {
-      "file": "09-platform-2025.md",
-      "kind": "document_snapshot",
+      "file": "../09-platform-2025.md",
+      "kind": "meeting_summary",
       "source_ids": [
         "s9"
       ],
@@ -109,15 +116,17 @@
         {
           "id": "s9",
           "title": "2025 年资产平台介绍",
-          "url": "https://bytedance.larkoffice.com/docx/TIFxdp90lofVHCxnNWIclSKYn0e"
+          "url": "https://bytedance.larkoffice.com/docx/TIFxdp90lofVHCxnNWIclSKYn0e",
+          "source_title": "《智能纪要：资产管理平台介绍 2025年4月16日》"
         }
       ],
       "copied_from": "apps/resume/sources/09-platform-2025.md",
-      "sha256": "33e2d3ef7f0095e47daef0320880190ddff3192a7b2f7689d603d2eeb88d0c6d",
-      "note": "会议纪要，辅助验证当时的功能。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "b2f718b4b288945309c1a66b97cdbdad1cfe8ce3f27e96a5f440fc0203e27d14",
+      "note": "会议纪要，辅助验证当时的功能。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "33e2d3ef7f0095e47daef0320880190ddff3192a7b2f7689d603d2eeb88d0c6d"
     },
     {
-      "file": "10-asset-plugin.md",
+      "file": "../10-asset-plugin.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s10"
@@ -126,12 +135,14 @@
         {
           "id": "s10",
           "title": "交易资产插件使用说明",
-          "url": "https://bytedance.larkoffice.com/wiki/DU6DwPLjkievy1kVozacAssnnjc"
+          "url": "https://bytedance.larkoffice.com/wiki/DU6DwPLjkievy1kVozacAssnnjc",
+          "source_title": "《交易资产管理插件使用说明》"
         }
       ],
       "copied_from": "apps/resume/sources/10-asset-plugin.md",
-      "sha256": "4dc200e2ba6b24448c46784cf7d464d4d1875a6dc6ff1a2ad98e457b9f760fe6",
-      "note": "实际产品形态、集成能力和使用流程。 原始根目录文件保持不变；跨项目资料保留完整副本。"
+      "sha256": "562b12954f7454c314f862f6e39ac073f5efccfdd40aa56065103a26a63eb047",
+      "note": "实际产品形态、集成能力和使用流程。 原始根目录文件保持不变；跨项目资料保留完整副本。",
+      "content_sha256": "4dc200e2ba6b24448c46784cf7d464d4d1875a6dc6ff1a2ad98e457b9f760fe6"
     }
   ],
   "evidence_policy": [
@@ -140,5 +151,15 @@
     "历史资料只证明记录时点的状态；生成式总结和源码不能替代生产计量。"
   ],
   "order": 2,
-  "team": "生活服务"
+  "team": "生活服务",
+  "facts_file": "../../data/projects/assets.md",
+  "reading_sources": [
+    "s8",
+    "s7",
+    "s23",
+    "s22",
+    "s10",
+    "s9",
+    "s1"
+  ]
 }
