@@ -54,18 +54,20 @@ kimi login
 
 ### 默认调用参数
 
-- 默认模型为 `k3-256k`，每次新建或恢复执行会话都显式传入 `--model k3-256k`，不依赖 `config.toml` 或历史会话中的模型默认值。
-- 默认使用 YOLO 模式，显式传入 `--yolo`；标准启动命令为 `kimi --model k3-256k --yolo`。无需修改本机默认配置。
+- 默认模型为 `k3-256k`，本机 CLI 对应的完整模型别名为 `kimi-code/k3-256k`。每次新建或恢复执行会话都显式传入 `--model kimi-code/k3-256k`，不依赖 `config.toml` 或历史会话中的模型默认值。
+- 默认使用 YOLO 模式，显式传入 `--yolo`；标准启动命令为 `kimi --model kimi-code/k3-256k --yolo`。无需修改本机默认配置。
 - 本机 CLI 的 YOLO 是 Ask When Needed：常规编辑和命令自动执行，风险操作、问题和计划仍可能询问；不要擅自替换成 `--auto`。
 - 默认优先选择支持上述参数的交互模式，即使任务可以一次完成。仅在任务确实需要非交互输出时使用 One-shot；仅分析或用户要求先出计划时使用 Plan。这两个模式按下文省略不兼容的 `--yolo`，仍显式指定模型。
 - 用户明确指定其他模型或执行模式时，以本次用户要求为准。
+
+模型参数接收已注册的完整别名；裸写 `--model k3-256k` 会在发送第一条任务时失败，即使启动界面显示了该名称。显式选择模型不依赖默认模型配置，但仍需要本机存在对应的模型和 provider 配置。
 
 ### One-shot 模式
 
 适合目标明确、无需中途回答问题、可以一次完成的修改或调研：
 
 ```bash
-kimi --model k3-256k -p "任务描述"
+kimi --model kimi-code/k3-256k -p "任务描述"
 ```
 
 当前 Kimi Code 的 `-p`/`--prompt` 是非交互模式，会在完成后退出。此模式默认按自动权限策略处理常规工具调用，所以只能在可信且范围明确的工作目录中使用。
@@ -82,7 +84,7 @@ kimi --model k3-256k -p "任务描述"
 需要机器解析输出时使用：
 
 ```bash
-kimi --model k3-256k -p "任务描述" --output-format stream-json
+kimi --model kimi-code/k3-256k -p "任务描述" --output-format stream-json
 ```
 
 只有后续确实要解析事件流时才使用 `stream-json`；面向人检查时优先使用默认文本输出。
@@ -92,7 +94,7 @@ kimi --model k3-256k -p "任务描述" --output-format stream-json
 适合只允许分析、需要先给方案、风险较高或需求仍可能变化的任务：
 
 ```bash
-kimi --model k3-256k --plan
+kimi --model kimi-code/k3-256k --plan
 ```
 
 Plan 模式是交互 TUI，必须使用 PTY。启动后把任务发送到会话，并在 Kimi 给出计划后停止在审批点。未经用户授权，不要批准退出 Plan 模式或开始写文件。
@@ -106,12 +108,12 @@ Plan 模式会限制常规文件写入工具，但 shell 命令仍按权限规�
 适合复杂任务、多轮澄清、长时间运行或 Kimi 可能主动提问的场景：
 
 ```bash
-kimi --model k3-256k --yolo
+kimi --model kimi-code/k3-256k --yolo
 ```
 
 使用支持持续会话的终端工具时：
 
-1. 以 `tty: true` 在目标 `workdir` 启动 `kimi --model k3-256k --yolo`。
+1. 以 `tty: true` 在目标 `workdir` 启动 `kimi --model kimi-code/k3-256k --yolo`。
 2. 保存返回的会话 ID。
 3. 使用终端输入工具发送任务和后续回答。
 4. 每次等待不超过 30–60 秒，并定期检查新输出。
@@ -121,14 +123,14 @@ kimi --model k3-256k --yolo
 恢复当前目录最近的会话：
 
 ```bash
-kimi --model k3-256k --yolo --continue
+kimi --model kimi-code/k3-256k --yolo --continue
 ```
 
 选择或恢复指定会话：
 
 ```bash
-kimi --model k3-256k --yolo --session
-kimi --model k3-256k --yolo --session SESSION_ID
+kimi --model kimi-code/k3-256k --yolo --session
+kimi --model kimi-code/k3-256k --yolo --session SESSION_ID
 ```
 
 只有确认旧会话与当前任务、当前工作目录一致时才恢复，避免继承无关上下文。
@@ -258,12 +260,12 @@ Kimi 完成后，当前 Agent 必须独立核验：
 ## 7. 常用命令速查
 
 ```bash
-kimi --model k3-256k --yolo   # 默认：显式指定模型和 YOLO
-kimi --model k3-256k --plan                  # 从只读规划开始
-kimi --model k3-256k -p "任务"               # 单次非交互任务
-kimi --model k3-256k --yolo --continue              # 继续当前目录最近会话
-kimi --model k3-256k --yolo --session               # 交互选择历史会话
-kimi --model k3-256k --yolo --session SESSION_ID    # 恢复指定会话
+kimi --model kimi-code/k3-256k --yolo   # 默认：显式指定模型和 YOLO
+kimi --model kimi-code/k3-256k --plan                  # 从只读规划开始
+kimi --model kimi-code/k3-256k -p "任务"               # 单次非交互任务
+kimi --model kimi-code/k3-256k --yolo --continue              # 继续当前目录最近会话
+kimi --model kimi-code/k3-256k --yolo --session               # 交互选择历史会话
+kimi --model kimi-code/k3-256k --yolo --session SESSION_ID    # 恢复指定会话
 kimi doctor                  # 检查配置
 kimi login                   # 登录
 kimi upgrade                 # 升级
