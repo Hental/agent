@@ -1,10 +1,14 @@
 # 豆包工作非交互 CLI
 
-范围：会话列表、标题搜索、详情、历史消息、通过首条提示创建、继续对话、重命名、删除。没有 TUI，不实现独立的本地工具执行器。Python 3.10+ 标准库，无需额外依赖。
+范围：会话列表、标题搜索、详情、历史消息、通过首条提示创建、继续对话、重命名、删除。没有 TUI，不实现独立的本地工具执行器。TypeScript 实现（`cli.ts` 入口、`client.ts` 协议层），经仓库根的 tsx 运行，依赖（commander、lossless-json 等）安装在仓库根。
+
+实现原理、接口字段、鉴权逻辑及事实依据与置信度见 [doc/impl.md](doc/impl.md)。修改协议行为时同步更新该文档。
 
 ## 运行
 
 在仓库根目录运行 `pnpm run doubao-work ...`，或直接运行 `apps/doubao-work-cli/doubao-work ...`。本机可通过 `~/.local/bin/doubao-work` 链接调用。
+
+需要 Node.js 22.12+，在仓库根目录执行 `pnpm install` 安装依赖。wrapper 解析自身软链后调用仓库的 `node_modules/.bin/tsx`，可从任意工作目录执行；无需全局安装 tsx。
 
 ```sh
 doubao-work --help
@@ -26,7 +30,7 @@ doubao-work --timeout 300 --output-format json sessions create -p '任务描述'
 
 默认 stdout 为 JSON；`text` 仅对提示调用输出最终文本，会话 ID 写 stderr；`stream-json` 输出逐行 `session`、`text_delta`、`result` 事件，不输出原始 SSE 中的内部推理。失败写 stderr 并返回 1；参数错误返回 2。不存在交互式确认，删除必须显式加 `--yes`，仅接受一个 ID，无批量全删功能。
 
-列表默认一页，`next_cursor` 用于 `--cursor`，`next_pin_query_type` 用于 `--pin-query-type`（置顶与普通会话的分组状态）；`--all` 自动处理两种游标，`--search` 对已读取页面中的标题匹配（全量搜索使用 `--all`）。默认排除归档。历史默认从头正序拉取一页，`--all` 拉取全部，`--anchor` 使用返回的 `next_index`，`--direction 1` 向前、`2` 向后。所有 ID 保留字符串，协议游标使用 Python 整数，避免 64 位精度损失。
+列表默认一页，`next_cursor` 用于 `--cursor`，`next_pin_query_type` 用于 `--pin-query-type`（置顶与普通会话的分组状态）；`--all` 自动处理两种游标，`--search` 对已读取页面中的标题匹配（全量搜索使用 `--all`）。默认排除归档。历史默认从头正序拉取一页，`--all` 拉取全部，`--anchor` 使用返回的 `next_index`，`--direction 1` 向前、`2` 向后。所有 ID 保留字符串，协议游标使用 BigInt 解析并经 lossless-json 序列化为 JSON 数字（不加引号），避免 64 位精度损失。
 
 ## 登录态与抓包
 
@@ -57,6 +61,7 @@ doubao-work --timeout 300 --output-format json sessions create -p '任务描述'
 
 ```sh
 pnpm run doubao-work:test
+pnpm run doubao-work:typecheck
 ```
 
-单元测试覆盖游标精度、分页停止与去重、SSE 分帧/追加/覆盖/错误、避免输出内部推理、写请求 ID 更新、配置权限、单会话删除边界及运行环境匹配。实测用专用临时会话完成创建 → 详情/历史 → 重命名 → 续聊记忆 → 删除 → 状态及列表验证。中间产物在仓库 `.reports/doubao-work-cli/`，不可作为公共测试 fixture。
+单元测试使用 node:test + tsx（`client.test.ts` 覆盖协议层、`cli.test.ts` 覆盖 CLI 进程行为、`transport.test.ts` 覆盖超时和断流），fixture 全部合成，不读取真实凭据或线上会话。覆盖游标精度、分页停止与去重、SSE 分帧/追加/覆盖/错误、避免输出内部推理、写请求 ID 更新、配置权限、单会话删除边界及运行环境匹配。实测用专用临时会话完成创建 → 详情/历史 → 重命名 → 续聊记忆 → 删除 → 状态及列表验证。中间产物在仓库 `.reports/doubao-work-cli/`，不可作为公共测试 fixture。

@@ -4,13 +4,19 @@
   "version": "0.0.0",
   "packageManager": "pnpm@11.21.0",
   "scripts": {
-    "doubao-work": "python3 apps/doubao-work-cli/cli.py",
-    "doubao-work:test": "python3 -m unittest discover -s apps/doubao-work-cli -p 'test_*.py'",
+    "doubao-work": "tsx apps/doubao-work-cli/cli.ts",
+    "doubao-work:test": "tsx --test apps/doubao-work-cli/*.test.ts",
+    "doubao-work:typecheck": "tsc --noEmit -p apps/doubao-work-cli/tsconfig.json",
     "resume": "pnpm --dir apps/resume",
     "postinstall": "git config core.hooksPath .githooks && zx skills/register-global.skill.mjs",
     "skills:register-global": "zx skills/register-global.skill.mjs"
   },
   "devDependencies": {
+    "@types/node": "^24.13.3",
+    "commander": "^15.0.0",
+    "lossless-json": "^4.3.1",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3",
     "zx": "^8.8.5"
   }
 }
