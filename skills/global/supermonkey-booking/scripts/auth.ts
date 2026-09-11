@@ -122,6 +122,8 @@ function headerPairs(value: unknown): Array<[string, string]> {
 }
 
 function requestHeaders(record: RecordValue): Array<[string, string]> {
+  const nested = headerPairs(asRecord(record.headers)?.request);
+  if (nested.length > 0) return nested;
   for (const key of ['request_headers', 'req_headers', 'requestHeaders']) {
     const pairs = headerPairs(record[key]);
     if (pairs.length > 0) return pairs;
