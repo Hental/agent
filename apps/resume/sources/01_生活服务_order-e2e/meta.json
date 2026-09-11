@@ -86,7 +86,7 @@
       "content_sha256": "662361c8ecd6f513d8074ee74c14db9e2b3d36605751e326f08e3a7e2840f73c"
     },
     {
-      "file": "../11-2026-review.md",
+      "file": "../00_公共资料/11-2026-review.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s11"
@@ -105,7 +105,7 @@
       "content_sha256": "8aa2f19090672d501bf12d9931e73882d538fe9fe08145556c7dd295cd82cbc7"
     },
     {
-      "file": "../12-2026-weekly.md",
+      "file": "../00_公共资料/12-2026-weekly.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s12"

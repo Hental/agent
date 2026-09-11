@@ -10,11 +10,11 @@
 
 证据类型：原文记录。
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 34 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 34 行。摘录：
 
   > 从 0 到 1 建设会涉及大量的 API，开发周期长，时间风险高。
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 35 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 35 行。摘录：
 
   > 大量的工作只是 API 的简单封装，roi 低。
 
@@ -26,7 +26,7 @@
 
 证据类型：原文记录。
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 29 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 29 行。摘录：
 
   > 跨端 SDK⾃动⽣成（2024.03 ~ 至今）
 
@@ -48,15 +48,15 @@
 
 证据类型：原文记录。
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 46 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 46 行。摘录：
 
   > 基于开源的 doxygen 工具二次开发，解析出 API 信息
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 49 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 49 行。摘录：
 
   > 按照一系列的规则转换成对应的 ts 代码。
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 50 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 50 行。摘录：
 
   > 在 native 侧通过语言提供的反射机制调用 android/ios sdk。
 
@@ -84,11 +84,11 @@
 
 证据类型：原文记录。
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 55 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 55 行。摘录：
 
   > 直播  ReactNative 拉流SDK，涉及API 69  个
 
-- [s4 · 本人旧简历](../../sources/04-old-resume.md)，原文第 56 行。摘录：
+- [s4 · 本人旧简历](../../sources/00_公共资料/04-old-resume.md)，原文第 56 行。摘录：
 
   > 直播  ReactNative 推流SDK，涉及API 242个
 

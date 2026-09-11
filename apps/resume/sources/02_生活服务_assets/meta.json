@@ -50,7 +50,7 @@
       "content_sha256": "5a8320d73922887d7958a99f53679dc8e111ff92d83a076f9e3c559050dd18bd"
     },
     {
-      "file": "../01-2025-summary.md",
+      "file": "../00_公共资料/01-2025-summary.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s1"
@@ -69,7 +69,7 @@
       "content_sha256": "30e774a235b97639055814ebb6636e56c77ab43a09d5f8490a821655856cfddb"
     },
     {
-      "file": "../07-platform-q2.md",
+      "file": "07-platform-q2.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s7"
@@ -88,7 +88,7 @@
       "content_sha256": "02c1bf68ca19c6d1740cd6083fcab33279eb3a315787ec48f0e52719b1ec82da"
     },
     {
-      "file": "../08-assets-q1.md",
+      "file": "08-assets-q1.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s8"
@@ -107,7 +107,7 @@
       "content_sha256": "2f28024b6cdf41c01028039b6fbe77cf2adc752b4705b55e925714b5593219a4"
     },
     {
-      "file": "../09-platform-2025.md",
+      "file": "09-platform-2025.md",
       "kind": "meeting_summary",
       "source_ids": [
         "s9"
@@ -126,7 +126,7 @@
       "content_sha256": "33e2d3ef7f0095e47daef0320880190ddff3192a7b2f7689d603d2eeb88d0c6d"
     },
     {
-      "file": "../10-asset-plugin.md",
+      "file": "10-asset-plugin.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s10"

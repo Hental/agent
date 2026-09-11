@@ -171,13 +171,13 @@
         {
           "source": "s8",
           "quote": "卡片信息采集-截图信息 [@刘韬(liutao.fe)]",
-          "snapshot": "08-assets-q1.md",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
           "line": 40
         },
         {
           "source": "s8",
           "quote": "当前进展：截图、卡片scene/router_key 在订单、提单下已跑通。",
-          "snapshot": "08-assets-q1.md",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
           "line": 49
         }
       ]
@@ -192,13 +192,13 @@
         {
           "source": "s8",
           "quote": "运行时组件标注 data-router_key",
-          "snapshot": "08-assets-q1.md",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
           "line": 49
         },
         {
           "source": "s8",
           "quote": "采集时通过 dataset 获取",
-          "snapshot": "08-assets-q1.md",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
           "line": 49
         }
       ]
@@ -291,13 +291,13 @@
         {
           "source": "s7",
           "quote": "研发平台-场景工具优化(截图采集相关)",
-          "snapshot": "07-platform-q2.md",
+          "snapshot": "02_生活服务_assets/07-platform-q2.md",
           "line": 31
         },
         {
           "source": "s7",
           "quote": "不再参与知识库相关建设，主要提供 oncall 流程、oncall接入相关的 支持",
-          "snapshot": "07-platform-q2.md",
+          "snapshot": "02_生活服务_assets/07-platform-q2.md",
           "line": 67
         }
       ]
@@ -312,13 +312,13 @@
         {
           "source": "s4",
           "quote": "从 0 到 1 建设会涉及大量的 API，开发周期长，时间风险高。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 34
         },
         {
           "source": "s4",
           "quote": "大量的工作只是 API 的简单封装，roi 低。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 35
         }
       ]
@@ -333,7 +333,7 @@
         {
           "source": "s4",
           "quote": "跨端 SDK⾃动⽣成（2024.03 ~ 至今）",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 29
         },
         {
@@ -360,19 +360,19 @@
         {
           "source": "s4",
           "quote": "基于开源的 doxygen 工具二次开发，解析出 API 信息",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 46
         },
         {
           "source": "s4",
           "quote": "按照一系列的规则转换成对应的 ts 代码。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 49
         },
         {
           "source": "s4",
           "quote": "在 native 侧通过语言提供的反射机制调用 android/ios sdk。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 50
         }
       ]
@@ -408,13 +408,13 @@
         {
           "source": "s4",
           "quote": "直播  ReactNative 拉流SDK，涉及API 69  个",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 55
         },
         {
           "source": "s4",
           "quote": "直播  ReactNative 推流SDK，涉及API 242个",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 56
         }
       ]
@@ -504,13 +504,13 @@
         {
           "source": "s2",
           "quote": "延迟需要低于 400ms，否则用户会感受到卡顿。",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 150
         },
         {
           "source": "s2",
           "quote": "多个用户同时操作，所以不可避免地会产生冲突。",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 177
         }
       ]
@@ -525,7 +525,7 @@
         {
           "source": "s2",
           "quote": "负责互动白板产品能力建设，把控整体技术设计",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 21
         }
       ]
@@ -540,19 +540,19 @@
         {
           "source": "s2",
           "quote": "通过 Protobuf 序列化来压缩消息体大小",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 153
         },
         {
           "source": "s2",
           "quote": "对比修改次数",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 197
         },
         {
           "source": "s2",
           "quote": "当用户跳转回放进度时能够快速从快照中恢复当前白板",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 212
         }
       ]
@@ -567,7 +567,7 @@
         {
           "source": "s2",
           "quote": "直接通过 singal access 转发到白板服务，不再经过 RTC 中心机房",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 172
         }
       ]
@@ -582,13 +582,13 @@
         {
           "source": "s2",
           "quote": "转码成一个在线网页后，通过互动白板展示给观众",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 227
         },
         {
           "source": "s2",
           "quote": "通过 Puppeteer 加载 WPS Web SDK，触发 WPS 内部的文件转码机制",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 233
         }
       ]
@@ -603,19 +603,19 @@
         {
           "source": "s2",
           "quote": "延迟从 600ms 降到 100ms",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 333
         },
         {
           "source": "s2",
           "quote": "最终成功率从 96% 提升到 99%",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 341
         },
         {
           "source": "s2",
           "quote": "成功率从 82% 提升到 98%",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 341
         }
       ]
@@ -630,13 +630,13 @@
         {
           "source": "s2",
           "quote": "代码覆盖率从 0 到 74%，千行 BUG 率从 30+ 降低到 1 以下",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 323
         },
         {
           "source": "s2",
           "quote": "初始化逻辑从100行代码减少到10行以内代码",
-          "snapshot": "02-review.md",
+          "snapshot": "04_视频云_board/02-review.md",
           "line": 398
         }
       ]
@@ -672,13 +672,13 @@
         {
           "source": "s4",
           "quote": "完成移动端落地⻚编辑器的设计和开发，在 dou+ 平台落地",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 120
         },
         {
           "source": "s4",
           "quote": "搭建落地页模版管理后台，管理模版 300+。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 121
         }
       ]
@@ -708,7 +708,7 @@
         {
           "source": "s4",
           "quote": "广告主通过自助创意工具创建落地页，在广告进行投放",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 115
         }
       ]
@@ -738,13 +738,13 @@
         {
           "source": "s4",
           "quote": "落地页生成日均有消耗站点数87，日均消耗1.7w+。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 120
         },
         {
           "source": "s4",
           "quote": "管理模版 300+",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 121
         }
       ]
@@ -759,19 +759,19 @@
         {
           "source": "s4",
           "quote": "携程 (2018/06 ~ 2020.10.19 )",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 123
         },
         {
           "source": "s4",
           "quote": "负责 C 端渲染的设计和实现。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 136
         },
         {
           "source": "s4",
           "quote": "负责组件开发⼯具的设计和实现。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 137
         }
       ]
@@ -786,7 +786,7 @@
         {
           "source": "s4",
           "quote": "帮助运营快速搭建酒店、机票促销页面。",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 132
         }
       ]
@@ -801,13 +801,13 @@
         {
           "source": "s4",
           "quote": "1 年内上线了 1200+ ⻚⾯",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 141
         },
         {
           "source": "s4",
           "quote": "40h 缩短⾄ 2h",
-          "snapshot": "04-old-resume.md",
+          "snapshot": "00_公共资料/04-old-resume.md",
           "line": 141
         }
       ]

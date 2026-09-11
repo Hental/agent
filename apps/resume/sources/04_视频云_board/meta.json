@@ -50,7 +50,7 @@
       "content_sha256": "b5a845f42cc161c854bd80669db50b4577696c9437f870136b4fd99e782d2273"
     },
     {
-      "file": "../02-review.md",
+      "file": "02-review.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s2"
@@ -69,7 +69,7 @@
       "content_sha256": "e5c2fc312617f33a03d419361ce8570929c11e6c5a47b9dbc15d5b517dbec66a"
     },
     {
-      "file": "../03-handover.md",
+      "file": "03-handover.md",
       "kind": "meeting_summary",
       "source_ids": [
         "s3"
@@ -88,7 +88,7 @@
       "content_sha256": "b63cc15087aa95f572d8cf9d02c398aea9e942486bbdb2296f177ff78afa192f"
     },
     {
-      "file": "../04-old-resume.md",
+      "file": "../00_公共资料/04-old-resume.md",
       "kind": "document_snapshot",
       "source_ids": [
         "s4"
