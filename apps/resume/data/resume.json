@@ -11,8 +11,8 @@
     "personalInfo": {
       "age": 31,
       "email": "liutao_dev@outlook.com",
-      "phone": "17521698087",
-      "confirmedAt": "2026-09-10",
+      "phone": "18508371043",
+      "confirmedAt": "2026-09-11",
       "targetRole": "前端研发工程师",
       "city": "成都"
     }
@@ -76,7 +76,8 @@
       "跨端 SDK",
       "研发效能",
       "互动白板项目负责人"
-    ]
+    ],
+    "summary": "profile.summary"
   },
   "projects": [
     {
@@ -719,9 +720,9 @@
     {
       "company": "成都卡莱博尔",
       "role": "前端开发",
-      "period": "2017 — 2018",
+      "period": "2017.07 — 2018.06",
       "body": "employment.kalaiboer",
-      "provenance": "用户于 2026-09-11 补充；起止时间精确到年。"
+      "provenance": "用户于 2026-09-11 确认：2017.07 入职，离职与携程 2018.06 入职同月。"
     }
   ],
   "skills": [

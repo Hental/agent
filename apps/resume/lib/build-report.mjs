@@ -100,6 +100,7 @@ export async function renderReport(options = {}) {
   <main id="report-main">
   <header id="overview" class="hero"><h1>${e(d.meta.name)}</h1>
   ${d.meta.personalInfo ? `<p class="personal-info"><a href="tel:${e(d.meta.personalInfo.phone)}">${e(String(d.meta.personalInfo.phone).replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'))}</a> · <a href="mailto:${e(d.meta.personalInfo.email)}">${e(d.meta.personalInfo.email)}</a> · ${e(d.meta.personalInfo.targetRole)}${d.meta.personalInfo.city ? `（${e(d.meta.personalInfo.city)}）` : ''}</p>` : ''}
+  ${d.hero.summary ? `<p class="profile-summary">${md(d.hero.summary,true)}</p>` : ''}
   <div class="tags" aria-label="建议简历方向">${d.hero.tags.map(t=>`<span>${e(t)}</span>`).join('')}</div>
   <div class="export-actions"><button type="button" class="print" data-print-report>导出 PDF</button><a href="${e(artifactLink(defaultPaths.pdf))}" download>下载 PDF</a></div></header>
   <section id="employment" class="section resume-context">${head('employment')}${d.employment.map(job=>`<article class="employment"><div class="employment-heading"><h3>${e(job.company)} · ${e(job.role)}</h3><span class="date">${e(job.period)}</span></div><p>${md(job.body,true)}</p></article>`).join('')}</section>

@@ -5,8 +5,40 @@
   "blocks": {
     "sources.note": {
       "facts": []
+    },
+    "employment.kalaiboer": {
+      "facts": [
+        "U09",
+        "U15"
+      ]
+    },
+    "profile.summary": {
+      "facts": [
+        "U16",
+        "U17",
+        "U19"
+      ]
+    },
+    "skills.development": {
+      "facts": [
+        "U18",
+        "U12"
+      ]
     }
   },
   "calculations": [],
-  "not_used": []
+  "not_used": [],
+  "structured_fields": {
+    "meta.personalInfo.phone": {
+      "facts": [
+        "U15"
+      ]
+    },
+    "employment.kalaiboer.period": {
+      "facts": [
+        "U15",
+        "foxpage-01"
+      ]
+    }
+  }
 }

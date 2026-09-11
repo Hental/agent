@@ -2,6 +2,10 @@
 
 各二级标题后的 `{#id}` 与 resume.json 中的正文引用对应；可直接修改段落和列表。
 
+## 个人概述 {#profile.summary}
+
+约 **9 年前端研发经验**，其中字节跳动近 **6 年**。具备 **C 端与 B 端应用、SDK 开发、质量建设及研发提效**相关经验。
+
 ## 互动白板 · 项目简介 {#board.problem}
 
 互动白板是一款面向教育客户的实时协作产品，提供多人共享画板与在线 PPT 展示能力。见 [述职](#s2)及用户补充。
@@ -146,7 +150,7 @@
 
 ## 专业技能 · 开发 {#skills.development}
 
-**开发与全栈**：TypeScript / JavaScript、Node.js、React / Vue、Canvas 2D。
+**开发与全栈**：TypeScript / JavaScript、Node.js / BFF、React / Vue、Canvas 2D。
 
 ## 订单 E2E 自动化 · 项目摘要 {#order-e2e.print.summary}
 
