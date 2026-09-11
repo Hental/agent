@@ -91,3 +91,43 @@ test('invalid command and orphan --session exit 2 without requests', () => {
     assert.equal(r.requests.length, 0);
   }
 });
+
+test('zx parsing rejects malformed options before any request', () => {
+  for (const args of [
+    ['sessions', 'delete', '123', '--yes=false'],
+    ['sessions', 'delete', '123', '--yes', '--unknown'],
+    ['sessions', 'delete', '123', '--yes', '--yes'],
+    ['sessions', 'create', '-p'],
+    ['sessions', 'create', '-p', '--title', 'name'],
+    ['sessions', 'create', '-p', 'one', '--prompt', 'two'],
+    ['sessions', 'get', '123', '456'],
+    ['--timeout', '0', '-p', 'hello'],
+    ['sessions', 'list', '--pin-query-type', '2'],
+  ]) {
+    const r = run(args);
+    assert.equal(r.status, 2, `${args.join(' ')}: ${r.stderr}`);
+    assert.equal(r.requests.length, 0);
+  }
+});
+test('zx preserves string values and large positional IDs', () => {
+  const r = run(['session', 'send', '9007199254740993', '--prompt=--literal']);
+  assert.equal(r.status, 0, r.stderr);
+  const body = r.requests.find(x => x.path === '/chat/completion').body;
+  assert.equal(body.client_meta.conversation_id, '9007199254740993');
+  assert.equal(body.messages[0].content_block[0].content.text_block.text, '--literal');
+  for (const text of ['false', '00123']) {
+    const prompt = run(['-p', text]);
+    assert.equal(prompt.status, 0, prompt.stderr);
+    assert.equal(prompt.requests[0].body.messages[0].content_block[0].content.text_block.text, text);
+  }
+});
+test('zx supports positional terminator and command help without requests', () => {
+  const rename = run(['sessions', 'rename', '123', '--', '-title']);
+  assert.equal(rename.requests[0].body.uplink_body.update_conversation_name_uplink_body.name, '-title');
+  for (const args of [['--help'], ['sessions', '--help'], ['sessions', 'create', '-h']]) {
+    const r = run(args);
+    assert.equal(r.status, 0, r.stderr);
+    assert.match(r.stdout, /Usage:/);
+    assert.equal(r.requests.length, 0);
+  }
+});

@@ -9,11 +9,11 @@
     "doubao-work:typecheck": "tsc --noEmit -p apps/doubao-work-cli/tsconfig.json",
     "resume": "pnpm --dir apps/resume",
     "postinstall": "git config core.hooksPath .githooks && zx skills/register-global.skill.mjs",
-    "skills:register-global": "zx skills/register-global.skill.mjs"
+    "skills:register-global": "zx skills/register-global.skill.mjs",
+    "doubao-work:e2e": "tsx apps/doubao-work-cli/src/e2e.ts"
   },
   "devDependencies": {
     "@types/node": "^24.13.3",
-    "commander": "^15.0.0",
     "lossless-json": "^4.3.1",
     "tsx": "^4.23.13",
     "typescript": "^5.9.3",

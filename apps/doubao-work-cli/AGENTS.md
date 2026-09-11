@@ -1,6 +1,6 @@
 # 豆包工作非交互 CLI
 
-范围：会话列表、标题搜索、详情、历史消息、通过首条提示创建、继续对话、重命名、删除。没有 TUI，不实现独立的本地工具执行器。TypeScript 实现（`src/cli.ts` 入口、`src/client.ts` 协议层），经仓库根的 tsx 运行，依赖（commander、lossless-json 等）安装在仓库根。
+范围：会话列表、标题搜索、详情、历史消息、通过首条提示创建、继续对话、重命名、删除。没有 TUI，不实现独立的本地工具执行器。TypeScript 实现（`src/cli.ts` 入口、`src/client.ts` 协议层），经仓库根的 tsx 运行，依赖（zx、lossless-json 等）安装在仓库根。
 
 实现原理、接口字段、鉴权逻辑及事实依据与置信度见 [doc/impl.md](doc/impl.md)。修改协议行为时同步更新该文档。
 
@@ -29,6 +29,8 @@ doubao-work --timeout 300 --output-format json sessions create -p '任务描述'
 ```
 
 默认 stdout 为 JSON；`text` 仅对提示调用输出最终文本，会话 ID 写 stderr；`stream-json` 输出逐行 `session`、`text_delta`、`result` 事件，不输出原始 SSE 中的内部推理。失败写 stderr 并返回 1；参数错误返回 2。不存在交互式确认，删除必须显式加 `--yes`，仅接受一个 ID，无批量全删功能。
+
+`src/args.ts` 使用 zx 的 `parseArgv` 解析参数，预先拒绝未知选项、重复选项和缺失值，所有 ID 与提示按字符串保留。以 `-` 开头的选项值使用 `--prompt=VALUE`；以 `-` 开头的位置参数放在 `--` 后。根目录已有 zx 依赖，使用 `pnpm add -Dw zx` 安装或更新；本 CLI 不再依赖 commander。
 
 列表默认一页，`next_cursor` 用于 `--cursor`，`next_pin_query_type` 用于 `--pin-query-type`（置顶与普通会话的分组状态）；`--all` 自动处理两种游标，`--search` 对已读取页面中的标题匹配（全量搜索使用 `--all`）。默认排除归档。历史默认从头正序拉取一页，`--all` 拉取全部，`--anchor` 使用返回的 `next_index`，`--direction 1` 向前、`2` 向后。所有 ID 保留字符串，协议游标使用 BigInt 解析并经 lossless-json 序列化为 JSON 数字（不加引号），避免 64 位精度损失。
 
@@ -65,3 +67,18 @@ pnpm run doubao-work:typecheck
 ```
 
 单元测试使用 node:test + tsx（`src/client.test.ts` 覆盖协议层、`src/cli.test.ts` 覆盖 CLI 进程行为、`src/transport.test.ts` 覆盖超时和断流），fixture 全部合成，不读取真实凭据或线上会话。覆盖游标精度、分页停止与去重、SSE 分帧/追加/覆盖/错误、避免输出内部推理、写请求 ID 更新、配置权限、单会话删除边界及运行环境匹配。实测用专用临时会话完成创建 → 详情/历史 → 重命名 → 续聊记忆 → 删除 → 状态及列表验证。中间产物在仓库 `.reports/doubao-work-cli/`，不可作为公共测试 fixture。
+
+## 真实接口 E2E
+
+```sh
+pnpm run doubao-work:e2e
+pnpm run doubao-work:e2e --profile ~/.config/doubao-work-cli/profile.json --timeout 90
+```
+
+`src/e2e.ts` 通过子进程调用真实 `doubao-work` 可执行入口，不 mock 网络，不包含在 `doubao-work:test` 中。运行前需有可用的登录 profile 和 completion 模板；通过 pnpm 手动执行即会创建一个临时会话，发两条文本提示，最后删除该会话。脚本不自动抓包或刷新登录态，不需要新增依赖。
+
+覆盖 auth status、SSE 创建、详情标题/状态、列表标题搜索、每页一条的历史分页、顶层 `--session -p` 上下文续聊、重命名读回、缺少 `--yes` 拒绝删除，以及删除后的 status=2 和列表 ID 消失。提示带随机标记并要求不调用工具；回复须与标记完全一致，模型不遵循提示也会导致失败。
+
+无论中途断言失败还是收到 SIGINT/SIGTERM，脚本都会尝试清理本次创建且已取得 ID 的会话；从 SSE ACK 尽早记录 ID。写请求不自动重试，清理失败也返回非零。若创建请求未取得 ID 就断开，报告会标记结果未知，不按标题猜测或删除其他会话；SIGKILL、断电等情况下无法保证清理，应人工检查。
+
+每次运行生成 `.reports/doubao-work-cli/e2e/<时间与随机标识>/result.json`（0600），仅保存步骤结果、耗时、测试会话 ID 和清理状态，不保存 Cookie、prompt、完整会话或原始响应。CLI 总超时使用 `--timeout`，E2E 另外为每个子进程设置 `timeout + 15` 秒上限；全分页调用也受该子进程上限约束。成功退出 0，执行失败或清理未验证退出 1。

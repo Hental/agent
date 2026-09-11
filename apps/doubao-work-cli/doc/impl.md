@@ -20,7 +20,7 @@
 | C1 | [client.ts](../src/client.ts)：`decodeCapture`、`captureProfile`、`loadProfile`、`savePrivate` | 抓包筛选、凭据保存、模板处理 |
 | C2 | [client.ts](../src/client.ts)：`envelope`、`Client.request/im/info/listPage/messages/rename/delete` | HTTP、IM 信封与会话接口 |
 | C3 | [client.ts](../src/client.ts)：`completionBody`、`Client.send`、`sseEvents`、`StreamState` | 创建、续聊、流式聚合 |
-| C4 | [cli.ts](../src/cli.ts)、[doubao-work](../doubao-work) | 参数解析、输出、tsx 启动 |
+| C4 | [cli.ts](../src/cli.ts)、[args.ts](../src/args.ts)、[doubao-work](../doubao-work) | zx 参数解析与校验、输出、tsx 启动 |
 | T1 | [client.test.ts](../src/client.test.ts) | 精度、分页、模板、SSE、权限与删除边界 |
 | T2 | [cli.test.ts](../src/cli.test.ts) | 顶层/子命令 `-p`、续聊、输出和参数错误 |
 | T3 | [transport.test.ts](../src/transport.test.ts) | 提前 EOF、错误事件、超时、结束后关闭流、无重试 |
@@ -35,7 +35,9 @@
 
 ## 2. 架构与执行方式
 
-调用链为：shell wrapper → 仓库内 `tsx` → `src/cli.ts`（commander）→ `src/client.ts`（协议与传输）→ `https://www.doubao.com`。普通请求使用 Node 原生 `fetch`；Bifrost 仅用于 `auth capture` 读取已经捕获的请求。启动 CLI 不会自动启动豆包工作或配置代理。**依据 C1–C4，置信度高。**
+调用链为：shell wrapper → 仓库内 `tsx` → `src/cli.ts`（zx parseArgv）→ `src/client.ts`（协议与传输）→ `https://www.doubao.com`。普通请求使用 Node 原生 `fetch`；Bifrost 仅用于 `auth capture` 读取已经捕获的请求。启动 CLI 不会自动启动豆包工作或配置代理。**依据 C1–C4，置信度高。**
+
+`src/args.ts` 在 zx 解析前按命令白名单验证选项，并将选项值显式作为字符串传入，防止大整数 ID 或 `false` 等提示被自动转换。根选项在首个命令前解析，子命令单独解析，保持两处 `-p` 的归属。未知选项、重复选项、缺值、位置参数数量错误均在网络调用前返回参数错误；布尔开关不接受 `--yes=false` 之类赋值。替换参数解析器后，34 项测试及类型检查通过；新增 T2 用例覆盖这些边界。**依据 C4/T2，置信度高。**
 
 实现只提供非交互会话管理：列表、标题过滤、详情、历史、发送首条提示创建、续聊、重命名、删除。`-p` 兼容单次提示的使用习惯，不代表实现了 Kimi 的本地工具执行器。涉及本地文件或工具的任务依赖豆包工作运行环境；当前实测只覆盖文本 CRUD 和上下文续聊，独立执行任意工具的能力未验证。**范围依据 C3/C4、L4/L5，置信度高；客户端工具通道的完整工作机制置信度低，未在本项目实现。**
 
@@ -155,6 +157,8 @@ pnpm run doubao-work:typecheck
 ```
 
 测试不读取真实凭据，验证的是客户端协议处理。线上复核可用独立临时会话执行：auth status → create → get/messages → send → rename → delete --yes；保留每步结果，并按同一 session ID 核对读回。不要仅用旧标题搜索为空来认定删除，也不要在写请求超时后直接重复 create。
+
+上述线上流程已封装为 [src/e2e.ts](../src/e2e.ts)，使用 `pnpm run doubao-work:e2e` 显式执行（需要真实登录态）。脚本通过 CLI 子进程验证流程，随机标记检查续聊，并在 finally 中按本次 ACK 的会话 ID 清理；删除后按原始标题前缀查询，因此同时覆盖改名前后的标题，再以 ID 判断是否消失。报告位于 `.reports/doubao-work-cli/e2e/<run-id>/result.json`。脚本存在本身不是线上通过的证据，应检查对应报告的 `ok`、各步骤和 `cleanup=verified-deleted`。
 
 | 结论 | 置信度 | 限制或下一步证据 |
 | --- | --- | --- |
