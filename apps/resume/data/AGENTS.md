@@ -5,21 +5,25 @@
 ## 内容层次
 
 1. `../sources/catalog.json` 登记原始快照、外部来源和校验值；直接引用快照，不复制整套可读副本。
-2. `evidence.json` 保存按项目编号的事实、原文摘录、来源定位和使用边界；`projects/*.md` 是其可读版本。每次更新事实时同步两者。
-3. `user-confirmed.md` 单独记录用户补充和纠正，不冒充原始文档内容。
-4. `resume-map.json` 记录简历各字段采用的事实与补充依据、计算口径及未采用项。
-5. `report.md` 与 `report.json` 是简历渲染入口；从项目事实中合并精简，不反过来作为项目事实的来源。
+2. `<项目目录>/evidence.json` 保存事实、原文摘录、来源定位和使用边界；同目录的 `project.md`（公共资料为 `foxpage.md`）是其可读版本。每次更新事实时同步两者。
+3. `<项目目录>/user-confirmed.md` 单独记录用户补充和纠正，不冒充原始文档内容。
+4. `<项目目录>/resume-map.json` 记录简历各字段采用的事实与补充依据、计算口径及未采用项。
+5. `resume.md` 与 `resume.json` 是简历渲染入口；从项目事实中合并精简，不反过来作为项目事实的来源。
 
 ## 项目目录
 
+目录名称与 `sources/` 对应。项目事实、采用依据和用户确认均放在对应目录；Foxpage 及公共信息归入 `00_公共资料/`。根目录仅保留维护说明和整份简历的渲染入口。
+
+`evidence.json` 的 `snapshot` 始终相对于 `sources/` 根目录，`line` 为该快照行号。事实编号和用户确认编号全局唯一；跨项目引用直接使用原编号，不复制记录。例如 E2E 的 `assets-04` 在资产项目的 `evidence.json` 中查找。
+
 | 项目 | 事实文档 |
 | --- | --- |
-| 订单 E2E 自动化 | [e2e.md](projects/e2e.md) |
-| 交易研发资产 | [assets.md](projects/assets.md) |
-| 跨端 SDK 自动生成 | [sdk.md](projects/sdk.md) |
-| 互动白板 | [board.md](projects/board.md) |
-| 移动端落地页编辑器 | [editor.md](projects/editor.md) |
-| 携程 Foxpage | [foxpage.md](projects/foxpage.md) |
+| 订单 E2E 自动化 | [01_生活服务_order-e2e/project.md](01_生活服务_order-e2e/project.md) |
+| 交易研发资产 | [02_生活服务_assets/project.md](02_生活服务_assets/project.md) |
+| 跨端 SDK 自动生成 | [03_视频云_sdk/project.md](03_视频云_sdk/project.md) |
+| 互动白板 | [04_视频云_board/project.md](04_视频云_board/project.md) |
+| 移动端落地页编辑器 | [05_商业化_editor/project.md](05_商业化_editor/project.md) |
+| 携程 Foxpage | [00_公共资料/foxpage.md](00_公共资料/foxpage.md) |
 
 Foxpage 目前仅支撑工作经历，未新增为简历代表项目。成都卡莱博尔只保留用户提供的公司、职位和年份。
 

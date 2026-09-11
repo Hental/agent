@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "facts": [
+    {
+      "id": "foxpage-01",
+      "section": "时间与职责",
+      "text": "旧简历记录携程 IBU 国际事业部公共前端任职为 2018/06 至 2020.10.19，负责 Foxpage 的 C 端渲染和组件开发工具设计实现。",
+      "status": "原文记录",
+      "scope": "任职时间不能直接作为项目起止时间。",
+      "evidence": [
+        {
+          "source": "s4",
+          "quote": "携程 (2018/06 ~ 2020.10.19 )",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 123
+        },
+        {
+          "source": "s4",
+          "quote": "负责 C 端渲染的设计和实现。",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 136
+        },
+        {
+          "source": "s4",
+          "quote": "负责组件开发⼯具的设计和实现。",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 137
+        }
+      ]
+    },
+    {
+      "id": "foxpage-02",
+      "section": "背景与问题",
+      "text": "Foxpage 面向内部运营，提供低代码营销页面工具，支持快速搭建酒店、机票促销页面。",
+      "status": "原文记录",
+      "scope": "",
+      "evidence": [
+        {
+          "source": "s4",
+          "quote": "帮助运营快速搭建酒店、机票促销页面。",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 132
+        }
+      ]
+    },
+    {
+      "id": "foxpage-03",
+      "section": "结果与指标",
+      "text": "旧简历记录平台支持携程国际 95% 营销页面搭建，一年内上线 1200+ 页面，页面开发时间 40h→2h。",
+      "status": "原文记录",
+      "scope": "旧简历的项目级结果，未附统计明细；不新增为当前简历的独立代表项目，只支撑工作经历。",
+      "evidence": [
+        {
+          "source": "s4",
+          "quote": "1 年内上线了 1200+ ⻚⾯",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 141
+        },
+        {
+          "source": "s4",
+          "quote": "40h 缩短⾄ 2h",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 141
+        }
+      ]
+    }
+  ]
+}

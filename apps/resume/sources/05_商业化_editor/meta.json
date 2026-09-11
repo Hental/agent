@@ -7,8 +7,8 @@
   "organized_at": "2026-09-11",
   "summary_file": "project.md",
   "report": {
-    "data_file": "../../data/report.json",
-    "markdown_file": "../../data/report.md",
+    "data_file": "../../data/resume.json",
+    "markdown_file": "../../data/resume.md",
     "project_id": "editor",
     "blocks": {
       "problem": "editor.problem",
@@ -33,9 +33,9 @@
         }
       ],
       "copied_from": null,
-      "sha256": "862aa644b057d53bb9293d7b9f972aa9e9646050f46078438a1624d54aa8c2c2",
+      "sha256": "137f532dab759bb02c654c7cf1f5ed68b953c9bf549a6294cb61ad53b14a6cf2",
       "note": "指向 data 项目事实的入口，不是独立证据。",
-      "content_sha256": "ace4277787f8f1398bf6c7e196113ca757242d650a660a0f19c2b31415046e14"
+      "content_sha256": "61e6604f54331eb3d06a49c1e4f4173cf7b20cf4cf0628625fb65816347ac21a"
     },
     {
       "file": "../00_公共资料/04-old-resume.md",
@@ -64,7 +64,7 @@
   ],
   "order": 5,
   "team": "广告",
-  "facts_file": "../../data/projects/editor.md",
+  "facts_file": "../../data/05_商业化_editor/project.md",
   "reading_sources": [
     "s4",
     "s26",

@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "policy": "每段由已归档事实和单独的用户确认支撑；计算不作为原文数字或实测收益。",
+  "blocks": {
+    "board.problem": {
+      "facts": [
+        "board-01",
+        "board-05"
+      ]
+    },
+    "board.responsibility": {
+      "facts": [
+        "board-02",
+        "U08"
+      ]
+    },
+    "board.scope": {
+      "facts": [
+        "board-05",
+        "board-06",
+        "board-07"
+      ]
+    },
+    "board.body": {
+      "facts": [
+        "board-03",
+        "board-04",
+        "board-05",
+        "board-06"
+      ]
+    },
+    "board.results": {
+      "facts": [
+        "board-06",
+        "board-07"
+      ]
+    },
+    "board.print.summary": {
+      "facts": [
+        "board-01",
+        "board-02",
+        "board-05"
+      ]
+    },
+    "board.print.bullets": {
+      "facts": [
+        "board-03",
+        "board-04",
+        "board-05",
+        "board-06",
+        "board-07"
+      ]
+    }
+  },
+  "calculations": [],
+  "not_used": [
+    "白板 Native 迁移及三端共享个人贡献"
+  ]
+}

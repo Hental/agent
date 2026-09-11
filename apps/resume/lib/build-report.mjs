@@ -6,8 +6,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 export const reportDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const defaultPaths = {
-  data: join(reportDir, 'data/report.json'),
-  markdown: join(reportDir, 'data/report.md'),
+  data: join(reportDir, 'data/resume.json'),
+  markdown: join(reportDir, 'data/resume.md'),
   template: join(reportDir, 'lib/template/template.html'),
   html: join(reportDir, 'output/career-report.html'),
   pdf: join(reportDir, 'output/pdf/career-report.pdf'),
@@ -42,7 +42,7 @@ export async function renderReport(options = {}) {
   ]);
   const artifactLink = target => relative(dirname(paths.html), target).split('\\').join('/');
   const d = JSON.parse(json);
-  assert(d.version === 1, 'report.json 的 version 必须为 1。');
+  assert(d.version === 1, 'resume.json 的 version 必须为 1。');
   for (const key of ['meta','hero','education','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
   for (const key of ['navigation','employment','skills','projects','sources','downloads']) assert(Array.isArray(d[key]), `缺少 JSON 数组：${key}`);
   const blocks = new Map();
@@ -92,7 +92,7 @@ export async function renderReport(options = {}) {
     <p class="scope">${md(p.scope, true)}</p><div class="source-line">来源：${p.references.map(link).join('')}</div>
     </details>
   </article>`).join('\n');
-  const downloadLinks = [...d.downloads, {label:'正文 Markdown',path:'data/report.md'},{label:'结构化 JSON',path:'data/report.json'}];
+  const downloadLinks = [...d.downloads, {label:'正文 Markdown',path:'data/resume.md'},{label:'结构化 JSON',path:'data/resume.json'}];
   const body = `<a class="skip" href="#overview">跳到报告正文</a>
   <div class="layout"><aside class="rail" aria-label="报告导航"><div class="brand"><span class="brand-mark" aria-hidden="true">LT</span>技术工作档案</div><div class="edition">${e(d.meta.name)} / ${e(d.meta.edition)}</div>
   <nav>${d.navigation.map((n,i) => `<a href="#${e(n.id)}"${i === 0 ? ' aria-current="location"' : ''}><span>${String(i+1).padStart(2,'0')}</span>${e(n.label)}</a>`).join('')}</nav>

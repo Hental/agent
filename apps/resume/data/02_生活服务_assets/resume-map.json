@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "policy": "每段由已归档事实和单独的用户确认支撑；计算不作为原文数字或实测收益。",
+  "blocks": {
+    "assets.problem": {
+      "facts": [
+        "assets-01",
+        "U04"
+      ]
+    },
+    "assets.responsibility": {
+      "facts": [
+        "assets-02",
+        "assets-08",
+        "U05",
+        "U07"
+      ]
+    },
+    "assets.scope": {
+      "facts": [
+        "assets-06",
+        "assets-07",
+        "U07"
+      ]
+    },
+    "assets.body": {
+      "facts": [
+        "assets-03",
+        "assets-04",
+        "assets-05",
+        "assets-07",
+        "U05",
+        "U06"
+      ]
+    },
+    "assets.results": {
+      "facts": [
+        "assets-06",
+        "assets-07"
+      ]
+    },
+    "assets.print.summary": {
+      "facts": [
+        "assets-01",
+        "assets-02",
+        "U04",
+        "U05"
+      ]
+    },
+    "assets.print.bullets": {
+      "facts": [
+        "assets-04",
+        "assets-05",
+        "assets-06",
+        "assets-07",
+        "U05",
+        "U06"
+      ]
+    }
+  },
+  "calculations": [],
+  "not_used": [
+    "商详覆盖率作为本人 FE 成果",
+    "Q2 目标作为达成"
+  ]
+}

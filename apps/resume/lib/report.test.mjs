@@ -12,7 +12,7 @@ test('正文和结构化数据的修改共同进入生成结果，重复构建�
     const d = JSON.parse(await readFile(defaultPaths.data,'utf8'));
     const original = await readFile(defaultPaths.markdown,'utf8');
     d.meta.name = 'JSON_SOURCE_CHECK';
-    const paths = {data:join(dir,'report.json'),markdown:join(dir,'report.md'),html:join(dir,'report.html')};
+    const paths = {data:join(dir,'resume.json'),markdown:join(dir,'resume.md'),html:join(dir,'report.html')};
     await writeFile(paths.data,JSON.stringify(d));
     await writeFile(paths.markdown,original.replace('信息管理与信息系统','MD_SOURCE_CHECK 信息管理与信息系统'));
     await buildReport(paths);
@@ -37,7 +37,7 @@ test('Markdown 原始 HTML 被转义，非法链接不进入页面', async () =>
   const dir = await mkdtemp(join(tmpdir(),'career-md-'));
   try {
     const original = await readFile(defaultPaths.markdown,'utf8');
-    const markdown = join(dir,'report.md');
+    const markdown = join(dir,'resume.md');
     await writeFile(markdown,original.replace('信息管理与信息系统','<script>alert(1)</script> 信息管理与信息系统'));
     const html = await renderReport({markdown});
     assert.match(html,/&lt;script&gt;alert\(1\)&lt;\/script&gt;/);
@@ -51,7 +51,7 @@ test('预览实时读取 MD + JSON，错误可恢复且不暴露任意本地文�
   const dir = await mkdtemp(join(tmpdir(),'career-preview-'));
   let server;
   try {
-    const data = join(dir,'report.json'); const markdown = join(dir,'report.md');
+    const data = join(dir,'resume.json'); const markdown = join(dir,'resume.md');
     const d = JSON.parse(await readFile(defaultPaths.data,'utf8'));
     const original = await readFile(defaultPaths.markdown,'utf8');
     await writeFile(data,JSON.stringify(d)); await writeFile(markdown,original);

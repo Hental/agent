@@ -15,11 +15,11 @@ const help = `Markdown + JSON → HTML 预览 / PDF 导出
 
   node lib/report.mjs preview --port 8770 --no-open
   node lib/report.mjs pdf --output ./我的报告.pdf
-  node lib/report.mjs build --data ./data/report.json --markdown ./data/report.md
+  node lib/report.mjs build --data ./data/resume.json --markdown ./data/resume.md
 
 参数：--data JSON路径，--markdown MD路径，--output 输出路径（build/pdf），
       --port 端口（preview），--no-open（preview）。
-默认源文件为报告目录内 data/report.json 与 data/report.md；相对参数按当前目录解析。
+默认源文件为报告目录内 data/resume.json 与 data/resume.md；相对参数按当前目录解析。
 所有操作均在本机执行，预览仅监听 127.0.0.1。`;
 
 export async function run(args = process.argv.slice(2)) {
@@ -92,7 +92,7 @@ export async function startPreview(options) {
         response.end(bytes); return;
       }
       const d = JSON.parse(await readFile(paths.data,'utf8'));
-      const allowed = new Map([['/data/report.json',paths.data],['/data/report.md',paths.markdown]]);
+      const allowed = new Map([['/data/resume.json',paths.data],['/data/resume.md',paths.markdown]]);
       for (const item of d.downloads) {
         if (/^(?:[a-z]+:|\/|.*\.\.)/i.test(item.path)) continue;
         allowed.set('/'+item.path,join(reportDir,item.path));
@@ -107,7 +107,7 @@ export async function startPreview(options) {
   });
   await new Promise((done, reject) => { server.once('error',reject); server.listen(options.port,'127.0.0.1',done); });
   const url = `http://127.0.0.1:${server.address().port}`;
-  console.log(`预览：${url}\n修改 data/report.md 或 data/report.json 后，页面会自动刷新。Ctrl+C 停止。`);
+  console.log(`预览：${url}\n修改 data/resume.md 或 data/resume.json 后，页面会自动刷新。Ctrl+C 停止。`);
   if (options.open) {
     const opener = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'explorer.exe' : 'xdg-open';
     spawn(opener,[url],{stdio:'ignore'}).on('error',()=>console.log(`请手动打开 ${url}`));

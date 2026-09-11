@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "facts": [
+    {
+      "id": "e2e-01",
+      "section": "背景与问题",
+      "text": "2025 年订单域发生 5 次代码逻辑导致卡片／按钮不展示的问题，影响用户核销、退款。",
+      "status": "原文记录",
+      "scope": "",
+      "evidence": [
+        {
+          "source": "s15",
+          "quote": "订单域 25 年因代码逻辑问题导致卡片/按钮不展示 5 次，导致用户无法核销/退款",
+          "snapshot": "01_生活服务_order-e2e/design.md",
+          "line": 16
+        }
+      ]
+    },
+    {
+      "id": "e2e-02",
+      "section": "职责与范围",
+      "text": "分工表将 FE 工作列为串联 FTF 与 AI 自动化测试平台、接入订单页；文档中的分工不能证明这些能力此前已实现。",
+      "status": "原文记录",
+      "scope": "UI 检测是新实现，由用户明确纠正；不从平台分工推断个人独立完成全部平台。",
+      "evidence": [
+        {
+          "source": "s15",
+          "quote": "串联 FTF 平台和 AI 自动化测试平台，接入订单页",
+          "snapshot": "01_生活服务_order-e2e/design.md",
+          "line": 241
+        }
+      ]
+    },
+    {
+      "id": "e2e-03",
+      "section": "关键技术与实施状态",
+      "text": "方案记录了回放、真机截图、差异检测、结果确认的执行链路；已有代码阅读摘要记录了管线与流水线原子节点的本人提交。",
+      "status": "代码阅读摘要",
+      "scope": "s13 是已有代码阅读摘要，不是完整源码快照；只能作实现线索，不作为生产收益证据。",
+      "evidence": [
+        {
+          "source": "s13",
+          "quote": "replay / ehome / diff / resolve 分阶段执行",
+          "snapshot": "01_生活服务_order-e2e/code-evidence.md",
+          "line": 18
+        },
+        {
+          "source": "s13",
+          "quote": "已核对 liutao.fe 的管线与原子节点提交",
+          "snapshot": "01_生活服务_order-e2e/code-evidence.md",
+          "line": 31
+        }
+      ]
+    },
+    {
+      "id": "e2e-04",
+      "section": "关键技术与实施状态",
+      "text": "Q1 复盘展示了创建任务、查看进度、人工确认差异和流水线原子节点；当时存在设备尺寸不一致、白屏等干扰。",
+      "status": "原文记录",
+      "scope": "Q2 规划中的模拟器补充、目标完成率等不能直接写成已落地。",
+      "evidence": [
+        {
+          "source": "s16",
+          "quote": "创建测试任务",
+          "snapshot": "01_生活服务_order-e2e/review.md",
+          "line": 14
+        },
+        {
+          "source": "s16",
+          "quote": "设备尺寸不一致，导致截图有差异",
+          "snapshot": "01_生活服务_order-e2e/review.md",
+          "line": 22
+        },
+        {
+          "source": "s16",
+          "quote": "缺少白屏检查",
+          "snapshot": "01_生活服务_order-e2e/review.md",
+          "line": 22
+        }
+      ]
+    },
+    {
+      "id": "e2e-05",
+      "section": "结果与指标",
+      "text": "本人 Q2 已完成复盘记录：订单 ReactLynx 3 升级覆盖 157 个业务场景，测出 30+ 个问题；该次升级无 UI 类线上问题。",
+      "status": "原文记录",
+      "scope": "仅指该次升级，不能外推为所有发布，也不能把 30+ 全部称为卡片缺失问题。",
+      "evidence": [
+        {
+          "source": "s22",
+          "quote": "支持订单 reactlynx3 升级覆盖157个业务场景，测出30+问题",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        },
+        {
+          "source": "s22",
+          "quote": "支持 reactlynx3 升级，无UI类问题线上问题",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "id": "e2e-06",
+      "section": "结果与指标",
+      "text": "该次升级的 E2E 开发调试与 AI 实际测试合计 18 人天；纯人工测试为预估 62 人天。",
+      "status": "原文记录",
+      "scope": "原文称“节省44pd”，但其基线是预估；整理时保留实际／预估区别。",
+      "evidence": [
+        {
+          "source": "s22",
+          "quote": "纯人工测试预估62pd，E2E开发调试+AI实际测试18pd",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "id": "e2e-07",
+      "section": "结果与指标",
+      "text": "本人 Q2 复盘记录执行完成率 40%→92%、噪音率 73%→8%。",
+      "status": "原文记录",
+      "scope": "与 Q1 复盘、Q2 目标区分，不能把规划 95% 当成达成。",
+      "evidence": [
+        {
+          "source": "s22",
+          "quote": "执行完成率40%->92%，噪音率 73%->8%",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "id": "e2e-08",
+      "section": "未采用及待补证据",
+      "text": "预约低版本检测工具在本人 Q2 复盘中明确未落地。",
+      "status": "原文记录",
+      "scope": "不写成已完成项目成果。",
+      "evidence": [
+        {
+          "source": "s22",
+          "quote": "预约低版本检测工具因为人力原因未落地。",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        }
+      ]
+    }
+  ]
+}

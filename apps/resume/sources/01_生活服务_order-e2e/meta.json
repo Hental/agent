@@ -7,8 +7,8 @@
   "organized_at": "2026-09-11",
   "summary_file": "project.md",
   "report": {
-    "data_file": "../../data/report.json",
-    "markdown_file": "../../data/report.md",
+    "data_file": "../../data/resume.json",
+    "markdown_file": "../../data/resume.md",
     "project_id": "order-e2e",
     "blocks": {
       "problem": "e2e.problem",
@@ -81,9 +81,9 @@
         }
       ],
       "copied_from": null,
-      "sha256": "20484fd7e5d983544bd9cd4a53bb3e3086854d54bd41271a24d1136c21762ee9",
+      "sha256": "08cbfa53cd398cfa8846c28244b4a5b20801a355670ef3cfed7ec11309ba7e8a",
       "note": "指向 data 项目事实的入口，不是独立证据。",
-      "content_sha256": "662361c8ecd6f513d8074ee74c14db9e2b3d36605751e326f08e3a7e2840f73c"
+      "content_sha256": "35e426c74db04a43ddf80b0243fc92ed712481607e52213f72d951603c27a027"
     },
     {
       "file": "../00_公共资料/11-2026-review.md",
@@ -278,7 +278,7 @@
   ],
   "order": 1,
   "team": "生活服务",
-  "facts_file": "../../data/projects/e2e.md",
+  "facts_file": "../../data/01_生活服务_order-e2e/project.md",
   "reading_sources": [
     "s15",
     "s16",

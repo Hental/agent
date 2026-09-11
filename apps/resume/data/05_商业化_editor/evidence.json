@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "facts": [
+    {
+      "id": "editor-01",
+      "section": "背景与问题",
+      "text": "早期模板生成落地页时，客户看不到最终生成效果，提供的素材不一定适合模板；文档提出所见即所得编辑器。",
+      "status": "原文记录",
+      "scope": "",
+      "evidence": [
+        {
+          "source": "s28",
+          "quote": "客户不知道最终的落地页生成效果，因此客户提供的素材不一定适合模板。",
+          "snapshot": "supplemental/s28-ad-review.md",
+          "line": 68
+        },
+        {
+          "source": "s28",
+          "quote": "提供落地页编辑器，客户所见即所得。",
+          "snapshot": "supplemental/s28-ad-review.md",
+          "line": 72
+        }
+      ]
+    },
+    {
+      "id": "editor-02",
+      "section": "职责与范围",
+      "text": "旧简历明确完成移动端落地页编辑器的设计开发，在 DOU+ 落地，并搭建模板管理后台。",
+      "status": "原文记录",
+      "scope": "",
+      "evidence": [
+        {
+          "source": "s4",
+          "quote": "完成移动端落地⻚编辑器的设计和开发，在 dou+ 平台落地",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 120
+        },
+        {
+          "source": "s4",
+          "quote": "搭建落地页模版管理后台，管理模版 300+。",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 121
+        }
+      ]
+    },
+    {
+      "id": "editor-03",
+      "section": "关键技术与实施状态",
+      "text": "抽离 Controller 管理组件数据，编辑操作写入数据，页面渲染消费数据，以解耦编辑与渲染。",
+      "status": "原文记录",
+      "scope": "",
+      "evidence": [
+        {
+          "source": "s28",
+          "quote": "抽离出一个 controller 层负责维护组件相关数据，组件编辑负责写入数据，组件渲染消费数据。",
+          "snapshot": "supplemental/s28-ad-review.md",
+          "line": 78
+        }
+      ]
+    },
+    {
+      "id": "editor-04",
+      "section": "关键技术与实施状态",
+      "text": "旧简历架构包含模板管理、组件资源、BFF 与落地页渲染服务；广告主通过自助创意工具创建落地页用于投放。",
+      "status": "原文记录",
+      "scope": "架构图描述系统组成，不独立证明图中每个服务由本人从零开发。",
+      "evidence": [
+        {
+          "source": "s4",
+          "quote": "广告主通过自助创意工具创建落地页，在广告进行投放",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 115
+        }
+      ]
+    },
+    {
+      "id": "editor-05",
+      "section": "结果与指标",
+      "text": "广告述职记录自助创意创建的落地页广告转化率高于大盘 3 个点，每周消耗 20w+。",
+      "status": "原文记录",
+      "scope": "属于自助创意项目，不能归为编辑器独立因果收益；“3个点”按原文保留，未提供分母、对比周期与测量方法；消耗币种未明确。",
+      "evidence": [
+        {
+          "source": "s28",
+          "quote": "自助创意创建的落地页每周消耗 20w+，cvr 广告转化率高于大盘3个点。",
+          "snapshot": "supplemental/s28-ad-review.md",
+          "line": 120
+        }
+      ]
+    },
+    {
+      "id": "editor-06",
+      "section": "结果与指标",
+      "text": "旧简历记录编辑器落地页日均有消耗站点 87、日均消耗 1.7w+，模板管理 300+。",
+      "status": "原文记录",
+      "scope": "与自助创意周消耗、述职 80+ 新增模板范围不同，不直接相加、替换或换算；币种未明确。",
+      "evidence": [
+        {
+          "source": "s4",
+          "quote": "落地页生成日均有消耗站点数87，日均消耗1.7w+。",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 120
+        },
+        {
+          "source": "s4",
+          "quote": "管理模版 300+",
+          "snapshot": "00_公共资料/04-old-resume.md",
+          "line": 121
+        }
+      ]
+    }
+  ]
+}

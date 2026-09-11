@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "policy": "每段由已归档事实和单独的用户确认支撑；计算不作为原文数字或实测收益。",
+  "blocks": {
+    "sdk.problem": {
+      "facts": [
+        "sdk-01",
+        "U10"
+      ]
+    },
+    "sdk.responsibility": {
+      "facts": [
+        "sdk-06",
+        "U01"
+      ]
+    },
+    "sdk.scope": {
+      "facts": [
+        "sdk-02",
+        "sdk-05",
+        "sdk-06",
+        "sdk-07",
+        "sdk-08",
+        "U10"
+      ]
+    },
+    "sdk.body": {
+      "facts": [
+        "sdk-03",
+        "sdk-04",
+        "sdk-07"
+      ]
+    },
+    "sdk.results": {
+      "facts": [
+        "sdk-05",
+        "sdk-06"
+      ]
+    },
+    "sdk.print.summary": {
+      "facts": [
+        "sdk-01",
+        "U01",
+        "U10"
+      ]
+    },
+    "sdk.print.bullets": {
+      "facts": [
+        "sdk-03",
+        "sdk-04",
+        "sdk-05",
+        "sdk-06",
+        "sdk-07",
+        "U01"
+      ]
+    }
+  },
+  "calculations": [
+    {
+      "value": "311 个 API",
+      "formula": "69 + 242",
+      "basis": [
+        "sdk-05"
+      ],
+      "scope": "两类 SDK 数量相加，不去重，不等同自动生成总数"
+    },
+    {
+      "value": "约 51%",
+      "formula": "(39 - 19) / 39 ≈ 51.28%",
+      "basis": [
+        "sdk-06"
+      ],
+      "scope": "相较手写预估投入降低，不是实测节省"
+    }
+  ],
+  "not_used": [
+    "SDK 点播 54／7 局部数量",
+    "存在统计范围冲突的直播工时提效"
+  ]
+}

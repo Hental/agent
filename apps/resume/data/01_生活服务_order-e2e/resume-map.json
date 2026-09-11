@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "policy": "每段由已归档事实和单独的用户确认支撑；计算不作为原文数字或实测收益。",
+  "blocks": {
+    "e2e.problem": {
+      "facts": [
+        "e2e-01",
+        "e2e-02"
+      ]
+    },
+    "e2e.responsibility": {
+      "facts": [
+        "e2e-02",
+        "e2e-03",
+        "e2e-04",
+        "U02"
+      ]
+    },
+    "e2e.scope": {
+      "facts": [
+        "e2e-05",
+        "e2e-06",
+        "e2e-07",
+        "U03"
+      ]
+    },
+    "e2e.body": {
+      "facts": [
+        "e2e-03",
+        "e2e-04",
+        "e2e-07",
+        "assets-04",
+        "U03"
+      ]
+    },
+    "e2e.results": {
+      "facts": [
+        "e2e-05",
+        "e2e-06",
+        "e2e-07",
+        "e2e-08"
+      ]
+    },
+    "order-e2e.print.summary": {
+      "facts": [
+        "e2e-01",
+        "e2e-03",
+        "U02"
+      ]
+    },
+    "order-e2e.print.bullets": {
+      "facts": [
+        "e2e-03",
+        "e2e-04",
+        "e2e-05",
+        "e2e-06",
+        "assets-04",
+        "U02",
+        "U03"
+      ]
+    },
+    "sources.e2e": {
+      "facts": []
+    }
+  },
+  "calculations": [
+    {
+      "value": "约 71%",
+      "formula": "(62 - 18) / 62 ≈ 70.97%",
+      "basis": [
+        "e2e-06"
+      ],
+      "scope": "相较纯人工测试预估投入降低"
+    }
+  ],
+  "not_used": []
+}

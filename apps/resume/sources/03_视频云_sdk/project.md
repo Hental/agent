@@ -1,6 +1,6 @@
 ---
 source:
-  - "../../data/projects/sdk.md"
+  - "../../data/03_视频云_sdk/project.md"
   - "../INDEX.md"
 source_title: "《跨端 SDK 自动生成》；《来源阅读索引》"
 type: "index"
@@ -10,8 +10,8 @@ summary: "火山引擎视频云 - 跨端 SDK 自动生成的资料入口；不�
 
 本文件原为旧报告整理快照，不再维护第二份项目结论。
 
-- [项目事实](../../data/projects/sdk.md)
-- [用户补充与纠正](../../data/user-confirmed.md)
+- [项目事实](../../data/03_视频云_sdk/project.md)
+- [用户补充与纠正](../../data/03_视频云_sdk/user-confirmed.md)
 - [来源阅读索引](../INDEX.md)
 
 原始材料保持原样；方案、计划、实际结果和个人归属以事实文档的逐项证据及限制为准。

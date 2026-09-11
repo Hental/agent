@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "policy": "每段由已归档事实和单独的用户确认支撑；计算不作为原文数字或实测收益。",
+  "blocks": {
+    "editor.problem": {
+      "facts": [
+        "editor-01"
+      ]
+    },
+    "editor.responsibility": {
+      "facts": [
+        "editor-02",
+        "editor-04"
+      ]
+    },
+    "editor.scope": {
+      "facts": [
+        "editor-05",
+        "editor-06"
+      ]
+    },
+    "editor.body": {
+      "facts": [
+        "editor-03",
+        "editor-04"
+      ]
+    },
+    "editor.results": {
+      "facts": [
+        "editor-01",
+        "editor-02",
+        "editor-05"
+      ]
+    },
+    "editor.print.summary": {
+      "facts": [
+        "editor-01",
+        "editor-02"
+      ]
+    },
+    "editor.print.bullets": {
+      "facts": [
+        "editor-02",
+        "editor-03",
+        "editor-04",
+        "editor-05"
+      ]
+    }
+  },
+  "calculations": [],
+  "not_used": [
+    "未明确币种的广告消耗",
+    "将广告原文3个点擅自改成相对百分比或补充统计定义"
+  ]
+}

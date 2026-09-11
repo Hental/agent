@@ -7,8 +7,8 @@
   "organized_at": "2026-09-11",
   "summary_file": "project.md",
   "report": {
-    "data_file": "../../data/report.json",
-    "markdown_file": "../../data/report.md",
+    "data_file": "../../data/resume.json",
+    "markdown_file": "../../data/resume.md",
     "project_id": "assets",
     "blocks": {
       "problem": "assets.problem",
@@ -45,9 +45,9 @@
         }
       ],
       "copied_from": null,
-      "sha256": "7f55ae9d54c1ae46aadf7ec2142b6595adfefa86b4bcba9b2eec78c3e912283d",
+      "sha256": "b8d944d53ffcb09cf6208cdee0ede974b14247ff9944da85ac9a665078db137f",
       "note": "指向 data 项目事实的入口，不是独立证据。",
-      "content_sha256": "5a8320d73922887d7958a99f53679dc8e111ff92d83a076f9e3c559050dd18bd"
+      "content_sha256": "7045de78f8eea9e218027e753756de3d7e99fadeb9722b685addb9d01f75d439"
     },
     {
       "file": "../00_公共资料/01-2025-summary.md",
@@ -152,7 +152,7 @@
   ],
   "order": 2,
   "team": "生活服务",
-  "facts_file": "../../data/projects/assets.md",
+  "facts_file": "../../data/02_生活服务_assets/project.md",
   "reading_sources": [
     "s8",
     "s7",

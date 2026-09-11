@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "facts": [
+    {
+      "id": "board-01",
+      "section": "背景与问题",
+      "text": "白板实时互动需要将主讲人笔迹同步给观众；文档说明延迟高会产生卡顿感，多人同时操作会发生数据冲突，网络丢包会导致内容不一致。",
+      "status": "原文记录",
+      "scope": "",
+      "evidence": [
+        {
+          "source": "s2",
+          "quote": "延迟需要低于 400ms，否则用户会感受到卡顿。",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 150
+        },
+        {
+          "source": "s2",
+          "quote": "多个用户同时操作，所以不可避免地会产生冲突。",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 177
+        }
+      ]
+    },
+    {
+      "id": "board-02",
+      "section": "职责与范围",
+      "text": "述职明确本人作为互动白板项目 Owner，负责产品能力建设、整体技术设计和客户接入。",
+      "status": "原文记录",
+      "scope": "Owner 不等于独立实现全部客户端、服务端或底层信令。Native 迁移的个人归属按用户纠正排除。",
+      "evidence": [
+        {
+          "source": "s2",
+          "quote": "负责互动白板产品能力建设，把控整体技术设计",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 21
+        }
+      ]
+    },
+    {
+      "id": "board-03",
+      "section": "关键技术与实施状态",
+      "text": "采用 Canvas 绘制、RTS 传输及 Protobuf 序列化；按白板元素／白板操作加锁，通过修改次数检查一致性；录制回放通过快照恢复跳转位置。",
+      "status": "原文记录",
+      "scope": "",
+      "evidence": [
+        {
+          "source": "s2",
+          "quote": "通过 Protobuf 序列化来压缩消息体大小",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 153
+        },
+        {
+          "source": "s2",
+          "quote": "对比修改次数",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 197
+        },
+        {
+          "source": "s2",
+          "quote": "当用户跳转回放进度时能够快速从快照中恢复当前白板",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 212
+        }
+      ]
+    },
+    {
+      "id": "board-04",
+      "section": "关键技术与实施状态",
+      "text": "延迟优化方案减少经过 RTC 中心机房和 HTTP 的中转，将边缘消息直接转发给白板服务。",
+      "status": "原文记录",
+      "scope": "方案层描述，不把底层 RTS 能力建设归为个人实现。",
+      "evidence": [
+        {
+          "source": "s2",
+          "quote": "直接通过 singal access 转发到白板服务，不再经过 RTC 中心机房",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 172
+        }
+      ]
+    },
+    {
+      "id": "board-05",
+      "section": "关键技术与实施状态",
+      "text": "动态 PPT 转换为在线网页供白板展示；动态转码服务用 Puppeteer 加载 WPS Web SDK，提前触发转换并检查原文件。",
+      "status": "原文记录",
+      "scope": "底层文档转换由 WPS 提供；不能表述为本人开发了完整 PPT 转换引擎。",
+      "evidence": [
+        {
+          "source": "s2",
+          "quote": "转码成一个在线网页后，通过互动白板展示给观众",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 227
+        },
+        {
+          "source": "s2",
+          "quote": "通过 Puppeteer 加载 WPS Web SDK，触发 WPS 内部的文件转码机制",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 233
+        }
+      ]
+    },
+    {
+      "id": "board-06",
+      "section": "结果与指标",
+      "text": "述职记录端到端延迟 600ms→100ms；静态转换最终成功率 96%→99%，动态转换 82%→98%。",
+      "status": "原文记录",
+      "scope": "转换成功率排除用户文件原因；不把旧简历 P95 与此处优化前后数值合并成未经说明的同一口径。",
+      "evidence": [
+        {
+          "source": "s2",
+          "quote": "延迟从 600ms 降到 100ms",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 333
+        },
+        {
+          "source": "s2",
+          "quote": "最终成功率从 96% 提升到 99%",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 341
+        },
+        {
+          "source": "s2",
+          "quote": "成功率从 82% 提升到 98%",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 341
+        }
+      ]
+    },
+    {
+      "id": "board-07",
+      "section": "结果与指标",
+      "text": "述职记录代码覆盖率 0→74%、千行 Bug 率 30+→1 以下，SDK 初始化逻辑从约 100 行缩减至 10 行以内。",
+      "status": "原文记录",
+      "scope": "为述职记录的项目结果；不把代码行数比例换算为客户实际接入工时。",
+      "evidence": [
+        {
+          "source": "s2",
+          "quote": "代码覆盖率从 0 到 74%，千行 BUG 率从 30+ 降低到 1 以下",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 323
+        },
+        {
+          "source": "s2",
+          "quote": "初始化逻辑从100行代码减少到10行以内代码",
+          "snapshot": "04_视频云_board/02-review.md",
+          "line": 398
+        }
+      ]
+    }
+  ]
+}

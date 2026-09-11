@@ -7,8 +7,8 @@
   "organized_at": "2026-09-11",
   "summary_file": "project.md",
   "report": {
-    "data_file": "../../data/report.json",
-    "markdown_file": "../../data/report.md",
+    "data_file": "../../data/resume.json",
+    "markdown_file": "../../data/resume.md",
     "project_id": "board",
     "blocks": {
       "problem": "board.problem",
@@ -45,9 +45,9 @@
         }
       ],
       "copied_from": null,
-      "sha256": "49f85aa8262b9254e6ef2441dbb0d8cd465d23eacaad44ee52d1599ac38bb6b8",
+      "sha256": "caada6af3d923668bef7c264d8b0edea12759623e04516d1bfa1ccf513193cf3",
       "note": "指向 data 项目事实的入口，不是独立证据。",
-      "content_sha256": "b5a845f42cc161c854bd80669db50b4577696c9437f870136b4fd99e782d2273"
+      "content_sha256": "29c57bf21019a506b5d5fcfb4ba84018e638b0ef1def3ce0cf6b0837b2e66408"
     },
     {
       "file": "02-review.md",
@@ -114,7 +114,7 @@
   ],
   "order": 4,
   "team": "火山引擎视频云",
-  "facts_file": "../../data/projects/board.md",
+  "facts_file": "../../data/04_视频云_board/project.md",
   "reading_sources": [
     "s2",
     "s4",

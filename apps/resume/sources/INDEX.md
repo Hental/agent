@@ -57,6 +57,6 @@ summary: "按项目索引已归档来源，直接引用唯一原始快照。"
 
 ## 其他任职与上下文
 
-- [携程 Foxpage 事实](../data/projects/foxpage.md)，来源 [s4 旧简历](00_公共资料/04-old-resume.md)。
+- [携程 Foxpage 事实](../data/00_公共资料/foxpage.md)，来源 [s4 旧简历](00_公共资料/04-old-resume.md)。
 
 - [全部 30 份来源清单](catalog.json)；其他年度总结和周报作为上下文保留，不默认归入某个项目成果。

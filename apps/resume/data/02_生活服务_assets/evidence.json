@@ -1,0 +1,162 @@
+{
+  "version": 1,
+  "organized_at": "2026-09-11",
+  "facts": [
+    {
+      "id": "assets-01",
+      "section": "背景与问题",
+      "text": "复杂卡片存在多种 UI 样式，受多个接口字段控制；仅按业务身份维度采样难以涵盖所有情况。",
+      "status": "原文记录",
+      "scope": "“C 端页面聚合多个领域”的说明另外来自用户确认。",
+      "evidence": [
+        {
+          "source": "s23",
+          "quote": "像订单头卡这类复杂卡片有多种不同样式的 UI，这些 UI 通常由多个接口字段控制，仅根据业务身份维度，很难涵盖所有的情况。",
+          "snapshot": "supplemental/s23-asset-design.md",
+          "line": 47
+        }
+      ]
+    },
+    {
+      "id": "assets-02",
+      "section": "职责与范围",
+      "text": "Q1 周进展将卡片截图信息采集列在刘韬名下，记录方案设计、采集逻辑、卡片与业务身份关系和接口对接；当期卡片预览仍有进行中状态。",
+      "status": "原文记录",
+      "scope": "按各行进展理解，不能把任务排期全部当作完成。",
+      "evidence": [
+        {
+          "source": "s8",
+          "quote": "卡片信息采集-截图信息 [@刘韬(liutao.fe)]",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
+          "line": 40
+        },
+        {
+          "source": "s8",
+          "quote": "当前进展：截图、卡片scene/router_key 在订单、提单下已跑通。",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
+          "line": 49
+        }
+      ]
+    },
+    {
+      "id": "assets-03",
+      "section": "关键技术与实施状态",
+      "text": "卡片路由标识采集由 AST 分析组件关系后反查，调整为运行时标注 data-router_key，采集时通过 dataset 获取。",
+      "status": "原文记录",
+      "scope": "仅限这项路由标识采集调整，不代表整个方案取消 AST 或编译时注入。",
+      "evidence": [
+        {
+          "source": "s8",
+          "quote": "运行时组件标注 data-router_key",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
+          "line": 49
+        },
+        {
+          "source": "s8",
+          "quote": "采集时通过 dataset 获取",
+          "snapshot": "02_生活服务_assets/08-assets-q1.md",
+          "line": 49
+        }
+      ]
+    },
+    {
+      "id": "assets-04",
+      "section": "关键技术与实施状态",
+      "text": "采集方案结合编译时注入 card-route／card-scene 与运行时曝光上报；通过曝光埋点取得业务身份和 log_id，查询接口回放数据。",
+      "status": "方案记录",
+      "scope": "技术方案说明机制；已落地范围由周进展、Q2 复盘或用户确认另行支持。",
+      "evidence": [
+        {
+          "source": "s23",
+          "quote": "结合方案二和方案三，编译时注入 card-route 和 card-scene，运行时上报卡片曝光埋点",
+          "snapshot": "supplemental/s23-asset-design.md",
+          "line": 29
+        },
+        {
+          "source": "s23",
+          "quote": "查询 tea 埋点 查询接口回放数据 保存到任意门",
+          "snapshot": "supplemental/s23-asset-design.md",
+          "line": 42
+        }
+      ]
+    },
+    {
+      "id": "assets-05",
+      "section": "关键技术与实施状态",
+      "text": "方案按卡片盒模型坐标裁剪页面截图，保存截图与场景；Web 方案采用 Lynx Web 构建 H5，仅保留目标卡片数据进行渲染。",
+      "status": "方案记录",
+      "scope": "AI 弹窗处理及两种预览实现的确认见用户补充，不仅凭方案图片作结论。",
+      "evidence": [
+        {
+          "source": "s23",
+          "quote": "获取到卡片的盒模型（x、y、width、height）",
+          "snapshot": "supplemental/s23-asset-design.md",
+          "line": 57
+        },
+        {
+          "source": "s23",
+          "quote": "裁切接口的 dito 数据，只保留需要展示的卡片",
+          "snapshot": "supplemental/s23-asset-design.md",
+          "line": 95
+        }
+      ]
+    },
+    {
+      "id": "assets-06",
+      "section": "结果与指标",
+      "text": "本人 Q2 复盘记录：内部试跑中单需求平均提效 0.6 人天。",
+      "status": "原文记录",
+      "scope": "原文未提供样本量、需求构成或测量方法；不外推为固定收益。",
+      "evidence": [
+        {
+          "source": "s22",
+          "quote": "基于内部试跑方式，持续优化平台体验，单需求平均提效 0.6pd。",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "id": "assets-07",
+      "section": "结果与指标",
+      "text": "本人 Q2 复盘记录图片准确率 99%、非弹窗类卡片覆盖 100%，并已落地自动保鲜任务。",
+      "status": "原文记录",
+      "scope": "图片准确率、资产准确率和团队其他口径不混用；商详指标按用户纠正不归入本人 FE 成果。",
+      "evidence": [
+        {
+          "source": "s22",
+          "quote": "图片准确率提升至 99%",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        },
+        {
+          "source": "s22",
+          "quote": "非弹窗类卡片 100% 覆盖，基于 Aime 落地自动保鲜任务",
+          "snapshot": "supplemental/s22-personal-q2.md",
+          "line": 30
+        }
+      ]
+    },
+    {
+      "id": "assets-08",
+      "section": "职责与范围",
+      "text": "Q2 任务记录将知识库和相关场景工具工作列给其他同事；刘韬提供截图采集及 Oncall 接入支持。",
+      "status": "原文记录",
+      "scope": "任务和评论支持职责边界，不证明每项计划最终完成。",
+      "evidence": [
+        {
+          "source": "s7",
+          "quote": "研发平台-场景工具优化(截图采集相关)",
+          "snapshot": "02_生活服务_assets/07-platform-q2.md",
+          "line": 31
+        },
+        {
+          "source": "s7",
+          "quote": "不再参与知识库相关建设，主要提供 oncall 流程、oncall接入相关的 支持",
+          "snapshot": "02_生活服务_assets/07-platform-q2.md",
+          "line": 67
+        }
+      ]
+    }
+  ]
+}

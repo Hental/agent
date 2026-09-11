@@ -13,11 +13,11 @@
 | 路径 | 用途 |
 | --- | --- |
 | `sources/` | 原始快照和来源目录；禁止重复，每个 Markdown 必须含 source、source_title、type、summary 元信息 |
-| `data/projects/`、`data/evidence.json` | 按项目整理的事实、原文摘录、定位和使用边界 |
-| `data/user-confirmed.md` | 用户补充与纠正，单独于文档证据记录 |
-| `data/resume-map.json` | 简历采用的事实及计算依据 |
-| `data/report.md` | 简历正文、项目说明和指标口径 |
-| `data/report.json` | 基本信息、项目顺序、指标、来源及正文引用 |
+| `data/<项目目录>/project.md`、`evidence.json` | 按项目整理的事实、原文摘录、定位和使用边界 |
+| `data/<项目目录>/user-confirmed.md` | 用户补充与纠正，单独于文档证据记录 |
+| `data/<项目目录>/resume-map.json` | 简历采用的事实及计算依据 |
+| `data/resume.md` | 简历正文、项目说明和指标口径 |
+| `data/resume.json` | 基本信息、项目顺序、指标、来源及正文引用 |
 | `lib/template/template.html` | 页面样式、交互和打印布局 |
 | `lib/build-report.mjs` | 读取数据并渲染 HTML |
 | `lib/report.mjs`、`lib/pdf.mjs` | 命令入口、本地预览和 PDF 导出 |
@@ -30,7 +30,7 @@
 
 先更新项目事实及依据，再合并精简到简历。同步检查正文、详细说明、指标与来源，区分个人／团队、目标／达成、预估／实际。
 
-`report.md` 使用带 ID 的二级标题，`report.json` 通过 ID 引用正文。例如：
+`resume.md` 使用带 ID 的二级标题，`resume.json` 通过 ID 引用正文。例如：
 
 ```markdown
 ## 项目名称 · 个人职责 {#project.responsibility}
@@ -42,7 +42,7 @@
 
 正文支持文字、强调、列表和链接；原始 HTML 会转义，正文渲染不支持图片。网页与 PDF 共用项目的 `print.summary` 和 `print.bullets`；网页可展开详细说明，打印隐藏指标卡、流程图、参考列表和研究说明。
 
-`刘韬_简历.md`、`liutao-resume.tex` 和 `sources/summary/` 是历史材料，不随当前构建更新，也不作为当前简历的编辑入口。
+`liutao-resume.tex` 和 `sources/summary/` 是历史材料，不随当前构建更新，也不作为当前简历的编辑入口。
 
 ## 运行与验证
 

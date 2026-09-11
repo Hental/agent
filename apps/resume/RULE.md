@@ -21,8 +21,8 @@
 ## 整理流程
 
 1. 整理 `sources/` 原始材料和索引，保留原文，不创建整套重复副本。
-2. 将项目事实、摘录和来源写入 `data/projects/`、`data/evidence.json`；用户确认写入 `data/user-confirmed.md`。
-3. 从项目事实合并精简到 `data/report.md`、`data/report.json`，在 `data/resume-map.json` 记录采用依据；不反过来用简历证明事实。
+2. 将项目事实、摘录、采用依据和用户确认写入 `data/<项目目录>/`；公共资料归入 `data/00_公共资料/`。
+3. 从项目事实合并精简到 `data/resume.md`、`data/resume.json`，在各项目的 `resume-map.json` 记录采用依据；不反过来用简历证明事实。
 4. 修改时复查整段逻辑，并同步项目事实、简历正文、详细说明和指标，避免只替换批注词句或遗留旧表述。
 5. 交付前检查事实依据、问题与结果的对应关系、内容一致性及 PDF 排版。
 
