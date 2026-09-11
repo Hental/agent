@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "packageManager": "pnpm@11.21.0",
   "scripts": {
-    "doubao-work": "tsx apps/doubao-work-cli/cli.ts",
-    "doubao-work:test": "tsx --test apps/doubao-work-cli/*.test.ts",
+    "doubao-work": "tsx apps/doubao-work-cli/src/cli.ts",
+    "doubao-work:test": "tsx --test apps/doubao-work-cli/src/*.test.ts",
     "doubao-work:typecheck": "tsc --noEmit -p apps/doubao-work-cli/tsconfig.json",
     "resume": "pnpm --dir apps/resume",
     "postinstall": "git config core.hooksPath .githooks && zx skills/register-global.skill.mjs",

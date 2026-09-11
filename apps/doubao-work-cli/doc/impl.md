@@ -17,13 +17,13 @@
 
 | 编号 | 位置 | 本文使用的事实 |
 | --- | --- | --- |
-| C1 | [client.ts](../client.ts)：`decodeCapture`、`captureProfile`、`loadProfile`、`savePrivate` | 抓包筛选、凭据保存、模板处理 |
-| C2 | [client.ts](../client.ts)：`envelope`、`Client.request/im/info/listPage/messages/rename/delete` | HTTP、IM 信封与会话接口 |
-| C3 | [client.ts](../client.ts)：`completionBody`、`Client.send`、`sseEvents`、`StreamState` | 创建、续聊、流式聚合 |
-| C4 | [cli.ts](../cli.ts)、[doubao-work](../doubao-work) | 参数解析、输出、tsx 启动 |
-| T1 | [client.test.ts](../client.test.ts) | 精度、分页、模板、SSE、权限与删除边界 |
-| T2 | [cli.test.ts](../cli.test.ts) | 顶层/子命令 `-p`、续聊、输出和参数错误 |
-| T3 | [transport.test.ts](../transport.test.ts) | 提前 EOF、错误事件、超时、结束后关闭流、无重试 |
+| C1 | [client.ts](../src/client.ts)：`decodeCapture`、`captureProfile`、`loadProfile`、`savePrivate` | 抓包筛选、凭据保存、模板处理 |
+| C2 | [client.ts](../src/client.ts)：`envelope`、`Client.request/im/info/listPage/messages/rename/delete` | HTTP、IM 信封与会话接口 |
+| C3 | [client.ts](../src/client.ts)：`completionBody`、`Client.send`、`sseEvents`、`StreamState` | 创建、续聊、流式聚合 |
+| C4 | [cli.ts](../src/cli.ts)、[doubao-work](../doubao-work) | 参数解析、输出、tsx 启动 |
+| T1 | [client.test.ts](../src/client.test.ts) | 精度、分页、模板、SSE、权限与删除边界 |
+| T2 | [cli.test.ts](../src/cli.test.ts) | 顶层/子命令 `-p`、续聊、输出和参数错误 |
+| T3 | [transport.test.ts](../src/transport.test.ts) | 提前 EOF、错误事件、超时、结束后关闭流、无重试 |
 | L1 | `.reports/doubao-work-cli/initial.json` | recent_conv 抓包：cmd 3200、请求信封及成功响应 |
 | L2 | `.reports/doubao-work-cli/rename.json` | update_name 抓包：cmd 4150、status_code=0 |
 | L3 | `.reports/doubao-work-cli/test-session.json` | completion 请求，以及 info、single 的请求/响应 |
@@ -35,7 +35,7 @@
 
 ## 2. 架构与执行方式
 
-调用链为：shell wrapper → 仓库内 `tsx` → `cli.ts`（commander）→ `client.ts`（协议与传输）→ `https://www.doubao.com`。普通请求使用 Node 原生 `fetch`；Bifrost 仅用于 `auth capture` 读取已经捕获的请求。启动 CLI 不会自动启动豆包工作或配置代理。**依据 C1–C4，置信度高。**
+调用链为：shell wrapper → 仓库内 `tsx` → `src/cli.ts`（commander）→ `src/client.ts`（协议与传输）→ `https://www.doubao.com`。普通请求使用 Node 原生 `fetch`；Bifrost 仅用于 `auth capture` 读取已经捕获的请求。启动 CLI 不会自动启动豆包工作或配置代理。**依据 C1–C4，置信度高。**
 
 实现只提供非交互会话管理：列表、标题过滤、详情、历史、发送首条提示创建、续聊、重命名、删除。`-p` 兼容单次提示的使用习惯，不代表实现了 Kimi 的本地工具执行器。涉及本地文件或工具的任务依赖豆包工作运行环境；当前实测只覆盖文本 CRUD 和上下文续聊，独立执行任意工具的能力未验证。**范围依据 C3/C4、L4/L5，置信度高；客户端工具通道的完整工作机制置信度低，未在本项目实现。**
 

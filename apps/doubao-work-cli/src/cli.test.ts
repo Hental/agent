@@ -5,7 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { after, test } from 'node:test';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 mkdirSync(join(root, '.reports'), { recursive: true });
 const scratch = mkdtempSync(join(root, '.reports/doubao-cli-regression-'));
 const profile = join(scratch, 'profile.json');
@@ -31,7 +31,7 @@ function run(args: string[], deleted = false) {
   writeFileSync(trace, '');
   const result = spawnSync(process.execPath,
     ['--import', join(root, 'node_modules/tsx/dist/loader.mjs'), '--import', preload,
-      join(root, 'apps/doubao-work-cli/cli.ts'), '--profile', profile, ...args],
+      join(root, 'apps/doubao-work-cli/src/cli.ts'), '--profile', profile, ...args],
     { cwd: scratch, encoding: 'utf8', timeout: 15_000, env: { ...process.env, TEST_TRACE: trace, TEST_DELETED: deleted ? '1' : '0' } });
   assert.ifError(result.error);
   const requests = readFileSync(trace, 'utf8').trim().split('\n').filter(Boolean).map((line) => JSON.parse(line));

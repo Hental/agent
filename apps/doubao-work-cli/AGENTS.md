@@ -1,6 +1,6 @@
 # 豆包工作非交互 CLI
 
-范围：会话列表、标题搜索、详情、历史消息、通过首条提示创建、继续对话、重命名、删除。没有 TUI，不实现独立的本地工具执行器。TypeScript 实现（`cli.ts` 入口、`client.ts` 协议层），经仓库根的 tsx 运行，依赖（commander、lossless-json 等）安装在仓库根。
+范围：会话列表、标题搜索、详情、历史消息、通过首条提示创建、继续对话、重命名、删除。没有 TUI，不实现独立的本地工具执行器。TypeScript 实现（`src/cli.ts` 入口、`src/client.ts` 协议层），经仓库根的 tsx 运行，依赖（commander、lossless-json 等）安装在仓库根。
 
 实现原理、接口字段、鉴权逻辑及事实依据与置信度见 [doc/impl.md](doc/impl.md)。修改协议行为时同步更新该文档。
 
@@ -64,4 +64,4 @@ pnpm run doubao-work:test
 pnpm run doubao-work:typecheck
 ```
 
-单元测试使用 node:test + tsx（`client.test.ts` 覆盖协议层、`cli.test.ts` 覆盖 CLI 进程行为、`transport.test.ts` 覆盖超时和断流），fixture 全部合成，不读取真实凭据或线上会话。覆盖游标精度、分页停止与去重、SSE 分帧/追加/覆盖/错误、避免输出内部推理、写请求 ID 更新、配置权限、单会话删除边界及运行环境匹配。实测用专用临时会话完成创建 → 详情/历史 → 重命名 → 续聊记忆 → 删除 → 状态及列表验证。中间产物在仓库 `.reports/doubao-work-cli/`，不可作为公共测试 fixture。
+单元测试使用 node:test + tsx（`src/client.test.ts` 覆盖协议层、`src/cli.test.ts` 覆盖 CLI 进程行为、`src/transport.test.ts` 覆盖超时和断流），fixture 全部合成，不读取真实凭据或线上会话。覆盖游标精度、分页停止与去重、SSE 分帧/追加/覆盖/错误、避免输出内部推理、写请求 ID 更新、配置权限、单会话删除边界及运行环境匹配。实测用专用临时会话完成创建 → 详情/历史 → 重命名 → 续聊记忆 → 删除 → 状态及列表验证。中间产物在仓库 `.reports/doubao-work-cli/`，不可作为公共测试 fixture。

@@ -84,7 +84,7 @@ describe('payload', () => {
   });
 
   test('private file atomic permissions', async () => {
-    const artifacts = join(dirname(fileURLToPath(import.meta.url)), '../../.reports/doubao-work-cli');
+    const artifacts = join(dirname(fileURLToPath(import.meta.url)), '../../../.reports/doubao-work-cli');
     await mkdir(artifacts, { recursive: true });
     const dir = await mkdtemp(join(artifacts, 'test-tmp-'));
     try {
