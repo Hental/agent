@@ -34,11 +34,11 @@
 
   > 跨端 SDK⾃动⽣成（2024.03 ~ 至今）
 
-- [s29 · 跨平台方案运行时设计](../../sources/supplemental/s29-sdk-runtime.md)，原文第 18 行。摘录：
+- [s29 · 跨平台方案运行时设计](../../sources/03_视频云_sdk/s29-sdk-runtime.md)，原文第 18 行。摘录：
 
   > 2024.03.28
 
-- [s30 · 交接下跨端 2024年10月28日](../../sources/supplemental/s30-sdk-handover.md)，原文第 8 行。摘录：
+- [s30 · 交接下跨端 2024年10月28日](../../sources/03_视频云_sdk/s30-sdk-handover.md)，原文第 8 行。摘录：
 
   > 交接下跨端 2024年10月28日
 
@@ -70,11 +70,11 @@
 
 证据类型：方案记录。
 
-- [s29 · 跨平台方案运行时设计](../../sources/supplemental/s29-sdk-runtime.md)，原文第 134 行。摘录：
+- [s29 · 跨平台方案运行时设计](../../sources/03_视频云_sdk/s29-sdk-runtime.md)，原文第 134 行。摘录：
 
   > 消息通信无法传输实例引用，因此我们使用 `instanceId` 替代对象，关联真正的实例。
 
-- [s29 · 跨平台方案运行时设计](../../sources/supplemental/s29-sdk-runtime.md)，原文第 146 行。摘录：
+- [s29 · 跨平台方案运行时设计](../../sources/03_视频云_sdk/s29-sdk-runtime.md)，原文第 146 行。摘录：
 
   > 在消息传输中携带实例 `callbackId`，关联实际的回调函数。
 
@@ -104,15 +104,15 @@
 
 证据类型：原文记录。
 
-- [s25 · 点播 ReactNative SDK 工时统计](../../sources/supplemental/s25-sdk-vod-effort.md)，原文第 14 行。摘录：
+- [s25 · 点播 ReactNative SDK 工时统计](../../sources/03_视频云_sdk/s25-sdk-vod-effort.md)，原文第 14 行。摘录：
 
   > 开发 + 测试：19pd
 
-- [s25 · 点播 ReactNative SDK 工时统计](../../sources/supplemental/s25-sdk-vod-effort.md)，原文第 15 行。摘录：
+- [s25 · 点播 ReactNative SDK 工时统计](../../sources/03_视频云_sdk/s25-sdk-vod-effort.md)，原文第 15 行。摘录：
 
   > 预估手写开发时间：39
 
-- [s25 · 点播 ReactNative SDK 工时统计](../../sources/supplemental/s25-sdk-vod-effort.md)，原文第 31 行。摘录：
+- [s25 · 点播 ReactNative SDK 工时统计](../../sources/03_视频云_sdk/s25-sdk-vod-effort.md)，原文第 31 行。摘录：
 
   > 熊雄
 
@@ -126,15 +126,15 @@
 
 证据类型：原文记录。
 
-- [s25 · 点播 ReactNative SDK 工时统计](../../sources/supplemental/s25-sdk-vod-effort.md)，原文第 51 行。摘录：
+- [s25 · 点播 ReactNative SDK 工时统计](../../sources/03_视频云_sdk/s25-sdk-vod-effort.md)，原文第 51 行。摘录：
 
   > 7：自动生成 api
 
-- [s27 · 点播 React Native 播放器技术评审](../../sources/supplemental/s27-sdk-vod-design.md)，原文第 54 行。摘录：
+- [s27 · 点播 React Native 播放器技术评审](../../sources/03_视频云_sdk/s27-sdk-vod-design.md)，原文第 54 行。摘录：
 
   > 直接通过lux的codegen生成方法、属性和类型
 
-- [s27 · 点播 React Native 播放器技术评审](../../sources/supplemental/s27-sdk-vod-design.md)，原文第 77 行。摘录：
+- [s27 · 点播 React Native 播放器技术评审](../../sources/03_视频云_sdk/s27-sdk-vod-design.md)，原文第 77 行。摘录：
 
   > Mapping 配置自动生成 class、 属性、方法及类型
 
@@ -146,11 +146,11 @@
 
 证据类型：原文记录。
 
-- [s24 · 直播 ReactNative 工时统计](../../sources/supplemental/s24-sdk-live-effort.md)，原文第 24 行。摘录：
+- [s24 · 直播 ReactNative 工时统计](../../sources/03_视频云_sdk/s24-sdk-live-effort.md)，原文第 24 行。摘录：
 
   > 50d（非自动方案评估人力） -> 36d
 
-- [s24 · 直播 ReactNative 工时统计](../../sources/supplemental/s24-sdk-live-effort.md)，原文第 60 行。摘录：
+- [s24 · 直播 ReactNative 工时统计](../../sources/03_视频云_sdk/s24-sdk-live-effort.md)，原文第 60 行。摘录：
 
   > 45d（非自动方案评估人力） -> 13d
 

@@ -10,7 +10,7 @@
 
 证据类型：原文记录。
 
-- [s23 · 交易研发资产卡片端到端采集方案](../../sources/supplemental/s23-asset-design.md)，原文第 47 行。摘录：
+- [s23 · 交易研发资产卡片端到端采集方案](../../sources/02_生活服务_assets/s23-asset-design.md)，原文第 47 行。摘录：
 
   > 像订单头卡这类复杂卡片有多种不同样式的 UI，这些 UI 通常由多个接口字段控制，仅根据业务身份维度，很难涵盖所有的情况。
 
@@ -58,11 +58,11 @@ Q1 周进展将卡片截图信息采集列在刘韬名下，记录方案设计�
 
 证据类型：方案记录。
 
-- [s23 · 交易研发资产卡片端到端采集方案](../../sources/supplemental/s23-asset-design.md)，原文第 29 行。摘录：
+- [s23 · 交易研发资产卡片端到端采集方案](../../sources/02_生活服务_assets/s23-asset-design.md)，原文第 29 行。摘录：
 
   > 结合方案二和方案三，编译时注入 card-route 和 card-scene，运行时上报卡片曝光埋点
 
-- [s23 · 交易研发资产卡片端到端采集方案](../../sources/supplemental/s23-asset-design.md)，原文第 42 行。摘录：
+- [s23 · 交易研发资产卡片端到端采集方案](../../sources/02_生活服务_assets/s23-asset-design.md)，原文第 42 行。摘录：
 
   > 查询 tea 埋点 查询接口回放数据 保存到任意门
 
@@ -74,11 +74,11 @@ Q1 周进展将卡片截图信息采集列在刘韬名下，记录方案设计�
 
 证据类型：方案记录。
 
-- [s23 · 交易研发资产卡片端到端采集方案](../../sources/supplemental/s23-asset-design.md)，原文第 57 行。摘录：
+- [s23 · 交易研发资产卡片端到端采集方案](../../sources/02_生活服务_assets/s23-asset-design.md)，原文第 57 行。摘录：
 
   > 获取到卡片的盒模型（x、y、width、height）
 
-- [s23 · 交易研发资产卡片端到端采集方案](../../sources/supplemental/s23-asset-design.md)，原文第 95 行。摘录：
+- [s23 · 交易研发资产卡片端到端采集方案](../../sources/02_生活服务_assets/s23-asset-design.md)，原文第 95 行。摘录：
 
   > 裁切接口的 dito 数据，只保留需要展示的卡片
 
@@ -92,7 +92,7 @@ Q1 周进展将卡片截图信息采集列在刘韬名下，记录方案设计�
 
 证据类型：原文记录。
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 基于内部试跑方式，持续优化平台体验，单需求平均提效 0.6pd。
 
@@ -104,11 +104,11 @@ Q1 周进展将卡片截图信息采集列在刘韬名下，记录方案设计�
 
 证据类型：原文记录。
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 图片准确率提升至 99%
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 非弹窗类卡片 100% 覆盖，基于 Aime 落地自动保鲜任务
 

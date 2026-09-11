@@ -39,13 +39,13 @@
         {
           "source": "s29",
           "quote": "2024.03.28",
-          "snapshot": "supplemental/s29-sdk-runtime.md",
+          "snapshot": "03_视频云_sdk/s29-sdk-runtime.md",
           "line": 18
         },
         {
           "source": "s30",
           "quote": "交接下跨端 2024年10月28日",
-          "snapshot": "supplemental/s30-sdk-handover.md",
+          "snapshot": "03_视频云_sdk/s30-sdk-handover.md",
           "line": 8
         }
       ]
@@ -87,13 +87,13 @@
         {
           "source": "s29",
           "quote": "消息通信无法传输实例引用，因此我们使用 `instanceId` 替代对象，关联真正的实例。",
-          "snapshot": "supplemental/s29-sdk-runtime.md",
+          "snapshot": "03_视频云_sdk/s29-sdk-runtime.md",
           "line": 134
         },
         {
           "source": "s29",
           "quote": "在消息传输中携带实例 `callbackId`，关联实际的回调函数。",
-          "snapshot": "supplemental/s29-sdk-runtime.md",
+          "snapshot": "03_视频云_sdk/s29-sdk-runtime.md",
           "line": 146
         }
       ]
@@ -129,19 +129,19 @@
         {
           "source": "s25",
           "quote": "开发 + 测试：19pd",
-          "snapshot": "supplemental/s25-sdk-vod-effort.md",
+          "snapshot": "03_视频云_sdk/s25-sdk-vod-effort.md",
           "line": 14
         },
         {
           "source": "s25",
           "quote": "预估手写开发时间：39",
-          "snapshot": "supplemental/s25-sdk-vod-effort.md",
+          "snapshot": "03_视频云_sdk/s25-sdk-vod-effort.md",
           "line": 15
         },
         {
           "source": "s25",
           "quote": "熊雄",
-          "snapshot": "supplemental/s25-sdk-vod-effort.md",
+          "snapshot": "03_视频云_sdk/s25-sdk-vod-effort.md",
           "line": 31
         }
       ]
@@ -156,19 +156,19 @@
         {
           "source": "s25",
           "quote": "7：自动生成 api",
-          "snapshot": "supplemental/s25-sdk-vod-effort.md",
+          "snapshot": "03_视频云_sdk/s25-sdk-vod-effort.md",
           "line": 51
         },
         {
           "source": "s27",
           "quote": "直接通过lux的codegen生成方法、属性和类型",
-          "snapshot": "supplemental/s27-sdk-vod-design.md",
+          "snapshot": "03_视频云_sdk/s27-sdk-vod-design.md",
           "line": 54
         },
         {
           "source": "s27",
           "quote": "Mapping 配置自动生成 class、 属性、方法及类型",
-          "snapshot": "supplemental/s27-sdk-vod-design.md",
+          "snapshot": "03_视频云_sdk/s27-sdk-vod-design.md",
           "line": 77
         }
       ]
@@ -183,13 +183,13 @@
         {
           "source": "s24",
           "quote": "50d（非自动方案评估人力） -> 36d",
-          "snapshot": "supplemental/s24-sdk-live-effort.md",
+          "snapshot": "03_视频云_sdk/s24-sdk-live-effort.md",
           "line": 24
         },
         {
           "source": "s24",
           "quote": "45d（非自动方案评估人力） -> 13d",
-          "snapshot": "supplemental/s24-sdk-live-effort.md",
+          "snapshot": "03_视频云_sdk/s24-sdk-live-effort.md",
           "line": 60
         }
       ]

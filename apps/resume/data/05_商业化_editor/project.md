@@ -10,11 +10,11 @@
 
 证据类型：原文记录。
 
-- [s28 · 广告述职报告](../../sources/supplemental/s28-ad-review.md)，原文第 68 行。摘录：
+- [s28 · 广告述职报告](../../sources/05_商业化_editor/s28-ad-review.md)，原文第 68 行。摘录：
 
   > 客户不知道最终的落地页生成效果，因此客户提供的素材不一定适合模板。
 
-- [s28 · 广告述职报告](../../sources/supplemental/s28-ad-review.md)，原文第 72 行。摘录：
+- [s28 · 广告述职报告](../../sources/05_商业化_editor/s28-ad-review.md)，原文第 72 行。摘录：
 
   > 提供落地页编辑器，客户所见即所得。
 
@@ -42,7 +42,7 @@
 
 证据类型：原文记录。
 
-- [s28 · 广告述职报告](../../sources/supplemental/s28-ad-review.md)，原文第 78 行。摘录：
+- [s28 · 广告述职报告](../../sources/05_商业化_editor/s28-ad-review.md)，原文第 78 行。摘录：
 
   > 抽离出一个 controller 层负责维护组件相关数据，组件编辑负责写入数据，组件渲染消费数据。
 
@@ -66,7 +66,7 @@
 
 证据类型：原文记录。
 
-- [s28 · 广告述职报告](../../sources/supplemental/s28-ad-review.md)，原文第 120 行。摘录：
+- [s28 · 广告述职报告](../../sources/05_商业化_editor/s28-ad-review.md)，原文第 120 行。摘录：
 
   > 自助创意创建的落地页每周消耗 20w+，cvr 广告转化率高于大盘3个点。
 

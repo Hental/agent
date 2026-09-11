@@ -12,7 +12,7 @@
         {
           "source": "s23",
           "quote": "像订单头卡这类复杂卡片有多种不同样式的 UI，这些 UI 通常由多个接口字段控制，仅根据业务身份维度，很难涵盖所有的情况。",
-          "snapshot": "supplemental/s23-asset-design.md",
+          "snapshot": "02_生活服务_assets/s23-asset-design.md",
           "line": 47
         }
       ]
@@ -69,13 +69,13 @@
         {
           "source": "s23",
           "quote": "结合方案二和方案三，编译时注入 card-route 和 card-scene，运行时上报卡片曝光埋点",
-          "snapshot": "supplemental/s23-asset-design.md",
+          "snapshot": "02_生活服务_assets/s23-asset-design.md",
           "line": 29
         },
         {
           "source": "s23",
           "quote": "查询 tea 埋点 查询接口回放数据 保存到任意门",
-          "snapshot": "supplemental/s23-asset-design.md",
+          "snapshot": "02_生活服务_assets/s23-asset-design.md",
           "line": 42
         }
       ]
@@ -90,13 +90,13 @@
         {
           "source": "s23",
           "quote": "获取到卡片的盒模型（x、y、width、height）",
-          "snapshot": "supplemental/s23-asset-design.md",
+          "snapshot": "02_生活服务_assets/s23-asset-design.md",
           "line": 57
         },
         {
           "source": "s23",
           "quote": "裁切接口的 dito 数据，只保留需要展示的卡片",
-          "snapshot": "supplemental/s23-asset-design.md",
+          "snapshot": "02_生活服务_assets/s23-asset-design.md",
           "line": 95
         }
       ]
@@ -111,7 +111,7 @@
         {
           "source": "s22",
           "quote": "基于内部试跑方式，持续优化平台体验，单需求平均提效 0.6pd。",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         }
       ]
@@ -126,13 +126,13 @@
         {
           "source": "s22",
           "quote": "图片准确率提升至 99%",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         },
         {
           "source": "s22",
           "quote": "非弹窗类卡片 100% 覆盖，基于 Aime 落地自动保鲜任务",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         }
       ]

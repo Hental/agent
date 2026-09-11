@@ -12,13 +12,13 @@
         {
           "source": "s28",
           "quote": "客户不知道最终的落地页生成效果，因此客户提供的素材不一定适合模板。",
-          "snapshot": "supplemental/s28-ad-review.md",
+          "snapshot": "05_商业化_editor/s28-ad-review.md",
           "line": 68
         },
         {
           "source": "s28",
           "quote": "提供落地页编辑器，客户所见即所得。",
-          "snapshot": "supplemental/s28-ad-review.md",
+          "snapshot": "05_商业化_editor/s28-ad-review.md",
           "line": 72
         }
       ]
@@ -54,7 +54,7 @@
         {
           "source": "s28",
           "quote": "抽离出一个 controller 层负责维护组件相关数据，组件编辑负责写入数据，组件渲染消费数据。",
-          "snapshot": "supplemental/s28-ad-review.md",
+          "snapshot": "05_商业化_editor/s28-ad-review.md",
           "line": 78
         }
       ]
@@ -84,7 +84,7 @@
         {
           "source": "s28",
           "quote": "自助创意创建的落地页每周消耗 20w+，cvr 广告转化率高于大盘3个点。",
-          "snapshot": "supplemental/s28-ad-review.md",
+          "snapshot": "05_商业化_editor/s28-ad-review.md",
           "line": 120
         }
       ]

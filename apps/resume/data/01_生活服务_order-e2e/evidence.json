@@ -90,13 +90,13 @@
         {
           "source": "s22",
           "quote": "支持订单 reactlynx3 升级覆盖157个业务场景，测出30+问题",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         },
         {
           "source": "s22",
           "quote": "支持 reactlynx3 升级，无UI类问题线上问题",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         }
       ]
@@ -111,7 +111,7 @@
         {
           "source": "s22",
           "quote": "纯人工测试预估62pd，E2E开发调试+AI实际测试18pd",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         }
       ]
@@ -126,7 +126,7 @@
         {
           "source": "s22",
           "quote": "执行完成率40%->92%，噪音率 73%->8%",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         }
       ]
@@ -141,7 +141,7 @@
         {
           "source": "s22",
           "quote": "预约低版本检测工具因为人力原因未落地。",
-          "snapshot": "supplemental/s22-personal-q2.md",
+          "snapshot": "00_公共资料/s22-personal-q2.md",
           "line": 30
         }
       ]

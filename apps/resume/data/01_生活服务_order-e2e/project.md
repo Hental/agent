@@ -74,11 +74,11 @@ Q1 复盘展示了创建任务、查看进度、人工确认差异和流水线�
 
 证据类型：原文记录。
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 支持订单 reactlynx3 升级覆盖157个业务场景，测出30+问题
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 支持 reactlynx3 升级，无UI类问题线上问题
 
@@ -90,7 +90,7 @@ Q1 复盘展示了创建任务、查看进度、人工确认差异和流水线�
 
 证据类型：原文记录。
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 纯人工测试预估62pd，E2E开发调试+AI实际测试18pd
 
@@ -102,7 +102,7 @@ Q1 复盘展示了创建任务、查看进度、人工确认差异和流水线�
 
 证据类型：原文记录。
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 执行完成率40%->92%，噪音率 73%->8%
 
@@ -116,7 +116,7 @@ Q1 复盘展示了创建任务、查看进度、人工确认差异和流水线�
 
 证据类型：原文记录。
 
-- [s22 · 本人 2026 Q2 OKR Review](../../sources/supplemental/s22-personal-q2.md)，原文第 30 行。摘录：
+- [s22 · 本人 2026 Q2 OKR Review](../../sources/00_公共资料/s22-personal-q2.md)，原文第 30 行。摘录：
 
   > 预约低版本检测工具因为人力原因未落地。
 
