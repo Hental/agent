@@ -73,7 +73,7 @@ export async function startPreview(options) {
         response.setHeader('Content-Type',mime['.html']);
         response.end(html.replace('</body>',reloadScript(initial)+'</body>')); return;
       }
-      if (pathname === '/output/pdf/career-report.pdf' || pathname === '/pdf/career-report.pdf') {
+      if (pathname === '/output/career-report.pdf' || pathname === '/career-report.pdf') {
         const operation = pdfQueue.then(async () => {
           const temporaryDir = resolve(reportDir, '../../.reports/resume-preview');
           await mkdir(temporaryDir, {recursive:true});

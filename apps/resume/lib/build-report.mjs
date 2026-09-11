@@ -10,7 +10,7 @@ export const defaultPaths = {
   markdown: join(reportDir, 'data/resume.md'),
   template: join(reportDir, 'lib/template/template.html'),
   html: join(reportDir, 'output/career-report.html'),
-  pdf: join(reportDir, 'output/pdf/career-report.pdf'),
+  pdf: join(reportDir, 'output/career-report.pdf'),
 };
 export const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const e = escapeHtml;
