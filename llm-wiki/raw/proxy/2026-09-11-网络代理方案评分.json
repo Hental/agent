@@ -1,0 +1,282 @@
+{
+  "as_of": "2026-09-11",
+  "report": "2026-09-11-网络代理方案深度对比与评分.md",
+  "score_type": "architecture_decision_judgment_not_measured_uptime",
+  "assumptions": {
+    "location": "mainland China; city and ISP unknown",
+    "monthly_payload_gb": 300,
+    "devices": "1–3",
+    "monthly_budget_usd": [
+      5,
+      20
+    ],
+    "client": "Clash Verge; installed core version not checked",
+    "measurement_status": "no local path, throughput or availability measurements",
+    "excluded_costs": [
+      "tax",
+      "snapshots",
+      "labor",
+      "traffic overage"
+    ],
+    "caveat": "Official-client alternatives are scored as those workflows; this does not imply Mihomo lacks WireGuard or Tailscale support."
+  },
+  "dimensions": [
+    "failure_isolation",
+    "transport_adaptability",
+    "operations_ease",
+    "cash_cost",
+    "clash_workflow",
+    "configuration_control"
+  ],
+  "weights": {
+    "stability_first": {
+      "failure_isolation": 30,
+      "transport_adaptability": 20,
+      "operations_ease": 15,
+      "cash_cost": 15,
+      "clash_workflow": 10,
+      "configuration_control": 10
+    },
+    "ease_first": {
+      "failure_isolation": 20,
+      "transport_adaptability": 15,
+      "operations_ease": 35,
+      "cash_cost": 15,
+      "clash_workflow": 10,
+      "configuration_control": 5
+    },
+    "cost_first": {
+      "failure_isolation": 20,
+      "transport_adaptability": 15,
+      "operations_ease": 15,
+      "cash_cost": 35,
+      "clash_workflow": 10,
+      "configuration_control": 5
+    }
+  },
+  "formula": "sum(score[dimension] * weight[dimension]) / 5",
+  "scale": [
+    1,
+    5
+  ],
+  "cost_score_threshold_usd": {
+    "5": "<=7",
+    "4": ">7 and <=12",
+    "3": ">12 and <=20",
+    "2": ">20 and <=35",
+    "1": ">35"
+  },
+  "solutions": [
+    {
+      "id": "dual_cloud",
+      "name": "两家云 + REALITY/Hysteria2 互补路径",
+      "scores": {
+        "failure_isolation": 4,
+        "transport_adaptability": 5,
+        "operations_ease": 2,
+        "cash_cost": 3,
+        "clash_workflow": 5,
+        "configuration_control": 5
+      },
+      "baseline_monthly_usd": 13,
+      "source_numbers_in_report": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        14,
+        15
+      ],
+      "scenario_totals": {
+        "stability_first": 79.0,
+        "ease_first": 69.0,
+        "cost_first": 73.0
+      },
+      "local_network_performance": null
+    },
+    {
+      "id": "single_dual",
+      "name": "单台 VPS 同机 REALITY + Hysteria2",
+      "scores": {
+        "failure_isolation": 2,
+        "transport_adaptability": 5,
+        "operations_ease": 2,
+        "cash_cost": 5,
+        "clash_workflow": 5,
+        "configuration_control": 5
+      },
+      "baseline_monthly_usd": 6,
+      "source_numbers_in_report": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        14
+      ],
+      "scenario_totals": {
+        "stability_first": 73.0,
+        "ease_first": 67.0,
+        "cost_first": 79.0
+      },
+      "local_network_performance": null
+    },
+    {
+      "id": "reality",
+      "name": "单台 VPS + REALITY/TCP",
+      "scores": {
+        "failure_isolation": 1,
+        "transport_adaptability": 4,
+        "operations_ease": 3,
+        "cash_cost": 5,
+        "clash_workflow": 5,
+        "configuration_control": 5
+      },
+      "baseline_monthly_usd": 6,
+      "source_numbers_in_report": [
+        2,
+        3,
+        14
+      ],
+      "scenario_totals": {
+        "stability_first": 66.0,
+        "ease_first": 67.0,
+        "cost_first": 75.0
+      },
+      "local_network_performance": null
+    },
+    {
+      "id": "hysteria2",
+      "name": "单台 VPS + Hysteria2",
+      "scores": {
+        "failure_isolation": 1,
+        "transport_adaptability": 3,
+        "operations_ease": 3,
+        "cash_cost": 5,
+        "clash_workflow": 5,
+        "configuration_control": 5
+      },
+      "baseline_monthly_usd": 6,
+      "source_numbers_in_report": [
+        4,
+        5,
+        6,
+        14
+      ],
+      "scenario_totals": {
+        "stability_first": 62.0,
+        "ease_first": 64.0,
+        "cost_first": 72.0
+      },
+      "local_network_performance": null
+    },
+    {
+      "id": "mullvad",
+      "name": "Mullvad 官方客户端",
+      "scores": {
+        "failure_isolation": 3,
+        "transport_adaptability": 2,
+        "operations_ease": 5,
+        "cash_cost": 5,
+        "clash_workflow": 1,
+        "configuration_control": 2
+      },
+      "baseline_monthly_usd": null,
+      "source_numbers_in_report": [
+        16,
+        17
+      ],
+      "scenario_totals": {
+        "stability_first": 62.0,
+        "ease_first": 72.0,
+        "cost_first": 72.0
+      },
+      "local_network_performance": null,
+      "cost_note": "EUR 5 official price; displayed approximate USD equivalent used only for <=7 bracket."
+    },
+    {
+      "id": "ss",
+      "name": "单台 VPS + 裸 SS",
+      "scores": {
+        "failure_isolation": 1,
+        "transport_adaptability": 1,
+        "operations_ease": 4,
+        "cash_cost": 5,
+        "clash_workflow": 5,
+        "configuration_control": 5
+      },
+      "baseline_monthly_usd": 6,
+      "source_numbers_in_report": [
+        1,
+        14
+      ],
+      "scenario_totals": {
+        "stability_first": 57.0,
+        "ease_first": 65.0,
+        "cost_first": 69.0
+      },
+      "local_network_performance": null
+    },
+    {
+      "id": "cdn_ws",
+      "name": "单台 VPS + WebSocket/TLS + CDN",
+      "scores": {
+        "failure_isolation": 2,
+        "transport_adaptability": 3,
+        "operations_ease": 2,
+        "cash_cost": 4,
+        "clash_workflow": 4,
+        "configuration_control": 3
+      },
+      "baseline_monthly_usd": null,
+      "source_numbers_in_report": [
+        10,
+        11,
+        14
+      ],
+      "scenario_totals": {
+        "stability_first": 56.0,
+        "ease_first": 54.0,
+        "cost_first": 62.0
+      },
+      "local_network_performance": null,
+      "cost_note": "Modeled USD 7–12 including a USD 6 VPS and domain amortization/related allowance; not a CDN vendor quote."
+    },
+    {
+      "id": "tailscale",
+      "name": "单台自有 VPS + Tailscale 官方客户端出口",
+      "scores": {
+        "failure_isolation": 1,
+        "transport_adaptability": 2,
+        "operations_ease": 4,
+        "cash_cost": 5,
+        "clash_workflow": 1,
+        "configuration_control": 4
+      },
+      "baseline_monthly_usd": 6,
+      "source_numbers_in_report": [
+        13,
+        14,
+        18
+      ],
+      "scenario_totals": {
+        "stability_first": 51.0,
+        "ease_first": 59.0,
+        "cost_first": 63.0
+      },
+      "local_network_performance": null
+    }
+  ],
+  "unscored": [
+    {
+      "name": "第三方托管订阅",
+      "reason": "No specified vendor, terms or local measurements."
+    },
+    {
+      "name": "托管订阅 + 自建备份",
+      "reason": "Conditional candidate; vendor and price not known."
+    }
+  ]
+}

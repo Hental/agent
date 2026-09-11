@@ -1,0 +1,189 @@
+{
+  "as_of": "2026-09-11",
+  "report": "2026-09-11-VPS服务商多维度比较与评分.md",
+  "score_type": "procurement_fit_judgment_not_measured_stability",
+  "assumptions": {
+    "location": "mainland China; city and ISP unknown",
+    "monthly_payload_gb": 300,
+    "devices": "1–3",
+    "monthly_budget_usd": [
+      5,
+      20
+    ],
+    "client": "Clash Verge",
+    "priority": "stability is a local measurement admission gate; procurement scores rank admitted candidates",
+    "excluded_costs": [
+      "tax",
+      "promotions",
+      "labor",
+      "domain",
+      "extra resources",
+      "traffic overage"
+    ],
+    "live_stock_verified": false,
+    "local_performance_measurements": null
+  },
+  "weights_percent": {
+    "cost": 20,
+    "traffic": 25,
+    "regions": 20,
+    "backup": 20,
+    "short_term": 15
+  },
+  "formula": "sum(dimension_score * weight_percent) / 5",
+  "rubric": {
+    "cost": "IPv4 included, backup excluded: <=$5:5, <=$7:4, <=$10:3, <=$15:2, higher:1",
+    "traffic": "approximate single-hop payload TB: >=2:5, >=1:4, >=0.5:3, >=0.36:2, lower:1; GB/GiB differences not used to change approximate tiers",
+    "regions": "East Asia and Singapore:5; East Asia only:4; Singapore without confirmed East Asia:3; other Asia:2; selected SKU Europe/Americas only:1",
+    "backup": "selected automatic multiversion surcharge <=10%:5, <=25%:4, higher or storage-metered:3, manual only:2, unverified:1; retention policies not equivalent",
+    "short_term": "hour/second billing without mandatory annual commitment:5; minimum month:3; long commitment:1; not a refund guarantee"
+  },
+  "plans": [
+    {
+      "provider": "Vultr",
+      "sku": "vhp-1c-1gb-amd",
+      "monthly_usd_including_ipv4": 6,
+      "monthly_usd_with_selected_backup": 7.2,
+      "backup_cost_note": "Selected backup policy only; see report for retention differences",
+      "approx_payload_capacity_tb_for_scoring": 2,
+      "traffic_accounting": "outbound",
+      "scores_1_to_5": {
+        "cost": 4,
+        "traffic": 5,
+        "regions": 5,
+        "backup": 4,
+        "short_term": 5
+      },
+      "total_100": 92.0,
+      "sources": [
+        "https://api.vultr.com/v2/plans"
+      ]
+    },
+    {
+      "provider": "Vultr",
+      "sku": "vc2-1c-1gb",
+      "monthly_usd_including_ipv4": 5,
+      "monthly_usd_with_selected_backup": 6,
+      "backup_cost_note": "Selected backup policy only; see report for retention differences",
+      "approx_payload_capacity_tb_for_scoring": 1,
+      "traffic_accounting": "outbound",
+      "scores_1_to_5": {
+        "cost": 5,
+        "traffic": 4,
+        "regions": 5,
+        "backup": 4,
+        "short_term": 5
+      },
+      "total_100": 91.0,
+      "sources": [
+        "https://api.vultr.com/v2/plans"
+      ]
+    },
+    {
+      "provider": "Akamai/Linode",
+      "sku": "Nanode 1 GB",
+      "monthly_usd_including_ipv4": 5,
+      "monthly_usd_with_selected_backup": 7,
+      "backup_cost_note": "Selected backup policy only; see report for retention differences",
+      "approx_payload_capacity_tb_for_scoring": 1,
+      "traffic_accounting": "outbound",
+      "scores_1_to_5": {
+        "cost": 5,
+        "traffic": 4,
+        "regions": 5,
+        "backup": 3,
+        "short_term": 5
+      },
+      "total_100": 87.0,
+      "sources": [
+        "https://www.akamai.com/cloud/pricing/asia-pacific"
+      ]
+    },
+    {
+      "provider": "AWS Lightsail",
+      "sku": "Linux 1 GB IPv4; Tokyo/Singapore",
+      "monthly_usd_including_ipv4": 7,
+      "monthly_usd_with_selected_backup": null,
+      "backup_cost_note": "Variable snapshot storage bill",
+      "approx_payload_capacity_tb_for_scoring": 1,
+      "traffic_accounting": "2 TB inbound plus outbound normalized to approximately 1 TB payload; excludes half-allowance regions",
+      "scores_1_to_5": {
+        "cost": 4,
+        "traffic": 4,
+        "regions": 5,
+        "backup": 3,
+        "short_term": 5
+      },
+      "total_100": 83.0,
+      "sources": [
+        "https://aws.amazon.com/lightsail/pricing/",
+        "https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-faq-data-transfer-allowance.html"
+      ]
+    },
+    {
+      "provider": "DigitalOcean",
+      "sku": "Basic Regular 1 GiB",
+      "monthly_usd_including_ipv4": 6,
+      "monthly_usd_with_selected_backup": 7.2,
+      "backup_cost_note": "Selected backup policy only; see report for retention differences",
+      "approx_payload_capacity_tb_for_scoring": 1,
+      "traffic_accounting": "1000 GiB outbound; approximate TB tier",
+      "scores_1_to_5": {
+        "cost": 4,
+        "traffic": 4,
+        "regions": 3,
+        "backup": 4,
+        "short_term": 5
+      },
+      "total_100": 79.0,
+      "sources": [
+        "https://www.digitalocean.com/pricing/droplets",
+        "https://docs.digitalocean.com/products/backups/details/pricing/"
+      ]
+    },
+    {
+      "provider": "UpCloud",
+      "sku": "Starter 1 GB",
+      "monthly_usd_including_ipv4": 3.5,
+      "monthly_usd_with_selected_backup": 4.2,
+      "backup_cost_note": "Selected backup policy only; see report for retention differences",
+      "approx_payload_capacity_tb_for_scoring": 0.5,
+      "traffic_accounting": "Fair Transfer share; no excess fee does not mean unconditional unlimited traffic",
+      "scores_1_to_5": {
+        "cost": 5,
+        "traffic": 3,
+        "regions": 3,
+        "backup": 4,
+        "short_term": 5
+      },
+      "total_100": 78.0,
+      "sources": [
+        "https://upcloud.com/global/pricing/",
+        "https://upcloud.com/global/fair-transfer-policy/",
+        "https://upcloud.com/docs/guides/taking-backups/"
+      ]
+    },
+    {
+      "provider": "Hetzner",
+      "sku": "CX23 Europe + primary IPv4",
+      "monthly_usd_including_ipv4": 7.09,
+      "monthly_usd_with_selected_backup": 8.39,
+      "backup_cost_note": "Selected backup policy only; see report for retention differences",
+      "approx_payload_capacity_tb_for_scoring": 20,
+      "traffic_accounting": "outbound; Europe price and allowance only",
+      "scores_1_to_5": {
+        "cost": 3,
+        "traffic": 5,
+        "regions": 1,
+        "backup": 4,
+        "short_term": 5
+      },
+      "total_100": 72.0,
+      "sources": [
+        "https://docs.hetzner.com/general/infrastructure-and-availability/price-adjustment/",
+        "https://docs.hetzner.com/general/infrastructure-and-availability/ipv4-pricing/",
+        "https://www.hetzner.com/cloud/cost-optimized/"
+      ]
+    }
+  ]
+}
