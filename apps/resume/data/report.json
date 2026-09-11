@@ -2,7 +2,7 @@
   "version": 1,
   "meta": {
     "name": "刘韬",
-    "title": "研发工程师简历",
+    "title": "前端研发工程师简历",
     "period": "2020.10 — 2026.09 / 近六年",
     "edition": "2020—2026",
     "reportDate": "2026.09.07",
@@ -13,18 +13,26 @@
       "email": "liutao_dev@outlook.com",
       "phone": "17521698087",
       "confirmedAt": "2026-09-10",
-      "targetRole": "研发工程师",
+      "targetRole": "前端研发工程师",
       "city": "成都"
     }
   },
   "navigation": [
     {
       "id": "overview",
-      "label": "职业定位"
+      "label": "个人信息"
+    },
+    {
+      "id": "employment",
+      "label": "工作经历"
+    },
+    {
+      "id": "skills",
+      "label": "专业技能"
     },
     {
       "id": "projects",
-      "label": "项目经历"
+      "label": "代表项目"
     },
     {
       "id": "education",
@@ -37,18 +45,28 @@
   ],
   "sections": {
     "projects": {
-      "label": "02 / PROJECT EXPERIENCE",
-      "title": "项目经历（最近 6 年）",
+      "label": "03 / PROJECTS",
+      "title": "代表项目",
       "description": ""
     },
     "sources": {
-      "label": "04 / REFERENCES",
-      "title": "21 份参考材料",
+      "label": "05 / REFERENCES",
+      "title": "26 份参考材料",
       "description": "文档、代码及消息保留来源；访问需对应权限。"
     },
     "education": {
-      "label": "03 / EDUCATION",
+      "label": "04 / EDUCATION",
       "title": "教育经历",
+      "description": ""
+    },
+    "employment": {
+      "label": "01 / EXPERIENCE",
+      "title": "工作经历",
+      "description": ""
+    },
+    "skills": {
+      "label": "02 / SKILLS",
+      "title": "专业技能",
       "description": ""
     }
   },
@@ -88,19 +106,19 @@
       ],
       "metrics": [
         {
-          "label": "业务场景标识数据覆盖",
-          "value": "100%",
-          "note": "Q1 复盘口径，非页面状态或路径全覆盖"
+          "label": "升级回归覆盖",
+          "value": "157 个业务场景",
+          "note": "订单 ReactLynx 3 升级"
         },
         {
-          "label": "研发流程接入",
-          "value": "订单发布回归",
-          "note": "持续集成流水线任务节点 + 结果人工复核"
+          "label": "回归发现问题",
+          "value": "30+",
+          "note": "未把所有问题归类为卡片/按钮缺失"
         },
         {
-          "label": "场景扩展",
-          "value": "单页 → 全链路",
-          "note": "商品详情页 / 订单提交页 / 订单；持续完善中"
+          "label": "升级上线后",
+          "value": "无 UI 类线上问题",
+          "note": "该次升级；非长期零故障承诺"
         }
       ],
       "scope": "e2e.scope",
@@ -128,21 +146,23 @@
         {
           "source": "s13",
           "label": "当前管线源码"
+        },
+        {
+          "source": "s22",
+          "label": "本人 2026 Q2 OKR Review"
         }
       ],
       "body": "e2e.body",
       "results": "e2e.results",
       "print": {
-        "results": "order-e2e.print.results",
-        "problem": "order-e2e.print.problem",
-        "responsibility": "order-e2e.print.responsibility",
-        "body": "order-e2e.print.body"
+        "summary": "order-e2e.print.summary",
+        "bullets": "order-e2e.print.bullets"
       }
     },
     {
       "id": "assets",
       "tab": "交易研发资产",
-      "date": "2025 — 2026",
+      "date": "2026.01 — 2026.06",
       "title": "生活服务 - 交易研发资产",
       "problem": "assets.problem",
       "responsibility": "assets.responsibility",
@@ -166,19 +186,19 @@
       ],
       "metrics": [
         {
-          "label": "资产准确率",
-          "value": "81.81% → 92.31%",
-          "note": ""
+          "label": "内部试用提效",
+          "value": "0.6 人天 / 需求",
+          "note": "本人总结记录的平均值"
         },
         {
-          "label": "场景与 UI 覆盖率",
-          "value": "38.71% → 58%",
-          "note": ""
+          "label": "图片准确率",
+          "value": "99%",
+          "note": "AI 校验与人工复核"
         },
         {
-          "label": "团队内部试用",
-          "value": "18 个需求",
-          "note": "同期处理 32 个问题"
+          "label": "非弹窗卡片覆盖",
+          "value": "100%",
+          "note": "不包含弹窗类卡片"
         }
       ],
       "scope": "assets.scope",
@@ -194,21 +214,31 @@
         {
           "source": "s10",
           "label": "插件使用说明"
+        },
+        {
+          "source": "s22",
+          "label": "本人 2026 Q2 OKR Review"
+        },
+        {
+          "source": "s23",
+          "label": "交易研发资产卡片端到端采集方案"
+        },
+        {
+          "source": "s13",
+          "label": "订单 E2E 自动化代码仓库"
         }
       ],
       "body": "assets.body",
       "results": "assets.results",
       "print": {
-        "results": "assets.print.results",
-        "problem": "assets.print.problem",
-        "responsibility": "assets.print.responsibility",
-        "body": "assets.print.body"
+        "summary": "assets.print.summary",
+        "bullets": "assets.print.bullets"
       }
     },
     {
       "id": "sdk",
       "tab": "SDK 自动生成",
-      "date": "2024 Q2 落地",
+      "date": "2024.03 — 2024.10",
       "title": "火山引擎视频云 - 跨端 SDK 自动生成",
       "problem": "sdk.problem",
       "responsibility": "sdk.responsibility",
@@ -232,19 +262,19 @@
       ],
       "metrics": [
         {
-          "label": "拉流 SDK · 69 个 API",
-          "value": "45 → 13 人天",
-          "note": "人工方案预估 → 实际投入"
+          "label": "直播 SDK API",
+          "value": "拉流 69 / 推流 242",
+          "note": "两类 SDK 各自接口数"
         },
         {
-          "label": "推流 SDK · 242 个 API",
-          "value": "50 → 19 人天",
-          "note": "人工方案预估 → 实际投入"
+          "label": "点播 SDK API",
+          "value": "54 个",
+          "note": "其中 7 个自动生成"
         },
         {
-          "label": "迁移能力",
-          "value": "协议驱动生成",
-          "note": "将重复封装转化为工具"
+          "label": "点播交付投入",
+          "value": "19 人天",
+          "note": "团队开发测试；手写方案预估 39 人天"
         }
       ],
       "scope": "sdk.scope",
@@ -252,21 +282,27 @@
         {
           "source": "s4",
           "label": "本人旧简历中的技术设计与业务进度"
+        },
+        {
+          "source": "s24",
+          "label": "直播 ReactNative 工时统计"
+        },
+        {
+          "source": "s25",
+          "label": "点播 ReactNative SDK 工时统计"
         }
       ],
       "body": "sdk.body",
       "results": "sdk.results",
       "print": {
-        "results": "sdk.print.results",
-        "problem": "sdk.print.problem",
-        "responsibility": "sdk.print.responsibility",
-        "body": "sdk.print.body"
+        "summary": "sdk.print.summary",
+        "bullets": "sdk.print.bullets"
       }
     },
     {
       "id": "board",
       "tab": "互动白板",
-      "date": "2022.10 — 2024.03 主要建设期",
+      "date": "2022.10 — 2024.03",
       "title": "火山引擎视频云 - 互动白板",
       "problem": "board.problem",
       "responsibility": "board.responsibility",
@@ -338,10 +374,8 @@
       },
       "results": "board.results",
       "print": {
-        "results": "board.print.results",
-        "problem": "board.print.problem",
-        "responsibility": "board.print.responsibility",
-        "body": "board.print.body"
+        "summary": "board.print.summary",
+        "bullets": "board.print.bullets"
       }
     },
     {
@@ -391,15 +425,17 @@
         {
           "source": "s4",
           "label": "本人旧简历"
+        },
+        {
+          "source": "s26",
+          "label": "编辑器落地与工作台接入"
         }
       ],
       "body": "editor.body",
       "results": "editor.results",
       "print": {
-        "results": "editor.print.results",
-        "problem": "editor.print.problem",
-        "responsibility": "editor.print.responsibility",
-        "body": "editor.print.body"
+        "summary": "editor.print.summary",
+        "bullets": "editor.print.bullets"
       }
     }
   ],
@@ -529,6 +565,36 @@
       "title": "本人消息：集成回归阶段接入 E2E",
       "url": "https://applink.feishu.cn/client/chat/open?openChatId=oc_b789094c27a36c6c57758544fbe63758&position=773",
       "note": "2026-06-05 16:45，刘韬，私聊；消息 ID：om_x100b6d1c85b3b490c372b44b6930fb6。仅证明当时部署/接入调试状态。"
+    },
+    {
+      "id": "s22",
+      "title": "本人 2026 Q2 OKR Review",
+      "url": "https://bytedance.larkoffice.com/wiki/NsrIw1K58izeCjkReICcnDPwndP",
+      "note": "Q2 已完成结果：E2E 157 场景、30+ 问题、92% 完成率、8% 噪音率；资产图片准确率 99%、非弹窗 100%、商详场景 87%。个人总结记录，非独立计量审计。"
+    },
+    {
+      "id": "s23",
+      "title": "交易研发资产卡片端到端采集方案",
+      "url": "https://bytedance.larkoffice.com/wiki/EHFvwx70fiJ3KhkxrRzcVL1anwX",
+      "note": "页面/卡片埋点、请求日志标识、运行时卡片属性、截图裁剪和 Web 渲染；与本地 lib/collect 源码核对。"
+    },
+    {
+      "id": "s24",
+      "title": "直播 ReactNative 工时统计",
+      "url": "https://bytedance.larkoffice.com/wiki/Zk2jw0Thwi0aYCknJI6cgHpjnNh",
+      "note": "区分基建与业务接入人力；推流 19 人天为业务侧，另有本人 17 人天，不把 19 作为完整项目总投入；拉流合计口径不一致，投递版不使用该工时比较。"
+    },
+    {
+      "id": "s25",
+      "title": "点播 ReactNative SDK 工时统计",
+      "url": "https://bytedance.larkoffice.com/wiki/CXSnw8hk4iweMYkPh9Fc6lSwnLc",
+      "note": "团队开发测试 19 人天 vs 手写预估 39 人天；54 API 中 7 个自动生成；业务开发由其他同事承担。"
+    },
+    {
+      "id": "s26",
+      "title": "广告阶段个人总结（2020—2022）",
+      "url": "https://bytedance.larkoffice.com/docx/doxcnZEV7Tc98yh3TuZGMkFPsif",
+      "note": "2021年9—10月落地页编辑器落地、橙子工作台接入；其他自助创意业务不混入编辑器成果。"
     }
   ],
   "researchNote": "sources.e2e",
@@ -551,5 +617,29 @@
     "period": "2013 — 2017",
     "body": "education.details",
     "provenance": "用户于 2026-09-10 提供并确认"
-  }
+  },
+  "employment": [
+    {
+      "company": "字节跳动",
+      "role": "前端研发",
+      "period": "2020.10 — 至今",
+      "body": "employment.bytedance"
+    },
+    {
+      "company": "携程",
+      "role": "国际事业部公共前端",
+      "period": "2018.06 — 2020.10",
+      "body": "employment.trip"
+    },
+    {
+      "company": "成都卡莱博尔",
+      "role": "前端开发",
+      "period": "2017 — 2018",
+      "body": "employment.kalaiboer",
+      "provenance": "用户于 2026-09-11 补充；起止时间精确到年。"
+    }
+  ],
+  "skills": [
+    "skills.development"
+  ]
 }

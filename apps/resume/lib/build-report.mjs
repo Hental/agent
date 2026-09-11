@@ -44,7 +44,7 @@ export async function renderReport(options = {}) {
   const d = JSON.parse(json);
   assert(d.version === 1, 'report.json 的 version 必须为 1。');
   for (const key of ['meta','hero','education','sections']) assert(d[key] && typeof d[key] === 'object', `缺少 JSON 对象：${key}`);
-  for (const key of ['navigation','projects','sources','downloads']) assert(Array.isArray(d[key]), `缺少 JSON 数组：${key}`);
+  for (const key of ['navigation','employment','skills','projects','sources','downloads']) assert(Array.isArray(d[key]), `缺少 JSON 数组：${key}`);
   const blocks = new Map();
   const pattern = /^## .*?\{#([\w.-]+)\}\s*$/gm;
   const headings = [...markdown.matchAll(pattern)];
@@ -80,7 +80,8 @@ export async function renderReport(options = {}) {
   };
   const projects = d.projects.map(p => `<article class="project" id="project-${e(p.id)}" aria-labelledby="tab-${e(p.id)}">
     <div class="project-header"><div><span class="eyebrow muted">${e(p.date)}</span><h3>${e(p.title)}</h3></div></div>
-    <div class="project-detail">
+    <div class="project-summary"><p>${md(p.print.summary,true)}</p>${md(p.print.bullets)}</div>
+    <details class="project-detail"><summary>技术说明与成果口径</summary>
     <h4>项目结果与收益</h4>
     ${md(p.results)}
     ${p.chart ? chart(p.chart) : ''}${metrics(p.metrics)}
@@ -89,7 +90,7 @@ export async function renderReport(options = {}) {
     <div class="flow" aria-label="${e(p.title)}技术链路">${p.flow.map(f => `<div>${e(f.title)}<span>${e(f.note)}</span></div>`).join('<b aria-hidden="true">→</b>')}</div>
     ${md(p.body)}
     <p class="scope">${md(p.scope, true)}</p><div class="source-line">来源：${p.references.map(link).join('')}</div>
-    </div><div class="project-print">${[['results','结果'],['problem','背景'],['responsibility','职责'],['body','技术']].map(([key,label])=>`<p><strong>${label}：</strong>${md(p.print[key],true)}</p>`).join('')}</div>
+    </details>
   </article>`).join('\n');
   const downloadLinks = [...d.downloads, {label:'正文 Markdown',path:'data/report.md'},{label:'结构化 JSON',path:'data/report.json'}];
   const body = `<a class="skip" href="#overview">跳到报告正文</a>
@@ -98,9 +99,11 @@ export async function renderReport(options = {}) {
   <div class="rail-foot"><strong class="mono">${d.sources.length}</strong><p>份飞书材料<br>检索于 ${e(d.meta.researchDate)}</p><button type="button" class="print" data-print-report>导出 PDF</button></div></aside>
   <main id="report-main">
   <header id="overview" class="hero"><h1>${e(d.meta.name)}</h1>
-  ${d.meta.personalInfo ? `<p class="personal-info">${e(d.meta.name)} · <a href="tel:${e(d.meta.personalInfo.phone)}">${e(String(d.meta.personalInfo.phone).replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'))}</a> · <a href="mailto:${e(d.meta.personalInfo.email)}">${e(d.meta.personalInfo.email)}</a> · ${e(d.meta.personalInfo.targetRole)}${d.meta.personalInfo.city ? `（${e(d.meta.personalInfo.city)}）` : ''}</p>` : ''}
+  ${d.meta.personalInfo ? `<p class="personal-info"><a href="tel:${e(d.meta.personalInfo.phone)}">${e(String(d.meta.personalInfo.phone).replace(/^(\d{3})(\d{4})(\d{4})$/, '$1 $2 $3'))}</a> · <a href="mailto:${e(d.meta.personalInfo.email)}">${e(d.meta.personalInfo.email)}</a> · ${e(d.meta.personalInfo.targetRole)}${d.meta.personalInfo.city ? `（${e(d.meta.personalInfo.city)}）` : ''}</p>` : ''}
   <div class="tags" aria-label="建议简历方向">${d.hero.tags.map(t=>`<span>${e(t)}</span>`).join('')}</div>
   <div class="export-actions"><button type="button" class="print" data-print-report>导出 PDF</button><a href="${e(artifactLink(defaultPaths.pdf))}" download>下载 PDF</a></div></header>
+  <section id="employment" class="section resume-context">${head('employment')}${d.employment.map(job=>`<article class="employment"><div class="employment-heading"><h3>${e(job.company)} · ${e(job.role)}</h3><span class="date">${e(job.period)}</span></div><p>${md(job.body,true)}</p></article>`).join('')}</section>
+  <section id="skills" class="section resume-context">${head('skills')}${d.skills.map(skill=>`<p>${md(skill,true)}</p>`).join('')}</section>
   <section id="projects" class="section">${head('projects')}<div class="tabs" role="tablist" aria-label="选择项目经历">${d.projects.map((p,i)=>`<button type="button" role="tab" id="tab-${e(p.id)}" aria-controls="project-${e(p.id)}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${e(p.tab)}</button>`).join('')}</div>${projects}</section>
   <section id="education" class="section">${head('education')}<article class="phase"><div class="date mono">${e(d.education.period)}</div><h3>${e(d.education.school)}</h3><p>${md(d.education.body,true)}</p></article></section>
   <section id="sources" class="section">${head('sources')}<ol class="sources">${d.sources.map(s=>{
