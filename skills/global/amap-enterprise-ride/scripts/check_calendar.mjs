@@ -4,17 +4,22 @@ import { spawnSync } from 'node:child_process';
 
 const TIME_ZONE = 'Asia/Shanghai';
 const OFFSET = '+08:00';
-const TITLE = '超级猩猩（天府三街全能店）';
+// 预约课日程的标题是课程名（如「燃脂搏击 BODYCOMBAT」），门店名在地点字段 location.name。
+const STORE_NAME = '超级猩猩（天府三街全能店）';
+// 兼容旧输出字段名。
+const TITLE = STORE_NAME;
 const DEFAULT_ORIGIN = '桂溪广场 C 栋夜间上车点';
 const RULES = [
   { start: '18:40', end: '20:40', origin: '桂溪广场 C 栋夜间上车点' },
   { start: '19:50', end: '20:50', origin: '肯德基（海洋中心店）' },
 ];
+const CLI_TIMEOUT_MS = 60_000;
 
 function usage() {
   return `用法：node scripts/check_calendar.mjs [--date YYYY-MM-DD] [--lark-cli 路径]
 
-以用户身份搜索指定日期（默认 Asia/Shanghai 当天）的飞书日程，输出 JSON：
+以用户身份拉取指定日期（默认 Asia/Shanghai 当天）主日历的全天日程（+agenda），
+按地点名称「${STORE_NAME}」匹配未取消的课程日程并按起止时间判定起点，输出 JSON：
   matched   命中一条时间规则，origin 为对应起点
   no_match  没有命中，origin 为默认起点
   conflict  两条时间规则同时命中，必须由用户确认起点
@@ -79,67 +84,41 @@ function parseJson(text, label) {
   }
 }
 
-function runSearch({ date, larkCli, pageToken }) {
+// 用 +agenda 拉取单天全天日程：返回扁平事件数组（含 location 字段），单天查询不涉及分页。
+function fetchAgenda({ date, larkCli }) {
   const args = [
-    'calendar', '+search-event',
+    'calendar', '+agenda',
     '--as', 'user',
-    '--calendar-id', 'primary',
-    '--query', TITLE,
     '--start', `${date}T00:00:00${OFFSET}`,
     '--end', `${nextDate(date)}T00:00:00${OFFSET}`,
-    '--page-size', '30',
     '--json',
   ];
-  if (pageToken) args.push('--page-token', pageToken);
 
   const result = spawnSync(larkCli, args, {
     encoding: 'utf8',
+    timeout: CLI_TIMEOUT_MS,
+    killSignal: 'SIGKILL',
     env: {
       ...process.env,
       LARKSUITE_CLI_NO_UPDATE_NOTIFIER: '1',
       LARKSUITE_CLI_NO_SKILLS_NOTIFIER: '1',
     },
   });
-  if (result.error) throw new Error(`无法执行 lark-cli：${result.error.message}`);
+  if (result.error) {
+    const reason = result.error.code === 'ETIMEDOUT'
+      ? `lark-cli 超过 ${CLI_TIMEOUT_MS / 1000}s 未响应`
+      : result.error.message;
+    throw new Error(`无法执行 lark-cli：${reason}`);
+  }
 
-  const output = (result.stdout || result.stderr).trim();
+  const output = (result.stdout || result.stderr || '').trim();
   const envelope = parseJson(output, 'lark-cli');
   if (result.status !== 0 || envelope.ok !== true) {
     const error = envelope.error ?? {};
     throw new Error(error.hint || error.message || `lark-cli 退出码 ${result.status}`);
   }
-  return envelope;
-}
-
-function looksLikeEvent(value) {
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
-  const title = value.summary ?? value.title;
-  const start = value.start_time ?? value.startTime ?? value.start;
-  const end = value.end_time ?? value.endTime ?? value.end;
-  return typeof title === 'string' && start !== undefined && end !== undefined;
-}
-
-function collectEvents(value, events = [], seen = new Set()) {
-  if (!value || typeof value !== 'object' || seen.has(value)) return events;
-  seen.add(value);
-  if (looksLikeEvent(value)) {
-    events.push(value);
-    return events;
-  }
-  for (const child of Array.isArray(value) ? value : Object.values(value)) {
-    collectEvents(child, events, seen);
-  }
-  return events;
-}
-
-function nextPageToken(envelope) {
-  const candidates = [
-    envelope?.data?.page_token,
-    envelope?.data?.pageToken,
-    envelope?.meta?.page_token,
-    envelope?.meta?.pageToken,
-  ];
-  return candidates.find((value) => typeof value === 'string' && value.length > 0) ?? null;
+  if (!Array.isArray(envelope.data)) throw new Error('lark-cli +agenda 未返回事件数组');
+  return envelope.data;
 }
 
 function isCancelled(event) {
@@ -188,12 +167,21 @@ function localDateTime(value) {
   return match ? { date: match[1], time: match[2] } : null;
 }
 
+function eventLocationName(event) {
+  const location = event.location;
+  if (location && typeof location === 'object') {
+    return location.name ?? location.title ?? null;
+  }
+  return null;
+}
+
 function normalizeEvent(event) {
   const start = localDateTime(rawEventTime(event, 'start'));
   const end = localDateTime(rawEventTime(event, 'end'));
   return {
     eventId: event.event_id ?? event.eventId ?? event.id ?? null,
-    title: event.summary ?? event.title,
+    summary: event.summary ?? event.title ?? '',
+    locationName: eventLocationName(event),
     start,
     end,
     cancelled: isCancelled(event),
@@ -203,12 +191,12 @@ function normalizeEvent(event) {
 function decide(date, events) {
   const candidates = events
     .map(normalizeEvent)
-    .filter((event) => !event.cancelled && event.title === TITLE)
+    .filter((event) => !event.cancelled && event.locationName === STORE_NAME)
     .filter((event) => event.start?.date === date && event.end?.date === date);
 
   const matches = RULES.flatMap((rule) => candidates
     .filter((event) => event.start.time === rule.start && event.end.time === rule.end)
-    .map((event) => ({ ...rule, eventId: event.eventId })));
+    .map((event) => ({ ...rule, eventId: event.eventId, summary: event.summary })));
   const matchedRules = [...new Set(matches.map(({ start, end }) => `${start}-${end}`))];
 
   if (matchedRules.length > 1) {
@@ -236,17 +224,7 @@ try {
     console.log(usage());
   } else {
     const date = validateDate(options.date ?? todayInTimeZone());
-    const events = [];
-    const seenTokens = new Set();
-    let pageToken = null;
-    do {
-      const envelope = runSearch({ date, larkCli: options.larkCli, pageToken });
-      events.push(...collectEvents(envelope.data));
-      pageToken = nextPageToken(envelope);
-      if (pageToken && seenTokens.has(pageToken)) throw new Error('飞书日历分页游标重复');
-      if (pageToken) seenTokens.add(pageToken);
-      if (seenTokens.size > 20) throw new Error('飞书日历分页超过安全上限');
-    } while (pageToken);
+    const events = fetchAgenda({ date, larkCli: options.larkCli });
 
     const result = decide(date, events);
     console.log(JSON.stringify({
