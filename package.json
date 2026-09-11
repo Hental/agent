@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "packageManager": "pnpm@11.21.0",
   "scripts": {
+    "doubao-work": "python3 apps/doubao-work-cli/cli.py",
+    "doubao-work:test": "python3 -m unittest discover -s apps/doubao-work-cli -p 'test_*.py'",
     "resume": "pnpm --dir apps/resume",
     "postinstall": "git config core.hooksPath .githooks && zx skills/register-global.skill.mjs",
     "skills:register-global": "zx skills/register-global.skill.mjs"
